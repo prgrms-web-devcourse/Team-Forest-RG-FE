@@ -1,6 +1,16 @@
-import { createRoot } from 'react-dom/client';
-import App from '@/App';
+import { createRoot } from "react-dom/client";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { RecoilRoot } from "recoil";
+import App from "@/App";
 
-const container = document.getElementById('root');
+const container = document.getElementById("root");
 const root = createRoot(container!);
-root.render(<App />);
+const queryClient = new QueryClient();
+
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  </QueryClientProvider>
+);

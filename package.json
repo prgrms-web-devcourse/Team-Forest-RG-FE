@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "webpack-dev-server --mode=development --open --hot --progress",
     "build": "webpack --mode=production  --progress",
-    "start": "webpack --mode=development  --progress"
+    "start": "webpack --mode=development  --progress",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -20,14 +22,26 @@
   "homepage": "https://github.com/prgrms-web-devcourse/Team-Forest-RG-FE#readme",
   "dependencies": {
     "@emotion/react": "^11.9.3",
+    "@mui/material": "^5.9.1",
+    "@tanstack/react-query": "^4.0.10",
     "axios": "^0.27.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "recoil": "^0.7.4"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/styled": "^11.9.3",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/react": "^6.5.9",
+    "@storybook/testing-library": "^0.0.13",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "babel-loader": "^8.2.5",
