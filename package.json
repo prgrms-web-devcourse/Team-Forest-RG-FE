@@ -25,6 +25,7 @@
     "@mui/material": "^5.9.1",
     "@tanstack/react-query": "^4.0.10",
     "axios": "^0.27.2",
+    "feather-icons": "^4.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
