@@ -1,5 +1,5 @@
 ---
-name: "[Feat] issue Name"
+name: "[feat] issue Name"
 about: 이슈 생성을 위한 기본 템플릿입니다.
 title: ''
 labels: ''
