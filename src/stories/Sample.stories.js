@@ -5,4 +5,6 @@ export default {
   component: Button,
 };
 
-export const Default = () => <Button variant="outlined">Hello World</Button>;
+export function Default() {
+  return <Button variant="outlined">Hello World</Button>;
+}
