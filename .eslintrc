@@ -7,6 +7,7 @@
   "parser": "@typescript-eslint/parser",
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "no-undef": "off",
     "linebreak-style": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -29,6 +30,7 @@
     "import/extensions": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/function-component-definition": "off"
   }
 }
