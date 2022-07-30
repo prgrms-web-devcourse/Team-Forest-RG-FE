@@ -9,9 +9,13 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {
-          color: "white",
-        },
+        root: ({ ownerState }) => ({
+          ...(ownerState.variant === "contained" &&
+            ownerState.color === "primary" && {
+              backgroundColor: "#4AD395",
+              color: "white",
+            }),
+        }),
       },
     },
   },
