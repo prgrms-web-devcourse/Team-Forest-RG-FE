@@ -35,27 +35,53 @@ CustomColor.args = {
   customColor: "#34495e",
 };
 
-/*
-export const Default: ComponentStory<typeof Input> = () => <Input />;
+export const Error = Template.bind({});
+Error.args = {
+  error: true,
+  errorMessage: "Error message",
+};
 
-export const WithLabel: ComponentStory<typeof Input> = () => (
-  <Input label="hello" />
-);
+// rows => row수 고정, maxrow => 가변 길이
+export const Multiline = Template.bind({});
+Multiline.args = {
+  multiline: true,
+  rows: 4,
+  rowsMax: 8,
+};
 
-export const Required: ComponentStory<typeof Input> = () => (
-  <Input label="required" required />
-);
+export const Prefix = Template.bind({});
+Prefix.args = {
+  usePrefix: true,
+  prefixPosition: "end",
+  prefixComponent: <span>Prefix</span>,
+};
 
-export const Error: ComponentStory<typeof Input> = () => (
-  <Input label="error" error errorMessage="error!" />
-);
+export const InputWithReactHookForm: ComponentStory<typeof Input> = () => {
+  type formInput = {
+    test: string;
+  };
 
-export const Prefix: ComponentStory<typeof Input> = () => (
-  <Input
-    label="prefix"
-    usePrefix
-    prefixComponent={<span>@prefix</span>}
-    prefixPosition="end"
-  />
-);
-*/
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formInput>();
+
+  const onSubmit = (data: formInput) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        {...register("test", {
+          required: "필요 데이터",
+          maxLength: { value: 5, message: "최대 5글자 제한" },
+        })}
+        error={!!errors?.test}
+        errorMessage={errors?.test?.message}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+};

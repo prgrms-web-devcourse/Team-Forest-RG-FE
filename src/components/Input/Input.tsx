@@ -12,7 +12,10 @@ interface InputProps {
   errorMessage?: string;
   usePrefix?: boolean;
   prefixPosition?: "start" | "end";
-  prefixComponent?: JSX.Element;
+  prefixComponent?: React.ReactNode;
+  multiline?: boolean;
+  rows?: number;
+  rowsMax?: number;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -28,6 +31,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       usePrefix,
       prefixPosition,
       prefixComponent,
+      multiline,
+      rows,
+      rowsMax,
       ...props
     },
     ref
@@ -52,6 +58,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         }}
         ref={ref}
         customcolors={customColor}
+        multiline={multiline}
+        rows={rows}
+        maxRows={rowsMax}
         {...props}
       />
     );
