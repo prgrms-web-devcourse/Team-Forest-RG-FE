@@ -7,6 +7,10 @@ export default {
   component: Button,
   argTypes: {
     size: { control: "select", options: ["small", "medium", "large"] },
+    color: {
+      control: "select",
+      options: ["primary", "secondary", "success", "error"],
+    },
   },
 } as ComponentMeta<typeof Button>;
 
