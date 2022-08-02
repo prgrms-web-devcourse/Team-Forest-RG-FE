@@ -11,7 +11,10 @@ interface DatePickerProps {
 }
 
 const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
-  ({ label, defaultValule = dayjs().format("YYYY-MM-DDTHH:mm") }) => {
+  (
+    { label, defaultValule = dayjs().format("YYYY-MM-DDTHH:mm"), ...props },
+    ref
+  ) => {
     return (
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={koLocal}>
         <Input
@@ -21,6 +24,8 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
           InputLabelProps={{
             shrink: true,
           }}
+          ref={ref}
+          {...props}
         />
       </LocalizationProvider>
     );
