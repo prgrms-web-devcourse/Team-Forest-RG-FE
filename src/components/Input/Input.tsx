@@ -16,6 +16,9 @@ interface InputProps {
   multiline?: boolean;
   rows?: number;
   rowsMax?: number;
+  defaultValue?: string | number | Date;
+  type?: string;
+  InputLabelProps?: TextFieldProps["InputLabelProps"];
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -34,6 +37,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       multiline,
       rows,
       rowsMax,
+      defaultValue,
+      InputLabelProps,
+      type = "text",
       ...props
     },
     ref
@@ -61,6 +67,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         multiline={multiline}
         rows={rows}
         maxRows={rowsMax}
+        defaultValue={defaultValue}
+        InputLabelProps={InputLabelProps}
+        type={type}
         {...props}
       />
     );
