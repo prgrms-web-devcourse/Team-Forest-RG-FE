@@ -9,10 +9,12 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
+};
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider theme={Theme}><Story /></ThemeProvider>
+    <ThemeProvider theme={Theme}>
+      <Story />
+    </ThemeProvider>
   ),
 ];
