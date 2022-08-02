@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@mui/material";
 import Theme from "@/styles/theme";
+import { Global } from "@emotion/react";
+import reset from "@/styles/reset";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -14,6 +16,7 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={Theme}>
+      <Global styles={reset} />
       <Story />
     </ThemeProvider>
   ),
