@@ -38,10 +38,10 @@ CustomButtonStyle.args = {
 };
 
 const DATA = [
-  { id: 0, text: "One" },
-  { id: 1, text: "Two" },
-  { id: 2, text: "Three" },
-  { id: 3, text: "Four" },
+  { id: 0, text: "One", value: "one" },
+  { id: 1, text: "Two", value: "two" },
+  { id: 2, text: "Three", value: "three" },
+  { id: 3, text: "Four", value: "four" },
 ];
 
 type GroupTypes = {

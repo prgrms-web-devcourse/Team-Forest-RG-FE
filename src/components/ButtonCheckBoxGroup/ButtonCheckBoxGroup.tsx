@@ -6,6 +6,7 @@ interface ButtonCheckBoxGroupProps {
   data: {
     id: string | number;
     text: string | number;
+    value: string | number;
     others?: any; // other props(optional)
   }[];
   btnColor?: string;
@@ -34,7 +35,7 @@ const ButtonCheckBoxGroup = React.forwardRef<
     <FormControl component="fieldset" variant={variant}>
       {label && <FormLabel component="legend">{label}</FormLabel>}
       <FormGroup>
-        {data.map(({ id, text, others }) => (
+        {data.map(({ id, text, value, others }) => (
           <ButtonCheckBox
             key={id}
             text={text}
@@ -42,7 +43,7 @@ const ButtonCheckBoxGroup = React.forwardRef<
             checkedBtnColor={checkedBtnColor}
             btnStyle={btnStyle}
             {...props}
-            value={text}
+            value={value}
             inputProps={{
               "data-id": text,
             }}
