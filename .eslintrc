@@ -1,10 +1,7 @@
 {
-  "extends": [
-    "airbnb",
-    "plugin:prettier/recommended",
-    "plugin:react-hooks/recommended"
-  ],
+  "extends": ["airbnb", "plugin:prettier/recommended", "plugin:react-hooks/recommended"],
   "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "no-undef": "off",
@@ -29,6 +26,8 @@
     ],
     "import/extensions": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
     "no-underscore-dangle": "off",
     "import/prefer-default-export": "off",
     "react/function-component-definition": "off"
