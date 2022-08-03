@@ -1,7 +1,7 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-const host = process.env.REACT_APP_CLIENT_HOST ?? "localhost";
-const port = process.env.REACT_APP_CLIENT_PORT ?? 3000;
+const host = process.env.REACT_APP_CLIENT_HOST ?? "http://192.168.219.116";
+const port = process.env.REACT_APP_CLIENT_PORT ?? 8080;
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${host}:${port}`,
@@ -11,6 +11,14 @@ const axiosInstance: AxiosInstance = axios.create({
   },
 });
 
+axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
+  if (config.headers) {
+    const getToken = () => JSON.parse(localStorage.getItem("token") || "");
+    console.log("axios interceptors:: ", getToken());
+    config.headers.Authorization = getToken() ? `Bearer ${getToken()}` : "";
+  }
+  return config;
+});
 axiosInstance.interceptors.response.use(
   (response) => Promise.resolve(response),
   (error) => {
