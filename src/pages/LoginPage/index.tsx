@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import kakaoImage from "@/assets/kakao_login_medium_narrow.png";
-import { useUserActions } from "@/recoil/actions/auth";
 import querystring from "query-string";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
+import { useUserActions } from "@/recoil/actions/auth";
+import kakaoImage from "@/assets/kakao_login_medium_narrow.png";
 import { tokenState } from "@/recoil/state/authState";
 
 const Container = styled.div`
@@ -21,9 +21,7 @@ const Container = styled.div`
 function LoginPage() {
   const userActions = useUserActions();
   const token = useRecoilValue(tokenState);
-
   const query = querystring.parse(window.location.search);
-
   useEffect(() => {
     if (query.code) {
       console.log("인가코드: , ", query.code);
@@ -43,12 +41,13 @@ function LoginPage() {
   return (
     <div>
       <Container>
-        <img
+        <div
           onClick={handleKakaoLogin}
-          src={kakaoImage}
-          alt="kakaoLogin"
-          width="250px"
-        />
+          onKeyDown={handleKakaoLogin}
+          role="button"
+          tabIndex={0}>
+          <img src={kakaoImage} alt="kakaoLogin" width="250px" />
+        </div>
 
         <button type="button" onClick={getKakaoUser}>
           토큰 유효성 검사 확인
