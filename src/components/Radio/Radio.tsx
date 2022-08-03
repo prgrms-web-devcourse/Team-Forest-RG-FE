@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import {
   RadioGroupProps,
@@ -25,6 +26,21 @@ interface CustomRadioProps extends RadioGroupProps {
   error?: boolean;
   errorMessage?: string;
   defaultValue?: string | number;
+  useCustomIcon?: boolean;
+  icon?: ({
+    label,
+    type,
+  }: {
+    label: string | number;
+    type: string;
+  }) => JSX.Element;
+  checkedIcon?: ({
+    label,
+    type,
+  }: {
+    label: string | number;
+    type: string;
+  }) => JSX.Element;
 }
 
 const Radio = React.forwardRef<HTMLButtonElement, CustomRadioProps>(
@@ -41,6 +57,9 @@ const Radio = React.forwardRef<HTMLButtonElement, CustomRadioProps>(
       error,
       errorMessage,
       defaultValue,
+      useCustomIcon,
+      icon,
+      checkedIcon,
       ...props
     },
     ref
@@ -68,10 +87,21 @@ const Radio = React.forwardRef<HTMLButtonElement, CustomRadioProps>(
                   customsize={customSize}
                   color={color}
                   customcolor={customColor}
+                  icon={
+                    useCustomIcon
+                      ? icon && icon({ label: dataLabel, type: "notChecked" })
+                      : undefined
+                  }
+                  checkedIcon={
+                    useCustomIcon
+                      ? checkedIcon &&
+                        checkedIcon({ label: dataLabel, type: "checked" })
+                      : undefined
+                  }
                   ref={ref}
                 />
               }
-              label={dataLabel}
+              label={useCustomIcon ? undefined : dataLabel}
               disabled={disabled}
             />
           ))}
