@@ -39,3 +39,24 @@ export const WithMeida: ComponentStory<typeof Card> = () => (
     <Card content={Content} useMedia mediaOptions={MediaOptions} />
   </Wrapper>
 );
+
+const RgContent = (
+  <>
+    <Text variant="h3">Title</Text>
+    <Text variant="subtitle1" marginBottom>
+      Subtitle
+    </Text>
+    <Text variant="body1">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industrys standard dummy text ever since the
+      1500s, when an unknown printer took a galley of type and scrambled it to
+      make a type specimen book.
+    </Text>
+  </>
+);
+
+export const RgCard: ComponentStory<typeof Card> = () => (
+  <Wrapper>
+    <Card content={RgContent} useMedia mediaOptions={MediaOptions} />
+  </Wrapper>
+);

@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import React from "react";
 import Button from "@/components/Button";
@@ -92,10 +91,6 @@ export const WithForm: ComponentStory<typeof Radio> = () => {
   );
 };
 
-const CheckedIcon = styled(Button)`
-  background-color: red;
-`;
-
 const RadioIconButton = ({
   label,
   type,
@@ -104,7 +99,7 @@ const RadioIconButton = ({
   type: string;
 }) =>
   type === "checked" ? (
-    <CheckedIcon>{label}</CheckedIcon>
+    <Button customColor="#e74c3c">{label}</Button>
   ) : (
     <Button>{label}</Button>
   );
