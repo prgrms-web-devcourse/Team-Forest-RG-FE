@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { useForm } from "react-hook-form";
 import ButtonCheckBox from "@/components/ButtonCheckBox";
+import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
 
 export default {
   title: "Custom/ButtonCheckBox",
@@ -33,4 +35,36 @@ CustomButtonStyle.args = {
   btnColor: "red",
   checkedBtnColor: "blue",
   btnStyle: customStyle,
+};
+
+const DATA = [
+  { id: 0, text: "One" },
+  { id: 1, text: "Two" },
+  { id: 2, text: "Three" },
+  { id: 3, text: "Four" },
+];
+
+type GroupTypes = {
+  test: (string | number | undefined)[];
+};
+
+export const CustomButtonStyleGroup: ComponentStory<
+  typeof ButtonCheckBoxGroup
+> = () => {
+  const { register, handleSubmit } = useForm<GroupTypes>();
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <ButtonCheckBoxGroup
+        label="ButtonCheckBoxGroup"
+        data={DATA}
+        {...register("test")}
+      />
+      <button type="submit">submit</button>
+    </form>
+  );
 };

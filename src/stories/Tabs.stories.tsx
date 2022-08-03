@@ -13,7 +13,7 @@ const DATA = [
 ];
 
 const RENDER_DATA = [
-  { value: "one", targetData: <span>Hello!</span> },
+  { value: "one", targetData: <span>Hello</span> },
   { value: "two", targetData: <span>World!</span> },
   { value: "three", targetData: <span>Goodbye!</span> },
 ];
