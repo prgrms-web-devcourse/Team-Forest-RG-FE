@@ -1,6 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import styled from "@emotion/styled";
 import { useForm } from "react-hook-form";
 import React from "react";
+import Button from "@/components/Button";
 import Radio from "@/components/Radio";
 
 export default {
@@ -89,3 +91,31 @@ export const WithForm: ComponentStory<typeof Radio> = () => {
     </form>
   );
 };
+
+const CheckedIcon = styled(Button)`
+  background-color: red;
+`;
+
+const RadioIconButton = ({
+  label,
+  type,
+}: {
+  label: string | number;
+  type: string;
+}) =>
+  type === "checked" ? (
+    <CheckedIcon>{label}</CheckedIcon>
+  ) : (
+    <Button>{label}</Button>
+  );
+
+export const CustomIcon: ComponentStory<typeof Radio> = () => (
+  <Radio
+    label="custom icon"
+    id="custom-icon-radio-example"
+    useCustomIcon
+    icon={RadioIconButton}
+    checkedIcon={RadioIconButton}
+    data={DATA}
+  />
+);
