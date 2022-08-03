@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5", // 컴파일 된 결과물이 어느 버전의 ECMAScript를 따를 것인지
+    "target": "ES6", // 컴파일 된 결과물이 어느 버전의 ECMAScript를 따를 것인지
     "strict": true,
     "module": "esnext", // 프로그램에서 사용할 모듈 시스템. import/export 코드가 어떤 방식의 코드로 컴파일 될지 결정
     "esModuleInterop": true, // es module 사용시 컴파일 단계에서 헬퍼 함수를 사용 여부
@@ -16,7 +16,8 @@
     "baseUrl": "./", // 비상대적 import 모듈 해석시 기준이 되는 경로
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["kakao.maps.d.ts"]
   },
 
   "include": ["src"]
