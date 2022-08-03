@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { CardActionArea } from "@mui/material";
 import styled from "@emotion/styled";
 import Card from "@/components/Card";
 import Text from "@/components/Text";
@@ -41,7 +42,7 @@ export const WithMeida: ComponentStory<typeof Card> = () => (
 );
 
 const RgContent = (
-  <>
+  <CardActionArea>
     <Text variant="h3">Title</Text>
     <Text variant="subtitle1" marginBottom>
       Subtitle
@@ -52,7 +53,7 @@ const RgContent = (
       1500s, when an unknown printer took a galley of type and scrambled it to
       make a type specimen book.
     </Text>
-  </>
+  </CardActionArea>
 );
 
 export const RgCard: ComponentStory<typeof Card> = () => (
