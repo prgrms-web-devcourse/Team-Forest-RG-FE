@@ -2,13 +2,29 @@ import { atom } from "recoil";
 
 export const userState = atom<any>({
   key: "user",
-  default: null,
-  // TODO: 쿠키(or localStorage)getItem 처리
+  default: "",
 });
 
+const localStorageEffect =
+  (key: string) =>
+  ({ setSelf, onSet }: any) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue !== null) {
+      setSelf(JSON.parse(savedValue));
+
+      onSet((newValue: any, _: any, isReset: boolean) => {
+        if (isReset) {
+          localStorage.removeItem(key);
+        } else {
+          localStorage.setItem(key, JSON.stringify(newValue));
+        }
+      });
+    }
+  };
 export const tokenState = atom<string>({
   key: "token",
-  default: "",
+  default: localStorage.getItem("token") || "",
+  effects: [localStorageEffect("token")],
 });
 
 export const isAuthState = atom<boolean>({
