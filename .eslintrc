@@ -6,9 +6,11 @@
   ],
   "parser": "@typescript-eslint/parser",
   "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "prettier/prettier": ["warn", { "endOfLine": "auto" }],
     "no-undef": "off",
+    "no-unused-vars": "off",
     "linebreak-style": "off",
+    "no-param-reassign": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [
