@@ -14,6 +14,7 @@ interface ButtonCheckBoxGroupProps {
   btnStyle?: React.CSSProperties;
   label?: string;
   variant?: "filled" | "outlined" | "standard";
+  direction?: "horizontal" | "vertical";
 }
 
 const ButtonCheckBoxGroup = React.forwardRef<
@@ -28,13 +29,14 @@ const ButtonCheckBoxGroup = React.forwardRef<
       label,
       variant = "standard",
       data = [],
+      direction = "vertical",
       ...props
     },
     ref
   ) => (
     <FormControl component="fieldset" variant={variant}>
       {label && <FormLabel component="legend">{label}</FormLabel>}
-      <FormGroup>
+      <FormGroup row={direction === "horizontal"}>
         {data.map(({ id, text, value, others }) => (
           <ButtonCheckBox
             key={id}
