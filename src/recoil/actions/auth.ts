@@ -16,8 +16,9 @@ function useUserActions() {
       setToken(data.accessToken);
       setIsAuth(true);
       if (data.isNew) {
-        navigate("/", { replace: true });
+        navigate("/register", { replace: true });
       } else {
+        // TODO: 로그인 요청 한 곳으로 이동
         navigate("/", { replace: true });
       }
     } catch (error) {
@@ -29,8 +30,7 @@ function useUserActions() {
   const logout = async (token: string) => {
     try {
       // TODO: server와 logout API 만들기
-      // await auth.logout();
-      // await auth.logoutKaKao(token);
+      await auth.logout();
       setToken("");
       setIsAuth(false);
     } catch (error) {
@@ -42,17 +42,8 @@ function useUserActions() {
   //* AuthRoute 진입 시 바로 실행하여, 로그인 유지 및 현재 토큰 유효성 확인 용도
   const authUser = async (token: string) => {
     try {
-      // TODO: authUser API Server요청
-      console.log("authUser요청 for 토큰유효성 검사 : ", token, {
-        status: token ? "good" : "bad",
-      });
-      if (token) {
-        setIsAuth(true);
-      } else {
-        setToken("");
-        setIsAuth(false);
-      }
-      // const data = await auth.checkAuth(token);
+      await auth.checkAuth(token);
+      setIsAuth(true);
     } catch (error) {
       setToken("");
       setIsAuth(false);
