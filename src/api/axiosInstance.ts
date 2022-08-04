@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-const host = process.env.REACT_APP_CLIENT_HOST ?? "http://192.168.219.116";
+const host = process.env.REACT_APP_CLIENT_HOST ?? "localhost";
 const port = process.env.REACT_APP_CLIENT_PORT ?? 8080;
 
 const axiosInstance: AxiosInstance = axios.create({
@@ -13,8 +13,10 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
   if (config.headers) {
-    const getToken = () => JSON.parse(localStorage.getItem("token") || "");
-    console.log("axios interceptors:: ", getToken());
+    const getToken = () => {
+      const item = localStorage.getItem("token");
+      return item ? JSON.parse(item) : "";
+    };
     config.headers.Authorization = getToken() ? `Bearer ${getToken()}` : "";
   }
   return config;
