@@ -22,7 +22,7 @@ function useUserActions() {
       if (data.isNew) {
         navigate("/register", { replace: true });
       } else {
-        navigate(data.fromUrl, { replace: true });
+        navigate(data.fromUrl || "/", { replace: true });
       }
     } catch (error) {
       console.error(error);
