@@ -3,9 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { tokenState, isAuthState } from "../state/authState";
 import auth from "@/api/auth";
 
-interface LocationState {
-  from: string;
-}
 function useUserActions() {
   const setToken = useSetRecoilState(tokenState);
   const setIsAuth = useSetRecoilState(isAuthState);
@@ -14,10 +11,10 @@ function useUserActions() {
 
   //* 인가코드 보내고, 토큰 및 유저정보 받아서 저장
   const login = async (code: string) => {
-    const locationState = location.state as LocationState | null;
-    const from = locationState ? locationState.from : "/";
+    console.log("useUserAction.login의 from: ", location);
     try {
       const data = await auth.login(code);
+      console.log("login response: ", data);
       localStorage.setItem("token", JSON.stringify(data.accessToken));
       setToken(data.accessToken);
       setIsAuth(true);
@@ -25,7 +22,7 @@ function useUserActions() {
       if (data.isNew) {
         navigate("/register", { replace: true });
       } else {
-        navigate(from, { replace: true });
+        navigate(data.fromUrl, { replace: true });
       }
     } catch (error) {
       console.error(error);
@@ -48,7 +45,8 @@ function useUserActions() {
   //* AuthRoute 진입 시 바로 실행하여, 로그인 유지 및 현재 토큰 유효성 확인 용도
   const authUser = async (token: string) => {
     try {
-      await auth.checkAuth(token);
+      const data = await auth.checkAuth(token);
+      console.log("checkAuth Response", data);
       setIsAuth(true);
     } catch (error) {
       setToken("");

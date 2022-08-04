@@ -5,7 +5,7 @@ const login = async (authorizationCode: string) => {
     const res = await axiosInstance({
       method: "POST",
       url: "/oauth/login",
-      data: authorizationCode,
+      data: { authorizationCode },
     });
     return res.data;
   } catch (error) {

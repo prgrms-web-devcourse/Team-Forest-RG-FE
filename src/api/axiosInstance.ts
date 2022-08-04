@@ -1,8 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-const host = process.env.REACT_APP_CLIENT_HOST ?? "localhost";
+const host = process.env.REACT_APP_CLIENT_HOST ?? "http://192.168.219.107";
 const port = process.env.REACT_APP_CLIENT_PORT ?? 8080;
 
+console.log(host, port);
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${host}:${port}`,
   timeout: 5000,

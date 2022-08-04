@@ -12,7 +12,7 @@ function AuthRoute() {
 
   useEffect(() => {
     (async () => {
-      // await userAction.authUser(token);
+      await userAction.authUser(token);
       setLoading(false);
     })();
   }, [userAction.authUser]);
