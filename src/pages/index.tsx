@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
 import { tokenState, isAuthState } from "@/recoil/state/authState";
@@ -21,20 +21,21 @@ function Layout() {
   const token = useRecoilValue(tokenState);
   const isAuth = useRecoilValue(isAuthState);
 
-  const handleKakaoLogout = async () => {
-    await userActions.logout();
-    console.log("logout 완료");
+  const handleLogout = async () => {
+    await userActions.logout(token);
   };
   return (
     <div>
       <NavBar>
-        NavBar
-        <div>token: {token || "없음"}</div>
+        <Link to="/">HOME</Link>
+        <Link to="/login">Login</Link>
+        <div>user: {user?.id || "없음"}</div>
         <div>isAuth: {isAuth ? "true" : "false"}</div>
-        <button type="button" onClick={handleKakaoLogout}>
-          Kakao로그아웃
+        <button type="button" onClick={handleLogout}>
+          로그아웃
         </button>
       </NavBar>
+      <div>token: {token || "없음"}</div>
       <Outlet />
     </div>
   );
