@@ -1,7 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout, { MainPage, NotFoundPage } from "./pages";
+import DetailPage from "./pages/DetailPage";
 import LoginPage from "./pages/LoginPage";
+import PostPage from "./pages/PostPage";
+import RegisterPage from "./pages/RegisterPage";
 import AuthRoute from "./routes/AuthRoute";
+import RequireAuth from "./routes/PrivateRoute";
 
 function App() {
   return (
@@ -11,6 +15,11 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/detail" element={<DetailPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route element={<RequireAuth />}>
+              <Route path="/post" element={<PostPage />} />
+            </Route>
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />

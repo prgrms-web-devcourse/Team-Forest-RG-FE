@@ -30,7 +30,7 @@ function useUserActions() {
   const logout = async (token: string) => {
     try {
       // TODO: server와 logout API 만들기
-      await auth.logout();
+      // await auth.logout();
       setToken("");
       setIsAuth(false);
     } catch (error) {

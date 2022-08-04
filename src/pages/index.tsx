@@ -29,6 +29,7 @@ function Layout() {
       <NavBar>
         <Link to="/">HOME</Link>
         <Link to="/login">Login</Link>
+        <Link to="/post">Post</Link>
         <div>user: {user?.id || "없음"}</div>
         <div>isAuth: {isAuth ? "true" : "false"}</div>
         <button type="button" onClick={handleLogout}>

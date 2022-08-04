@@ -1,7 +1,11 @@
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import styled from "@emotion/styled";
 import axiosInstance from "@/api/axiosInstance";
+import { isAuthState } from "@/recoil/state/authState";
 
 function MainPage() {
+  const [isAuth, setIsAuth] = useRecoilState(isAuthState);
   const getUser = async () => {
     const data = await axiosInstance({
       method: "GET",
@@ -22,8 +26,23 @@ function MainPage() {
     }
   };
 
+  const tempLogin = () => {
+    setIsAuth(true);
+  };
+
+  const Container = styled.div`
+    width: 100%;
+    height: 32px;
+    text-align: center;
+    font-size: 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  `;
   return (
-    <div>
+    <Container>
       MainPage
       <button type="button" onClick={getUser}>
         api테스트
@@ -31,7 +50,10 @@ function MainPage() {
       <button type="button" onClick={postWringToken}>
         잘못된 토큰 테스트
       </button>
-    </div>
+      <button type="button" onClick={tempLogin}>
+        임시 로그인 테스트
+      </button>
+    </Container>
   );
 }
 
