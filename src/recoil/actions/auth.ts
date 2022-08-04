@@ -1,25 +1,31 @@
 import { useSetRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { tokenState, isAuthState } from "../state/authState";
 import auth from "@/api/auth";
 
+interface LocationState {
+  from: string;
+}
 function useUserActions() {
   const setToken = useSetRecoilState(tokenState);
   const setIsAuth = useSetRecoilState(isAuthState);
   const navigate = useNavigate();
+  const location = useLocation();
 
   //* 인가코드 보내고, 토큰 및 유저정보 받아서 저장
   const login = async (code: string) => {
+    const locationState = location.state as LocationState | null;
+    const from = locationState ? locationState.from : "/";
     try {
       const data = await auth.login(code);
       localStorage.setItem("token", JSON.stringify(data.accessToken));
       setToken(data.accessToken);
       setIsAuth(true);
+
       if (data.isNew) {
         navigate("/register", { replace: true });
       } else {
-        // TODO: 로그인 요청 한 곳으로 이동
-        navigate("/", { replace: true });
+        navigate(from, { replace: true });
       }
     } catch (error) {
       console.error(error);
