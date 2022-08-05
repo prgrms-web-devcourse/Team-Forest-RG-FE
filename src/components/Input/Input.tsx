@@ -19,6 +19,7 @@ interface InputProps {
   rows?: number;
   rowsMax?: number;
   fullWidth?: boolean;
+  placeholder?: string;
   defaultValue?: string | number | Date;
   type?: string;
   inputRef?: RefObject<HTMLInputElement>;
@@ -44,6 +45,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       multiline,
       rows,
       rowsMax,
+      placeholder,
       defaultValue,
       InputLabelProps,
       type = "text",
@@ -60,6 +62,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         label={label}
         color={color}
         value={value}
+        placeholder={placeholder}
         disabled={disabled}
         required={required}
         error={error}
