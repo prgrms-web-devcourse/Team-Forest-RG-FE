@@ -7,8 +7,8 @@ import RegisterPage from "./pages/RegisterPage";
 import AuthRoute from "./routes/AuthRoute";
 import RequireAuth from "./routes/PrivateRoute";
 
-console.log(process);
-console.log(process.env.REDIRECT_URI);
+console.log(process.env.REACT_APP_REDIRECT_URI);
+console.log(process.env.REACT_APP_SERVER_HOST);
 
 function App() {
   return (

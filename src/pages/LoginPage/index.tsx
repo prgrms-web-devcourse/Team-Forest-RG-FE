@@ -36,7 +36,7 @@ function LoginPage() {
   }, []);
 
   const handleKakaoLogin = async () => {
-    const kakaoAuthLink = `https://kauth.kakao.com/oauth/authorize?client_id=8f248aa7874df072e8d15b2d0b284108&redirect_uri=https://test-005.d1jv4thaz5g50v.amplifyapp.com/login&response_type=code&state={fromUrl:${fromUrl}}`;
+    const kakaoAuthLink = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&state={fromUrl:${fromUrl}}`;
     window.location.href = kakaoAuthLink;
   };
 
