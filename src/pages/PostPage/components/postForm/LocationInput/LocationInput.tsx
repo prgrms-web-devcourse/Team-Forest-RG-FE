@@ -50,7 +50,6 @@ function LocationInput() {
           <MapViewer lat={LatLng.lat} lng={LatLng.lng} level={3} />
         </MapWrapper>
       )}
-      {/* TODO refactoring */}
       {false && (
         <Input
           {...register("information.departurePlace", {
