@@ -4,4 +4,5 @@ export const InputContainer = styled.div`
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
+  margin-bottom: 1rem;
 `;
