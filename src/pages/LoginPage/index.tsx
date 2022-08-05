@@ -22,7 +22,9 @@ function LoginPage() {
 
   useEffect(() => {
     if (query.code) {
-      userActions.login(query.code.toString());
+      // Todo: query.state Type문제 해결
+      const from = JSON.parse(query.state).from || "/";
+      userActions.login(query.code.toString(), from);
     }
   }, []);
 

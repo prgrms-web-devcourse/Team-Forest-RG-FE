@@ -9,7 +9,7 @@ function RequireAuth() {
   return isAuth ? (
     <Outlet />
   ) : (
-    <Navigate to="/" state={{ from: location }} replace />
+    <Navigate to="/login" state={{ from: location.pathname }} replace />
   );
 }
 

@@ -1,21 +1,15 @@
 import { useSetRecoilState } from "recoil";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { tokenState, isAuthState } from "../state/authState";
 import auth from "@/api/auth";
 
-interface LocationState {
-  from: string;
-}
 function useUserActions() {
   const setToken = useSetRecoilState(tokenState);
   const setIsAuth = useSetRecoilState(isAuthState);
   const navigate = useNavigate();
-  const location = useLocation();
 
   //* 인가코드 보내고, 토큰 및 유저정보 받아서 저장
-  const login = async (code: string) => {
-    const locationState = location.state as LocationState | null;
-    const from = locationState ? locationState.from : "/";
+  const login = async (code: string, from: string) => {
     try {
       const data = await auth.login(code);
       localStorage.setItem("token", JSON.stringify(data.accessToken));
