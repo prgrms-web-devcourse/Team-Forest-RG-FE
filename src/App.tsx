@@ -7,6 +7,9 @@ import RegisterPage from "./pages/RegisterPage";
 import AuthRoute from "./routes/AuthRoute";
 import RequireAuth from "./routes/PrivateRoute";
 
+console.log(process);
+console.log(process.env.REDIRECT_URI);
+
 function App() {
   return (
     <BrowserRouter>
