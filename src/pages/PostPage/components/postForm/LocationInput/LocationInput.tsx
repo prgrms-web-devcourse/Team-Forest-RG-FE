@@ -6,7 +6,12 @@ import PostCodeSearch from "./PostCodeSearch";
 import { useGeocoder } from "@/pages/PostPage/hooks";
 import Button from "@/components/Button";
 import MapViewer from "./MapViewer";
-import { Container, InputContainer, MapWrapper } from "./LocationInput.style";
+import {
+  Container,
+  InputContainer,
+  MapWrapper,
+  PostSearchWrapper,
+} from "./LocationInput.style";
 
 interface LocationInputValue {
   departurePlace: { lat: number; lng: number };
@@ -31,19 +36,25 @@ function LocationInput() {
   return (
     <Container>
       <InputContainer>
-        <Input readOnly fullWidth value={addressString} />
+        <Input readOnly fullWidth placeholder="주소" value={addressString} />
         <Button onClick={() => setOpen((prev) => !prev)}>주소 검색</Button>
       </InputContainer>
-      {isOpen && <PostCodeSearch onComplete={onComplete} autoClose={false} />}
+      {isOpen && (
+        <PostSearchWrapper>
+          <PostCodeSearch onComplete={onComplete} autoClose={false} />
+        </PostSearchWrapper>
+      )}
       {addressString && (
         <MapWrapper>
           <MapViewer lat={LatLng.lat} lng={LatLng.lng} level={3} />
         </MapWrapper>
       )}
+      {/* TODO refactoring */}
       {false && (
         <Input
           {...register("departurePlace", {
             value: { lat: LatLng.lat, lng: LatLng.lng },
+            required: true,
           })}
         />
       )}
