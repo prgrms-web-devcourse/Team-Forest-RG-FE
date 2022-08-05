@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
-import { Container, StyledInput } from "./MinMaxInput.style";
+import Text from "@/components/Text";
+import { Container, InputContainer, StyledInput } from "./MinMaxInput.style";
+import Divider from "@/components/Divider";
 
 type MinMax = {
   min: number;
@@ -40,16 +42,20 @@ function MinMaxInput({ required = false }: MinMaxInputProps) {
 
   return (
     <Container>
-      <StyledInput
-        label="최소"
-        type="number"
-        {...register("min", minInputOptions)}
-      />
-      <StyledInput
-        label="최대"
-        type="number"
-        {...register("max", maxInputOptions)}
-      />
+      <Text variant="h6">참가자 수</Text>
+      <InputContainer>
+        <StyledInput
+          label="최소"
+          type="number"
+          {...register("min", minInputOptions)}
+        />
+        <Divider direction="vertical" />
+        <StyledInput
+          label="최대"
+          type="number"
+          {...register("max", maxInputOptions)}
+        />
+      </InputContainer>
     </Container>
   );
 }
