@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-const host = process.env.REACT_APP_SERVER_HOST ?? "http://15.164.72.64";
-const port = process.env.REACT_APP_SERVER_PORT ?? 80;
+const host = process.env.REACT_APP_SERVER_HOST ?? "https://rg-server.p-e.kr";
+const port = process.env.REACT_APP_SERVER_PORT ?? 443;
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${host}:${port}`,

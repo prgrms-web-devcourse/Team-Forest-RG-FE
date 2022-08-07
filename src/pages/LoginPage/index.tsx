@@ -36,8 +36,11 @@ function LoginPage() {
   }, []);
 
   const handleKakaoLogin = async () => {
-    const clientId = process.env.REACT_APP_REST_API_KEY;
-    const redirectUri = process.env.REACT_APP_REDIRECT_URI;
+    const clientId =
+      process.env.REACT_APP_REST_API_KEY ?? "8f248aa7874df072e8d15b2d0b284108";
+    const redirectUri =
+      process.env.REACT_APP_REDIRECT_URI ??
+      "https://test-005--cool-dusk-ced14a.netlify.app/login";
     console.log(clientId, redirectUri);
     const kakaoAuthLink = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&state={fromUrl:${fromUrl}}`;
     window.location.href = kakaoAuthLink;
