@@ -3,11 +3,11 @@ import Select from "@/components/Select";
 import Text from "@/components/Text";
 import { estimatedTime } from "@/constants/data";
 
-type EstimatedTimeInput = {
+type EstimatedTimeValue = {
   estimatedTime: string;
 };
-function EstimatedTime() {
-  const { register } = useFormContext<EstimatedTimeInput>();
+function EstimatedTimeInput() {
+  const { register } = useFormContext<EstimatedTimeValue>();
   return (
     <div>
       <Text marginBottom variant="h6">
@@ -19,11 +19,10 @@ function EstimatedTime() {
           key: value,
           value,
         }))}
-        required
-        {...register("estimatedTime")}
+        {...register("estimatedTime", { required: true })}
       />
     </div>
   );
 }
 
-export default EstimatedTime;
+export default EstimatedTimeInput;
