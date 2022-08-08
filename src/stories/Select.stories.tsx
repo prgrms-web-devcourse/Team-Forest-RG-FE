@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Select from "@/components/Select";
 
@@ -23,11 +24,24 @@ const Template: ComponentStory<typeof Select> = (args) => (
   </div>
 );
 
-export const Default: ComponentStory<typeof Select> = () => (
-  <div style={{ width: "150px" }}>
-    <Select label="default" data={selectData} />
-  </div>
-);
+export const Default: ComponentStory<typeof Select> = () => {
+  const [value, setValue] = useState("");
+
+  const handleChange = (e: any) => {
+    setValue(e.target.value);
+  };
+
+  return (
+    <div style={{ width: "150px" }}>
+      <Select
+        label="default"
+        value={value}
+        onChange={handleChange}
+        data={selectData}
+      />
+    </div>
+  );
+};
 
 export const Sized = Template.bind({});
 Sized.args = {
