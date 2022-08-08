@@ -1,0 +1,48 @@
+
+    {
+		"leader" : {
+			"id" : 3,
+			"nickname" : "leader",
+			"profile_image" : "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/andrea-brambila-mDMKysUxcCc-unsplash.jpg.jpeg"
+		},
+		"riding" : {
+			"title" : "제목",
+			"thumbnail" : "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/%ED%95%99%EC%82%AC%EB%AA%A8%EC%93%B1.png.png",
+			"riding_level" : "초급",
+			"zone" : "경기도 성남시",
+			"fee" : 0,
+			"estimated_time" : 90,
+			"created_at" : "2022-08-20T07:58:20Z",
+			"ridng_date" : "2022-08-20T07:58:20Z",
+			"bicycle_type" : ["MTB", "픽시"],
+			"riding_courses" : ["코스1", "코스2", "코스3"],
+			"max_participant" : 15,
+			"min_participant" : 4,
+			"participants" : [
+					{
+						"id" : 7,
+						"nickname" : "nickname",
+						"profile_image" : "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/ruslan-bardash-8MhejqEghLk-unsplash.jpg.jpeg"
+					}
+				],
+			"departure_position" : {
+				"longitude" : "197.25.636",
+				"latitude" : "37.252.362"
+			},
+			"details" : [
+					{
+							"id": 0,
+							"title" : "상세정보 제목",
+							"contents" : "상세 정보 내용",
+							"images" : ["https://mygbs.s3.ap-northeast-2.amazonaws.com/test/zoom-19.jpg.jpeg","https://mygbs.s3.ap-northeast-2.amazonaws.com/test/8.jpg.jpeg"]
+					},
+					{	
+							"id": 1,
+							"title" : "상세정보 제목",
+							"contents" : "상세 정보 내용",
+							"images" : ["https://mygbs.s3.ap-northeast-2.amazonaws.com/test/8.jpg.jpeg","https://mygbs.s3.ap-northeast-2.amazonaws.com/test/zoom-19.jpg.jpeg"]
+					}
+				
+			]
+		}
+}
