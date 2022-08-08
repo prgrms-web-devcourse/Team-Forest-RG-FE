@@ -17,7 +17,6 @@ const NavBar = styled.div`
 `;
 function Layout() {
   const userActions = useUserActions();
-
   const token = useRecoilValue(tokenState);
   const isAuth = useRecoilValue(isAuthState);
 
@@ -29,7 +28,6 @@ function Layout() {
       <NavBar>
         <Link to="/">HOME</Link>
         <Link to="/login">Login</Link>
-        <div>user: {user?.id || "없음"}</div>
         <div>isAuth: {isAuth ? "true" : "false"}</div>
         <button type="button" onClick={handleLogout}>
           로그아웃
