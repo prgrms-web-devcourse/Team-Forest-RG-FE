@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
-import useKakaoAPI from "./useKakaoAPI";
 
 function useGeocoder() {
   const [geocoder, setGeocoder] = useState<kakao.maps.services.Geocoder>();
   const [address, setAddress] = useState("");
-  const [LatLng, setLatLng] = useState({ lat: 0, lng: 0 });
-  const isApiLoading = useKakaoAPI();
+  const [LatLng, setLatLng] = useState({ lat: -1, lng: -1 });
   useEffect(() => {
-    if (isApiLoading) return;
     kakao.maps.load(() => {
       const newGeocoder = new kakao.maps.services.Geocoder();
       setGeocoder(newGeocoder);
     });
-  }, [isApiLoading]);
+  }, []);
 
   useEffect(() => {
     if (address === "") return;

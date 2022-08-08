@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import useKakaoAPI from "../../../hooks/useKakaoAPI";
 
 interface MapProps {
   lat: number;
@@ -10,9 +9,7 @@ interface MapProps {
 function MapViewer({ lat, lng, level = 13 }: MapProps) {
   const container = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<kakao.maps.Map>();
-  const isApiLoading = useKakaoAPI();
   useEffect(() => {
-    if (isApiLoading || map) return;
     kakao.maps.load(() => {
       const center = new kakao.maps.LatLng(lat, lng);
       const options = {
@@ -23,7 +20,7 @@ function MapViewer({ lat, lng, level = 13 }: MapProps) {
       const newMap = new kakao.maps.Map(container.current, options);
       setMap(newMap);
     });
-  }, [isApiLoading]);
+  }, []);
 
   useEffect(() => {
     if (!map) return;
