@@ -22,7 +22,7 @@ function Layout() {
   const isAuth = useRecoilValue(isAuthState);
 
   const handleLogout = async () => {
-    await userActions.logout(token);
+    await userActions.logout();
   };
   return (
     <div>

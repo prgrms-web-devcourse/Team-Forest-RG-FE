@@ -13,19 +13,6 @@ const login = async (authorizationCode: string) => {
   }
 };
 
-const logout = async () => {
-  try {
-    const res = await axiosInstance({
-      method: "POST",
-      url: "/user/logout",
-    });
-  } catch (error) {
-    throw new Error("logout Failed");
-  }
-  // Todo: server 합의 후 작성
-  return { status: 200 };
-};
-
 //* accessToken을 보내면, 현재 토큰에 해당하는 User 정보를 보내준다.
 const checkAuth = async (token: string) => {
   try {
@@ -41,6 +28,5 @@ const checkAuth = async (token: string) => {
 
 export default {
   login,
-  logout,
   checkAuth,
 };

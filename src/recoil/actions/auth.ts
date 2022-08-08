@@ -26,16 +26,10 @@ function useUserActions() {
     }
   };
 
-  //* 토큰 및 유저 정보 비우기
-  const logout = async (token: string) => {
-    try {
-      // TODO: server와 logout API 만들기
-      // await auth.logout();
-      setToken("");
-      setIsAuth(false);
-    } catch (error) {
-      console.error(error);
-    }
+  //* 토큰 비우고, 로그인 상태 false로 바꾸기
+  const logout = () => {
+    setToken("");
+    setIsAuth(false);
   };
 
   //* Token이 유효한지 확인 후, 유효 여부에 따라 유저 정보 저장 및 비우기 처리
