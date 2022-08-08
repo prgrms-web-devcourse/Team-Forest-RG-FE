@@ -1,10 +1,5 @@
 import { atom } from "recoil";
 
-export const userState = atom<any>({
-  key: "user",
-  default: "",
-});
-
 const localStorageEffect =
   (key: string) =>
   ({ setSelf, onSet }: any) => {
