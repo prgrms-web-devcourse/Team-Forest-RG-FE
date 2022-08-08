@@ -33,7 +33,6 @@ const FormStepper = ({
 
   const handleNext = async () => {
     const stepValid = await trigger();
-    console.log(stepValid);
     if (stepValid) setActiveStep((prev) => prev + 1);
   };
 

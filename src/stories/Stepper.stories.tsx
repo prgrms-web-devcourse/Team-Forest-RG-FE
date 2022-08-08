@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { useForm, Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import * as yup from "yup";
 import FormStepper from "@/components/FormStepper";
 import Input from "@/components/Input";
@@ -42,30 +42,44 @@ const Step1 = () => {
 
 const Step2 = () => {
   const {
-    register,
+    control,
     formState: { errors },
-  } = useForm<{ address: string }>();
+  } = useFormContext<{ address: string }>();
 
   return (
-    <Input
-      {...register("address", { required: "required!" })}
-      error={!!errors?.address}
-      errorMessage={errors?.address?.message}
+    <Controller
+      control={control}
+      name="address"
+      render={({ field }) => (
+        <Input
+          {...field}
+          error={!!errors.address}
+          errorMessage={errors?.address?.message}
+        />
+      )}
+      defaultValue=""
     />
   );
 };
 
 const Step3 = () => {
   const {
-    register,
+    control,
     formState: { errors },
-  } = useForm<{ location: string }>();
+  } = useFormContext<{ location: string }>();
 
   return (
-    <Input
-      {...register("location", { required: "required!" })}
-      error={!!errors?.location}
-      errorMessage={errors?.location?.message}
+    <Controller
+      control={control}
+      name="location"
+      render={({ field }) => (
+        <Input
+          {...field}
+          error={!!errors.location}
+          errorMessage={errors?.location?.message}
+        />
+      )}
+      defaultValue=""
     />
   );
 };
