@@ -14,7 +14,7 @@ const login = async (authorizationCode: string) => {
 };
 
 //* accessToken을 보내면, 현재 토큰에 해당하는 User 정보를 보내준다.
-const checkAuth = async (token: string) => {
+const checkAuth = async () => {
   try {
     const res = await axiosInstance({
       method: "GET",
