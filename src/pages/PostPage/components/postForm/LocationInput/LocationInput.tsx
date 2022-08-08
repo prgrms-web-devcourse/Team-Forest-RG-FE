@@ -1,8 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { Address } from "react-daum-postcode";
+import DaumPostcodeEmbed, { Address } from "react-daum-postcode";
 import Input from "@/components/Input";
-import PostCodeSearch from "./PostCodeSearch";
 import { useGeocoder } from "@/pages/PostPage/hooks";
 import Button from "@/components/Button";
 import MapViewer from "./MapViewer";
@@ -41,7 +40,7 @@ function LocationInput() {
       </InputContainer>
       {isOpen && (
         <PostSearchWrapper>
-          <PostCodeSearch onComplete={onComplete} autoClose={false} />
+          <DaumPostcodeEmbed onComplete={onComplete} autoClose={false} />
         </PostSearchWrapper>
       )}
       {addressString && (
