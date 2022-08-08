@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout, { MainPage, NotFoundPage } from "./pages";
-import LoginPage from "./pages/LoginPage";
-import PostPage from "./pages/PostPage";
-import AuthRoute from "./routes/AuthRoute";
-import RequireAuth from "./routes/PrivateRoute";
+import Layout, { MainPage, NotFoundPage } from "@/pages";
+import LoginPage from "@/pages/LoginPage";
+import PostPage from "@/pages/PostPage";
+import AuthRoute from "@/routes/AuthRoute";
+import RequireAuth from "@/routes/PrivateRoute";
 
 function App() {
   return (

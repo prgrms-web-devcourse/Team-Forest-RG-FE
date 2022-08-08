@@ -4,9 +4,9 @@ import { RecoilRoot } from "recoil";
 import { Global } from "@emotion/react";
 import { CookiesProvider } from "react-cookie";
 import { ThemeProvider } from "@mui/material";
-import theme from "./styles/theme";
+import theme from "@/styles/theme";
+import reset from "@/styles/reset";
 import App from "@/App";
-import reset from "./styles/reset";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
