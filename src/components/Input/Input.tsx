@@ -62,7 +62,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </InputAdornment>
           ),
         }}
-        ref={ref}
+        inputRef={ref}
         customcolors={customColor}
         multiline={multiline}
         rows={rows}
