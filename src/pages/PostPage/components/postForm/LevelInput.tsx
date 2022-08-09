@@ -4,10 +4,7 @@ import { levelData, levelDetail } from "@/constants/data";
 import Button from "@/components/Button";
 import Radio from "@/components/Radio";
 import Text from "@/components/Text";
-
-type LevelValue = {
-  level: string;
-};
+import { RidingFormValues } from "./PostForm";
 
 const RadioIconButton = ({
   label,
