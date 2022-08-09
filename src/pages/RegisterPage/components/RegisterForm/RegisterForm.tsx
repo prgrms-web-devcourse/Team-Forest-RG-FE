@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
 import WithLabel from "@/components/WithLabel";
 import Radio from "@/components/Radio";
 import { bicycleTypeData, levelData } from "@/constants/data";
+import user from "@/api/user";
 import {
   getYearOptions,
   MenuProps,
@@ -22,9 +24,11 @@ const StyledForm = styled.form`
 
 const RegisterForm = () => {
   const { register, handleSubmit, setValue } = useForm();
+  const navigate = useNavigate();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    await user.register(data);
+    navigate("/", { replace: true });
   };
 
   return (
