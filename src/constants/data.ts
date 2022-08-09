@@ -3,7 +3,8 @@ export const bicycleTypeData = [
   { id: 1, value: "MTB", text: "MTB" },
   { id: 2, value: "픽시", text: "픽시" },
   { id: 3, value: "하이브리드", text: "하이브리드" },
-  { id: 4, value: "기타", text: "기타" },
+  { id: 4, value: "따릉이", text: "따릉이" },
+  { id: 5, value: "상관없음", text: "상관없음" },
 ];
 
 export const levelData = [
@@ -15,6 +16,7 @@ export const levelData = [
 export const levelDetail = ["응애 난이도", "할만합니다.", "아주아주 힘듭니다."];
 
 export const estimatedTime = [
+  // "00:30"
   "30분",
   "1시간",
   "1시간 30분",
