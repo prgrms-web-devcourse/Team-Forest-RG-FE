@@ -2,12 +2,10 @@ import { useFormContext } from "react-hook-form";
 import Select from "@/components/Select";
 import Text from "@/components/Text";
 import { estimatedTime } from "@/constants/data";
+import { RidingFormValues } from "../PostForm";
 
-type EstimatedTimeValue = {
-  estimatedTime: string;
-};
 function EstimatedTimeInput() {
-  const { register } = useFormContext<EstimatedTimeValue>();
+  const { register } = useFormContext<RidingFormValues>();
   return (
     <div>
       <Text marginBottom variant="h6">
@@ -19,7 +17,7 @@ function EstimatedTimeInput() {
           key: value,
           value,
         }))}
-        {...register("estimatedTime", { required: true })}
+        {...register("information.estimatedTime", { required: true })}
       />
     </div>
   );

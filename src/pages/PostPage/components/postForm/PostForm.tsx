@@ -1,37 +1,41 @@
 import styled from "@emotion/styled";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/Input";
-import ExpandableInput from "./ExpandableInput/ExpandableInput";
 import DatePicker from "@/components/DatePicker";
-import MinMaxInput from "./MinMaxInput/MinMaxInput";
-import BicycleTypeInput from "./BicycleTypeInput/BicycleTypeInput";
-import LevelInput from "./LevelInput";
 import Button from "@/components/Button";
-import FeeInput from "./FeeInput/FeeInput";
-import LocationInput from "./LocationInput/LocationInput";
 import Text from "@/components/Text";
-import RegionInput from "./RegionInput/RegionInput";
-import EstimatedTime from "./EstimatedTime/EstimatedTime";
 import Divider from "@/components/Divider";
+import MinMaxInput from "./MinMaxInput/MinMaxInput";
+import EstimatedTimeInput from "./EstimatedTimeInput/EstimatedTimeInput";
+import RegionInput from "./RegionInput/RegionInput";
+import LevelInput from "./LevelInput";
+import FeeInput from "./FeeInput/FeeInput";
+import BicycleTypeInput from "./BicycleTypeInput/BicycleTypeInput";
+import LocationInput from "./LocationInput/LocationInput";
+import ExpandableInput from "./ExpandableInput/ExpandableInput";
 
 type Section = {
   title: string;
-  image: Array<string>;
+  images: number[];
   content: string;
 };
 
-type FormValue = {
-  title: string;
-  ridingDate: string;
-  min: number;
-  max: number;
-  bicycleTypes: string[];
-  level: string;
-  estimatedTime: string;
-  regionCode: number;
-  departurePlace: {
-    lat: number;
-    lng: number;
+export type RidingFormValues = {
+  information: {
+    title: string;
+    ridingDate: string;
+    minParticipantCount: number;
+    maxParticipantCount: number;
+    bicycleTypes: string[];
+    level: string;
+    estimatedTime: string;
+    regionCode: number;
+    departurePlace: {
+      lat: number;
+      lng: number;
+    };
+    thumbnail: number;
+    fee: number;
   };
   detail: Section[];
 };
@@ -51,7 +55,7 @@ const TwoColumnContainer = styled.div`
 `;
 
 function PostForm() {
-  const methods = useForm<FormValue>({
+  const methods = useForm<RidingFormValues>({
     defaultValues: {
       detail: [{ title: "", image: [], content: "" }],
     },
@@ -61,22 +65,8 @@ function PostForm() {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<FormValue> = (data) => {
-    const postData = {
-      imformation: {
-        title: data.title,
-        ridingDate: data.ridingDate,
-        min: data.min,
-        max: data.max,
-        bicycleTypes: data.bicycleTypes,
-        level: data.level,
-        estimatedTime: data.estimatedTime,
-        regionCode: data.regionCode,
-        departurePlace: data.departurePlace,
-      },
-      detail: data.detail,
-    };
-    console.log(postData);
+  const onSubmit: SubmitHandler<RidingFormValues> = (data) => {
+    console.log(data);
   };
   console.log(errors);
   return (
@@ -89,8 +79,8 @@ function PostForm() {
           <Input
             placeholder="제목"
             fullWidth
-            {...register("title", {
-              required: true,
+            {...register("information.title", {
+              required: "필수 입력사항입니다.",
               maxLength: 30,
             })}
           />
@@ -100,10 +90,12 @@ function PostForm() {
             <Text variant="h6" marginBottom>
               모임날짜 및 시간
             </Text>
-            <DatePicker {...register("ridingDate", { valueAsDate: true })} />
+            <DatePicker
+              {...register("information.ridingDate", { valueAsDate: true })}
+            />
           </div>
           <MinMaxInput required />
-          <EstimatedTime />
+          <EstimatedTimeInput />
           <RegionInput />
           <LevelInput required />
           <FeeInput />

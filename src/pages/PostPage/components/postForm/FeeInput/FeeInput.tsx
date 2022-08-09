@@ -4,13 +4,10 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { ButtonContainer, StyledContainer } from "./FeeInput.style";
 import Text from "@/components/Text";
-
-type FeeInputValue = {
-  fee: number;
-};
+import { RidingFormValues } from "../PostForm";
 
 function FeeInput() {
-  const { register } = useFormContext<FeeInputValue>();
+  const { register } = useFormContext<RidingFormValues>();
   const [isPaid, setPaid] = useState<boolean>(false);
   return (
     <StyledContainer>
@@ -34,7 +31,7 @@ function FeeInput() {
           fullWidth
           label="참가비"
           defaultValue={0}
-          {...register("fee", { valueAsNumber: true })}
+          {...register("information.fee", { valueAsNumber: true })}
         />
       )}
     </StyledContainer>

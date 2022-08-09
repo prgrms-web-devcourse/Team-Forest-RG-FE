@@ -3,18 +3,15 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import Text from "@/components/Text";
 import { Container, InputContainer, StyledInput } from "./MinMaxInput.style";
 import Divider from "@/components/Divider";
+import { RidingFormValues } from "../PostForm";
 
-type MinMax = {
-  min: number;
-  max: number;
-};
 interface MinMaxInputProps {
   required?: boolean;
 }
 function MinMaxInput({ required = false }: MinMaxInputProps) {
-  const { register } = useFormContext<MinMax>();
-  const [min, setMin] = useState<number>(30);
-  const [max, setMax] = useState<number>(5);
+  const { register } = useFormContext<RidingFormValues>();
+  const [min, setMin] = useState<number>();
+  const [max, setMax] = useState<number>();
 
   const maxInputOptions: RegisterOptions = {
     valueAsNumber: true,
@@ -47,13 +44,13 @@ function MinMaxInput({ required = false }: MinMaxInputProps) {
         <StyledInput
           label="최소"
           type="number"
-          {...register("min", minInputOptions)}
+          {...register("information.minParticipantCount", minInputOptions)}
         />
         <Divider direction="vertical" />
         <StyledInput
           label="최대"
           type="number"
-          {...register("max", maxInputOptions)}
+          {...register("information.maxParticipantCount", maxInputOptions)}
         />
       </InputContainer>
     </Container>

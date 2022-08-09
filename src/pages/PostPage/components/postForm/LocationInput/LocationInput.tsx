@@ -11,9 +11,11 @@ import {
   MapWrapper,
   PostSearchWrapper,
 } from "./LocationInput.style";
+import { RidingFormValues } from "../PostForm";
 
-interface LocationInputValue {
-  departurePlace: { lat: number; lng: number };
+interface LocationInputProps {
+  error?: boolean;
+  errorMessage?: string;
 }
 
 function LocationInput() {
@@ -51,9 +53,8 @@ function LocationInput() {
       {/* TODO refactoring */}
       {false && (
         <Input
-          {...register("departurePlace", {
-            value: { lat: LatLng.lat, lng: LatLng.lng },
-            required: true,
+          {...register("information.departurePlace", {
+            required: "필수 입력항목입니다.",
           })}
         />
       )}
