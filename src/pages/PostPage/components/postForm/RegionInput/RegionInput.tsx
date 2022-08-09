@@ -5,13 +5,10 @@ import Select from "@/components/Select";
 import { regionCode } from "@/constants/region";
 import Text from "@/components/Text";
 import { InputContainer } from "./RegionInput.style";
-
-type RegionInputValue = {
-  regionCode: number;
-};
+import { RidingFormValues } from "../PostForm";
 
 function RegionInput() {
-  const { register } = useFormContext<RegionInputValue>();
+  const { register } = useFormContext<RidingFormValues>();
   const [cityCode, setCityCode] = useState<number>(0);
   const detailData = useMemo(() => {
     const result = regionCode
@@ -44,7 +41,7 @@ function RegionInput() {
         <Select
           label="시/군/구"
           data={detailData}
-          {...register("regionCode", {
+          {...register("information.regionCode", {
             required: true,
             disabled: cityCode === 0,
           })}

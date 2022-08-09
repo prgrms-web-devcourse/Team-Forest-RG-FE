@@ -2,13 +2,10 @@ import { useFormContext } from "react-hook-form";
 import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
 import { bicycleTypeData } from "@/constants/data";
 import Text from "@/components/Text";
+import { RidingFormValues } from "../PostForm";
 
-type BicycleTypesValue = {
-  bicycleTypes: string[];
-};
-
-function BicycleTypeInput({ required = false }: { required: boolean }) {
-  const { register } = useFormContext<BicycleTypesValue>();
+function BicycleTypeInput({ required = false }: { required?: boolean }) {
+  const { register } = useFormContext<RidingFormValues>();
   return (
     <div>
       <Text variant="h6">자전거 종류</Text>
@@ -21,7 +18,7 @@ function BicycleTypeInput({ required = false }: { required: boolean }) {
         variant="outlined"
         btnColor="#999"
         checkedBtnColor="primary"
-        {...register("bicycleTypes", { required })}
+        {...register("information.bicycleTypes", { required })}
       />
     </div>
   );

@@ -4,10 +4,7 @@ import { levelData, levelDetail } from "@/constants/data";
 import Button from "@/components/Button";
 import Radio from "@/components/Radio";
 import Text from "@/components/Text";
-
-type LevelValue = {
-  level: string;
-};
+import { RidingFormValues } from "./PostForm";
 
 const RadioIconButton = ({
   label,
@@ -23,7 +20,7 @@ const RadioIconButton = ({
   );
 
 function LevelInput({ required = false }: { required?: boolean }) {
-  const { register } = useFormContext<LevelValue>();
+  const { register } = useFormContext<RidingFormValues>();
   const [index, setIndex] = useState<number>(0);
   return (
     <div>
@@ -35,7 +32,7 @@ function LevelInput({ required = false }: { required?: boolean }) {
         icon={RadioIconButton}
         checkedIcon={RadioIconButton}
         // TODO Radio 수정 요청
-        {...register("level", {
+        {...register("information.level", {
           required,
           onChange: (e: ChangeEvent<HTMLInputElement>) => {
             const nowValue = e.target.value;
