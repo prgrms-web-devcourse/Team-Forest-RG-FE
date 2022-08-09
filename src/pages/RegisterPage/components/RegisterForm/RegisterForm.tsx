@@ -7,7 +7,7 @@ import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
 import WithLabel from "@/components/WithLabel";
 import Radio from "@/components/Radio";
 import { bicycleTypeData, levelData } from "@/constants/data";
-import user from "@/api/user";
+import user, { RegisterData } from "@/api/user";
 import {
   getYearOptions,
   MenuProps,
@@ -23,7 +23,12 @@ const StyledForm = styled.form`
 `;
 
 const RegisterForm = () => {
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<RegisterData>();
   const navigate = useNavigate();
 
   const onSubmit = async (data: any) => {
@@ -40,15 +45,21 @@ const RegisterForm = () => {
             minLength: { value: 2, message: "최소 2글자 이상 작성해주세요" },
             maxLength: { value: 8, message: "최대 8글자 이하로 작성해주세요" },
           })}
+          error={!!errors?.nickname}
+          errorMessage={errors?.nickname?.message}
         />
       </WithLabel>
       <WithLabel label="전화번호">
         <Input
           {...register("phoneNumber", {
             required: "필요 데이터",
-            // valueAsNumber: true,
-            maxLength: { value: 11, message: "최대 11글자 제한" },
+            pattern: {
+              value: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+              message: "올바른 핸드폰 번호를 입력해주세요",
+            },
           })}
+          error={!!errors?.phoneNumber}
+          errorMessage={errors?.phoneNumber?.message}
         />
       </WithLabel>
       <WithLabel label="시작년도" wd={200}>
