@@ -19,7 +19,7 @@ function MinMaxInput({ required = false }: MinMaxInputProps) {
     max: { value: 30, message: "최대 참가자 수는 30명입니다." },
     validate: {
       lessThanMax: (v) =>
-        v >= min || "최대 참가자가 최소 참가자보다 적을 수 없습니다.",
+        !min || v >= min || "최대 참가자가 최소 참가자보다 적을 수 없습니다.",
     },
     onChange: (e: ChangeEvent<HTMLInputElement>) =>
       setMax(Number(e.target.value)),
@@ -31,7 +31,7 @@ function MinMaxInput({ required = false }: MinMaxInputProps) {
     min: { value: 5, message: "최소 참가자 수는 5명입니다." },
     validate: {
       biggerThanMax: (v) =>
-        v <= max || "최소 참가자가 최대 참가자보다 많을 수 없습니다.",
+        !max || v <= max || "최소 참가자가 최대 참가자보다 많을 수 없습니다.",
     },
     onChange: (e: ChangeEvent<HTMLInputElement>) =>
       setMin(Number(e.target.value)),
