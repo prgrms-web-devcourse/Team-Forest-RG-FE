@@ -16,6 +16,7 @@ export const levelData = [
 export const levelDetail = ["응애 난이도", "할만합니다.", "아주아주 힘듭니다."];
 
 export const estimatedTime = [
+  // "00:30"
   "30분",
   "1시간",
   "1시간 30분",
