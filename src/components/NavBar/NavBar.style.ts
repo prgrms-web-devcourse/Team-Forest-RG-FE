@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import theme from "@/styles/theme";
 
-export const Container = styled.div`
+export const NavBarContainer = styled.div`
   position: fixed;
   top: 0px;
   left: 0px;
@@ -11,15 +11,19 @@ export const Container = styled.div`
   width: 100%;
   height: 5rem;
   border-bottom: 3px solid black;
+`;
 
+export const ContentContainer = styled.div`
+  max-width: 1140px;
+  margin: 0 auto;
   padding: 0 2rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
 `;
-
-export const HeaderSpace = styled.div`
+export const NavBarSpace = styled.div`
   width: 100%;
   height: 5rem;
 `;
