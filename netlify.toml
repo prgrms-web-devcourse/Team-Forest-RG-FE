@@ -4,7 +4,7 @@
   status = 200
 
 [build]
-  command = "npm run build"
+  command = "npm run build && node ./test.ts"
   publish = "dist"
 
 [context.production.environment]

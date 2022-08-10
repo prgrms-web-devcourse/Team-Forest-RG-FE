@@ -9,7 +9,7 @@ interface ButtonCheckBoxProps {
   disableRipple?: boolean;
   btnColor?: string;
   checkedBtnColor?: string;
-  btnStyle?: any; // custom style for button
+  btnStyle?: React.CSSProperties; // custom style for button
 }
 
 const ButtonCheckBox = ({

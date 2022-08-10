@@ -16,33 +16,29 @@ const Container = styled.div`
   align-items: center;
   gap: 20px;
 `;
-interface LocationState {
-  from: string;
-}
 
 function LoginPage() {
   const userActions = useUserActions();
-  const query = querystring.parse(window.location.search);
   const location = useLocation();
-  console.log("loginPage의 location: ", location);
+  const query = querystring.parse(window.location.search);
 
-  const locationState = location.state as LocationState | null;
-  const fromUrl = locationState ? locationState.from : "/";
   useEffect(() => {
     if (query.code) {
-      console.log("loginPage 요청 직전 location", location);
-      userActions.login(query.code.toString());
+      // Todo: query.state Type문제 해결
+      const from = JSON.parse(query.state as any).pathname || "/";
+      userActions.login(query.code.toString(), from);
     }
   }, []);
 
   const handleKakaoLogin = async () => {
-    const clientId =
-      process.env.REACT_APP_REST_API_KEY ?? "8f248aa7874df072e8d15b2d0b284108";
-    const redirectUri =
+    // Todo: location.state Type문제 해결
+    const fromUrl = location.state ? (location.state as any).from : "/";
+    const kakaoAuthLink = `https://kauth.kakao.com/oauth/authorize?client_id=${
+      process.env.REACT_APP_REST_API_KEY ?? "8f248aa7874df072e8d15b2d0b284108"
+    }&redirect_uri=${
       process.env.REACT_APP_REDIRECT_URI ??
-      "https://test-005--cool-dusk-ced14a.netlify.app/login";
-    console.log(clientId, redirectUri);
-    const kakaoAuthLink = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&state={fromUrl:${fromUrl}}`;
+      "https://test-005--cool-dusk-ced14a.netlify.app/login"
+    }&response_type=code&state=${JSON.stringify(fromUrl)}`;
     window.location.href = kakaoAuthLink;
   };
 
@@ -56,9 +52,6 @@ function LoginPage() {
           tabIndex={0}>
           <img src={kakaoImage} alt="kakaoLogin" width="250px" />
         </div>
-        <button type="button" onClick={() => userActions.login("123")}>
-          로그인 테스트
-        </button>
       </Container>
     </div>
   );

@@ -4,8 +4,8 @@ const login = async (authorizationCode: string) => {
   try {
     const res = await axiosInstance({
       method: "POST",
-      url: "/oauth/login",
-      data: { authorizationCode },
+      url: "/api/v1/users/oauth/login",
+      data: authorizationCode,
     });
     return res.data;
   } catch (error) {
@@ -13,25 +13,11 @@ const login = async (authorizationCode: string) => {
   }
 };
 
-const logout = async () => {
-  try {
-    const res = await axiosInstance({
-      method: "POST",
-      url: "/user/logout",
-    });
-  } catch (error) {
-    throw new Error("logout Failed");
-  }
-  // Todo: server 합의 후 작성
-  return { status: 200 };
-};
-
-//* accessToken을 보내면, 현재 토큰에 해당하는 User 정보를 보내준다.
-const checkAuth = async (token: string) => {
+const checkAuth = async () => {
   try {
     const res = await axiosInstance({
       method: "GET",
-      url: "/user/me",
+      url: "/api/v1/user/me",
     });
     return res.data;
   } catch (error) {
@@ -41,6 +27,5 @@ const checkAuth = async (token: string) => {
 
 export default {
   login,
-  logout,
   checkAuth,
 };

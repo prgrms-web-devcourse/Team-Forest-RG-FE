@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "@emotion/styled";
-import { userState, tokenState, isAuthState } from "@/recoil/state/authState";
+import { tokenState, isAuthState } from "@/recoil/state/authState";
 import { useUserActions } from "@/recoil/actions/auth";
 
 const NavBar = styled.div`
@@ -17,20 +17,17 @@ const NavBar = styled.div`
 `;
 function Layout() {
   const userActions = useUserActions();
-  const user = useRecoilValue(userState);
   const token = useRecoilValue(tokenState);
   const isAuth = useRecoilValue(isAuthState);
 
   const handleLogout = async () => {
-    await userActions.logout(token);
+    await userActions.logout();
   };
   return (
     <div>
       <NavBar>
         <Link to="/">HOME</Link>
         <Link to="/login">Login</Link>
-        <Link to="/post">Post</Link>
-        <div>user: {user?.id || "없음"}</div>
         <div>isAuth: {isAuth ? "true" : "false"}</div>
         <button type="button" onClick={handleLogout}>
           로그아웃
