@@ -57,7 +57,7 @@ const TwoColumnContainer = styled.div`
 function PostForm() {
   const methods = useForm<RidingFormValues>({
     defaultValues: {
-      detail: [{ title: "", image: [], content: "" }],
+      detail: [{ title: "", images: [], content: "" }],
     },
   });
   const {
@@ -83,6 +83,8 @@ function PostForm() {
               required: "필수 입력사항입니다.",
               maxLength: 30,
             })}
+            error={!!errors.information?.title}
+            errorMessage={errors.information?.title?.message}
           />
         </div>
         <TwoColumnContainer>
@@ -100,8 +102,11 @@ function PostForm() {
           <LevelInput required />
           <FeeInput />
         </TwoColumnContainer>
-        <BicycleTypeInput required />
-        <LocationInput />
+        <BicycleTypeInput />
+        <LocationInput
+          error={!!errors.information?.departurePlace}
+          errorMessage={errors.information?.departurePlace?.message}
+        />
         <Divider />
         <ExpandableInput />
         <Button type="submit">완료</Button>
