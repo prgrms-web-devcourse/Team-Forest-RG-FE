@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "extends": ["airbnb", "plugin:prettier/recommended", "plugin:react-hooks/recommended"],
   "parser": "@typescript-eslint/parser",
@@ -34,4 +33,3 @@
     "react/function-component-definition": "off"
   }
 }
->>>>>>> 4a0abfd ([chore] 공통 문서 수정)
