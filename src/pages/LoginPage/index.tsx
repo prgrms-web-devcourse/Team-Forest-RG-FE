@@ -37,8 +37,9 @@ function LoginPage() {
       process.env.REACT_APP_REST_API_KEY ?? "8f248aa7874df072e8d15b2d0b284108"
     }&redirect_uri=${
       process.env.REACT_APP_REDIRECT_URI ??
-      "https://test-005--cool-dusk-ced14a.netlify.app/login"
+      "https://cool-dusk-ced14a.netlify.app/login"
     }&response_type=code&state=${JSON.stringify(fromUrl)}`;
+    console.log(kakaoAuthLink);
     window.location.href = kakaoAuthLink;
   };
 
