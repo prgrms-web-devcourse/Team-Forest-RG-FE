@@ -12,7 +12,7 @@ const register = async (registerData: RegisterData) => {
   try {
     const res = await axiosInstance({
       method: "POST",
-      url: "/users/register",
+      url: "/api/v1/users/register",
       data: registerData,
     });
     return res.data;

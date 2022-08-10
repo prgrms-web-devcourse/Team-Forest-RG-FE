@@ -4,7 +4,7 @@ const login = async (authorizationCode: string) => {
   try {
     const res = await axiosInstance({
       method: "POST",
-      url: "/oauth/login",
+      url: "/api/v1/users/oauth/login",
       data: authorizationCode,
     });
     return res.data;
@@ -17,7 +17,7 @@ const checkAuth = async () => {
   try {
     const res = await axiosInstance({
       method: "GET",
-      url: "/user/me",
+      url: "/api/v1/user/me",
     });
     return res.data;
   } catch (error) {
