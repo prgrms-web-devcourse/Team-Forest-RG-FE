@@ -6,45 +6,65 @@
   },
   "riding": {
     "title": "제목",
-    "thumbnail": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/%ED%95%99%EC%82%AC%EB%AA%A8%EC%93%B1.png.png",
-    "riding_level": "초급",
-    "zone": "경기도 성남시",
+    "thumbnail": "https://team-05-storage.s3.ap-northeast-2.amazonaws.com/static/RG_Logo.png",
+    "ridingLevel": "초급",
+    "zone": {
+      "code": 11010,
+      "name": "경기도성남시 분당구"
+    },
     "fee": 0,
-    "estimated_time": "6시간 이상",
-    "created_at": "2022-08-20T07:58:20Z",
-    "riding_date": "2022-08-20T07:58:20Z",
-    "bicycle_type": ["MTB", "픽시"],
-    "riding_courses": ["코스1", "코스2", "코스3"],
-    "max_participant": 15,
-    "min_participant": 4,
+    "estimatedTime": "6시간 이상",
+    "createdAt": "2022-08-20T07:58:20Z",
+    "ridingDate": "2022-08-20T07:58:20Z",
+    "bicycleType": ["MTB", "픽시"],
+    "ridingCourses": ["코스1", "코스2", "코스3"],
+    "maxParticipant": 5,
+    "minParticipant": 2,
     "participants": [
       {
         "id": 7,
         "nickname": "nickname",
-        "profile_image": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/ruslan-bardash-8MhejqEghLk-unsplash.jpg.jpeg"
+        "profileImage": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/ruslan-bardash-8MhejqEghLk-unsplash.jpg.jpeg"
+      },
+      {
+        "id": 8,
+        "nickname": "Matt",
+        "profileImage": "https://cdn.pixabay.com/photo/2018/02/16/14/38/portrait-3157821_960_720.jpg"
       }
     ],
-    "departure_position": {
-      "longitude": "197.25.636",
-      "latitude": "37.252.362"
+    "departurePosition": {
+      "lng": 37.49203922558992,
+      "lat": 127.0298553176825
     },
     "details": [
       {
         "id": 0,
-        "title": "상세정보 제목",
+        "title": "section 1",
         "contents": "상세 정보 내용",
         "images": [
-          "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/zoom-19.jpg.jpeg",
-          "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/8.jpg.jpeg"
+          {
+            "id": 50,
+            "imageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/zoom-19.jpg.jpeg"
+          },
+          {
+            "id": 51,
+            "imageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/8.jpg.jpeg"
+          }
         ]
       },
       {
         "id": 1,
-        "title": "상세정보 제목",
+        "title": "section 2",
         "contents": "상세 정보 내용",
         "images": [
-          "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/8.jpg.jpeg",
-          "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/zoom-19.jpg.jpeg"
+          {
+            "id": 52,
+            "imageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/8.jpg.jpeg"
+          },
+          {
+            "id": 53,
+            "imageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/zoom-19.jpg.jpeg"
+          }
         ]
       }
     ]
