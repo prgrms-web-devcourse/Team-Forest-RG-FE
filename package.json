@@ -29,6 +29,7 @@
     "@tanstack/react-query": "^4.0.10",
     "axios": "^0.27.2",
     "dayjs": "^1.11.4",
+    "dotenv": "^16.0.1",
     "emotion-reset": "^3.0.1",
     "feather-icons": "^4.29.0",
     "query-string": "^7.1.1",

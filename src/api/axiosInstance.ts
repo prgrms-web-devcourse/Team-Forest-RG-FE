@@ -1,7 +1,10 @@
+/* eslint-disable no-param-reassign */
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-const host = process.env.REACT_APP_SERVER_HOST ?? "https://rg-server.p-e.kr";
-const port = process.env.REACT_APP_SERVER_PORT ?? 443;
+const host = "https://rg-server.p-e.kr";
+const port = "443";
+
+console.log("env_host", process.env.REACT_APP_SERVER_HOST);
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: `${host}:${port}`,
