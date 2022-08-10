@@ -16,7 +16,8 @@
     "baseUrl": "./", // 비상대적 import 모듈 해석시 기준이 되는 경로
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["kakao.maps.d.ts"]
   },
 
   "include": ["src"]

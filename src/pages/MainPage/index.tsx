@@ -1,5 +1,7 @@
+import RidingDetail from "../RidingDetail";
+
 function MainPage() {
-  return <div>MainPage</div>;
+  return <RidingDetail />;
 }
 
 export default MainPage;
