@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import {
   RadioGroupProps,
@@ -81,6 +80,7 @@ const Radio = React.forwardRef<HTMLButtonElement, CustomRadioProps>(
             <FormControlLabel
               key={value}
               value={value}
+              sx={{ margin: 0 }}
               control={
                 <CustomRadio
                   size={size}

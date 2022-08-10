@@ -14,6 +14,7 @@ import {
   regionOptions,
 } from "../../registerService";
 import { StyledForm } from "./RegisterForm.style";
+import Button from "@/components/Button";
 
 const RegisterForm = () => {
   const {
@@ -95,13 +96,13 @@ const RegisterForm = () => {
           variant="outlined"
           btnColor="#999"
           checkedBtnColor="primary"
+          direction="horizontal"
           {...register("bicycles")}
         />
       </WithLabel>
-
-      <div>
-        <button type="submit">제출</button>
-      </div>
+      <Button type="submit" size="large">
+        제출
+      </Button>
     </StyledForm>
   );
 };
