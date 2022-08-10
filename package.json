@@ -4,9 +4,9 @@
   "description": "Forest 팀 프론트엔드 repository입니다.",
   "main": "index.ts",
   "scripts": {
-    "dev": "webpack-dev-server --mode=development --open --hot --progress",
-    "build": "webpack --mode=production  --progress",
-    "start": "webpack --mode=development  --progress",
+    "dev": "webpack-dev-server --mode development --open --hot --progress",
+    "build": "webpack --mode production --progress",
+    "start": "webpack --mode evelopment --progress",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

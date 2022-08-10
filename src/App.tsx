@@ -12,6 +12,7 @@ import AuthRoute from "@/routes/AuthRoute";
 import RequireAuth from "@/routes/PrivateRoute";
 
 function App() {
+  console.log(process.env.REACT_APP_TOML_ENV_VAR);
   return (
     <BrowserRouter>
       <Routes>
