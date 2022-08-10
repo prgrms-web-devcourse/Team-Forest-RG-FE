@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
 import DaumPostcodeEmbed, { Address } from "react-daum-postcode";
 import Input from "@/components/Input";
-import useGeocoder from "@/pages/PostPage/hooks/useGeocoder";
+import { useGeocoder } from "@/pages/PostPage/hooks";
 import Button from "@/components/Button";
 import MapViewer from "./MapViewer";
 import {
