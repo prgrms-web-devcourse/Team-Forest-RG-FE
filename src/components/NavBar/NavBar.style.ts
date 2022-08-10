@@ -10,6 +10,7 @@ export const NavBarContainer = styled.div`
 
   width: 100%;
   height: 5rem;
+  background-color: white;
   border-bottom: 3px solid black;
 `;
 
