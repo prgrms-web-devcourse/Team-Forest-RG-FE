@@ -34,9 +34,10 @@ function LoginPage() {
     // Todo: location.state Type문제 해결
     const fromUrl = location.state ? (location.state as any).from : "/";
     const kakaoAuthLink = `https://kauth.kakao.com/oauth/authorize?client_id=${
-      process.env.REACT_APP_REST_API_KEY
+      process.env.REACT_APP_REST_API_KEY ?? "8f248aa7874df072e8d15b2d0b284108"
     }&redirect_uri=${
-      process.env.REACT_APP_REDIRECT_URI
+      process.env.REACT_APP_REDIRECT_URI ??
+      "https://test-005--cool-dusk-ced14a.netlify.app/login"
     }&response_type=code&state=${JSON.stringify(fromUrl)}`;
     window.location.href = kakaoAuthLink;
   };

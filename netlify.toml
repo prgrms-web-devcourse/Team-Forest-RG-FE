@@ -1,0 +1,12 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[build]
+  command = "npm run build && node ./test.ts"
+  publish = "dist"
+
+[context.production.environment]
+  TOML_ENV_VAR = "From netlify.toml"
+  REACT_APP_TOML_ENV_VAR = "From netlify.toml (REACT_APP_)"
