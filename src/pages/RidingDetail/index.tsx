@@ -4,18 +4,34 @@ import { Grid } from "@mui/material";
 import { getDetailPage } from "@/api/mock";
 import Header from "./components/Header";
 import SideInfo from "./components/SideInfo";
+import MainInfo from "./components/MainInfo";
 
 type sideDataType = Pick<React.ComponentProps<typeof SideInfo>, "data">["data"];
+type mainDataType = React.ComponentProps<typeof MainInfo>;
 
 const RidingDetail = () => {
   const [sideData, setSideData] = useState<sideDataType | null>(null);
+  const [mainData, setMainData] = useState<mainDataType | null>(null);
   const { data: detailData, isSuccess } = useQuery(
     ["riding-detail"],
     getDetailPage,
     {
       onSuccess: (data) => {
-        console.log(data);
-        setSideData({ ...data.riding });
+        const {
+          title,
+          thumbnail,
+          ridingCourses,
+          departurePosition,
+          details,
+          createdAt,
+          ...side
+        } = data.riding;
+        setSideData(side);
+        setMainData({
+          ridingCourses,
+          departurePosition,
+          details,
+        });
       },
     }
   );
@@ -33,9 +49,9 @@ const RidingDetail = () => {
               />
             </Grid>
           </Grid>
-          <Grid container item>
+          <Grid container item spacing={3}>
             <Grid item xs={8}>
-              main section
+              {mainData && <MainInfo {...mainData} />}
             </Grid>
             <Grid item xs={4}>
               {sideData && <SideInfo data={sideData} />}
