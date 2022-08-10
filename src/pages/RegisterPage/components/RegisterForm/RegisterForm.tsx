@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
@@ -14,13 +13,7 @@ import {
   RadioIconButton,
   regionOptions,
 } from "../../registerService";
-
-const StyledForm = styled.form`
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
+import { StyledForm } from "./RegisterForm.style";
 
 const RegisterForm = () => {
   const {

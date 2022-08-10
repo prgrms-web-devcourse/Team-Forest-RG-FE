@@ -1,10 +1,6 @@
 import { TypographyProps } from "@mui/material";
-import styled from "@emotion/styled";
 import Text from "@/components/Text";
-
-const Container = styled.div`
-  width: ${({ width }: { width?: number }) => `${width}px`};
-`;
+import { Container } from "./WithLabel.style";
 
 interface WithLabelProps {
   variant?: TypographyProps["variant"];
