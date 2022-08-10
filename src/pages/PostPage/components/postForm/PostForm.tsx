@@ -103,10 +103,7 @@ function PostForm() {
           <FeeInput />
         </TwoColumnContainer>
         <BicycleTypeInput />
-        <LocationInput
-          error={!!errors.information?.departurePlace}
-          errorMessage={errors.information?.departurePlace?.message}
-        />
+        <LocationInput />
         <Divider />
         <ExpandableInput />
         <Button type="submit">완료</Button>

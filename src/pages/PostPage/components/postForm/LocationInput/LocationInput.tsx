@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
 import DaumPostcodeEmbed, { Address } from "react-daum-postcode";
 import Input from "@/components/Input";
-import { useGeocoder } from "@/pages/PostPage/hooks";
+import useGeocoder from "@/pages/PostPage/hooks/useGeocoder";
 import Button from "@/components/Button";
 import MapViewer from "./MapViewer";
 import {
@@ -13,13 +13,8 @@ import {
 } from "./LocationInput.style";
 import { RidingFormValues } from "../PostForm";
 
-interface LocationInputProps {
-  error?: boolean;
-  errorMessage?: string;
-}
-
 function LocationInput() {
-  const { register, setValue } = useFormContext<LocationInputValue>();
+  const { register, setValue } = useFormContext<RidingFormValues>();
   const { setAddress, LatLng } = useGeocoder();
   const [addressString, setAddressString] = useState<string>("");
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -31,7 +26,10 @@ function LocationInput() {
   };
 
   useEffect(() => {
-    setValue("departurePlace", { lat: LatLng.lat, lng: LatLng.lng });
+    setValue("information.departurePlace", {
+      lat: LatLng.lat,
+      lng: LatLng.lng,
+    });
   }, [LatLng, setValue]);
 
   return (
