@@ -49,7 +49,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       defaultValue,
       InputLabelProps,
       type = "text",
-      inputRef,
       ...props
     },
     ref
@@ -84,7 +83,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         defaultValue={defaultValue}
         InputLabelProps={InputLabelProps}
         type={type}
-        inputRef={inputRef}
         {...props}
       />
     );
