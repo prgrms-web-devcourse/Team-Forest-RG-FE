@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 function useGeocoder() {
   const [geocoder, setGeocoder] = useState<kakao.maps.services.Geocoder>();
   const [address, setAddress] = useState("");
-  const [LatLng, setLatLng] = useState({ lat: -1, lng: -1 });
+  const [LatLng, setLatLng] = useState<{ lat: number; lng: number }>();
   useEffect(() => {
     kakao.maps.load(() => {
       const newGeocoder = new kakao.maps.services.Geocoder();
