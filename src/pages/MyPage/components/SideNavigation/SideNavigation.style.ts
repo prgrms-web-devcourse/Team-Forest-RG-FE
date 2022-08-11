@@ -21,9 +21,6 @@ export const StyledLink = styled(Link)`
   cursor: pointer;
 `;
 
-//* SideNavigation > UserInfo
-// Image
-
 export const Logout = styled.div`
   margin: 0;
   font-family: Pretendard-Regular, Roboto, sans-serif;

@@ -28,12 +28,12 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/posts" element={<ListPage />} />
-            <Route path="/mypage/:id" element={<MyPage />}>
+            <Route path="/mypage" element={<MyPage />}>
               <Route index element={<RidingTab />} />
-              <Route path="/mypage/:id/riding" element={<RidingTab />} />
-              <Route path="/mypage/:id/rating" element={<RatingTab />} />
-              <Route path="/mypage/:id/profile" element={<ProfileModify />} />
-              <Route path="/mypage/:id/privacy" element={<PrivacyModify />} />
+              <Route path="/mypage/riding" element={<RidingTab />} />
+              <Route path="/mypage/rating" element={<RatingTab />} />
+              <Route path="/mypage/profile" element={<ProfileModify />} />
+              <Route path="/mypage/privacy" element={<PrivacyModify />} />
             </Route>
             <Route path="/profile/:id" element={<ProfilePage />} />
             <Route element={<RequireAuth />}>

@@ -1,6 +1,5 @@
 /* eslint-disable no-use-before-define */
-import { useEffect } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import SideNavigation from "./components/SideNavigation";
 import {
   Container,
@@ -9,14 +8,6 @@ import {
 } from "./index.style";
 
 function MyPage() {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  useEffect(() => {
-    if (!id || id === "null") {
-      navigate("/", { replace: true });
-    }
-  }, [id, navigate]);
-
   return (
     <Container>
       <SideNavigationSection>

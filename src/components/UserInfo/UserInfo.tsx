@@ -4,7 +4,7 @@ import Chip from "../Chip";
 
 import * as S from "./UserInfo.style";
 
-interface UserInfoType {
+export interface UserInfoType {
   privacyProfile: {
     phoneNumber: string;
     kakaoEmail: string;

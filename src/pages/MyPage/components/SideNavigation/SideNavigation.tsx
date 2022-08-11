@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Text from "@/components/Text";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { useUserActions } from "@/recoil/actions/auth";
-import * as S from "./SideNavigation.style";
 import user from "@/api/user";
+import Text from "@/components/Text";
 import UserInfo from "@/components/UserInfo";
+import { userState } from "@/recoil/state/authState";
+import { UserInfoType } from "@/components/UserInfo/UserInfo";
+import * as S from "./SideNavigation.style";
 
 const SideNavigation = () => {
-  const { id: userId } = useParams();
-  const [userInfo, setUserInfo] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
   const [loading, setLoading] = useState(true);
   const userActions = useUserActions();
+  const myUserId = useRecoilValue(userState);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const data = userId && (await user.getUserInfo(Number(userId)));
+        if (!myUserId) navigate("/");
+        const data = myUserId && (await user.getUserInfo(Number(myUserId)));
         setUserInfo(data);
       } catch (error) {
         navigate("/");
@@ -24,33 +28,34 @@ const SideNavigation = () => {
     };
     fetchUserInfo();
     setLoading(false);
-  }, [userId]);
+  }, [myUserId]);
 
   if (loading || !userInfo) return <div>Loading</div>;
   return (
     <>
       <UserInfo userInfo={userInfo} />
       <S.UserMenu>
-        <S.StyledLink to={`/mypage/${userId}`}>
+        <div>userId: {myUserId || "없음"}</div>
+        <S.StyledLink to="/mypage">
           <Text variant="h6" textStyle={S.MenuTextStyle}>
             마이페이지
           </Text>
         </S.StyledLink>
         <Text variant="h6" textStyle={S.MenuTextStyle}>
           라이딩 관리
-          <S.StyledLink to={`/mypage/${userId}/riding`}>
+          <S.StyledLink to="/mypage/riding">
             <Text variant="subtitle1">라이딩 현황</Text>
           </S.StyledLink>
-          <S.StyledLink to={`/mypage/${userId}/rating`}>
+          <S.StyledLink to="/mypage/rating">
             <Text variant="subtitle1">라이딩 평가</Text>
           </S.StyledLink>
         </Text>
         <Text variant="h6" textStyle={S.MenuTextStyle}>
           계정 관리
-          <S.StyledLink to={`/mypage/${userId}/profile`}>
+          <S.StyledLink to="/mypage/profile">
             <Text variant="subtitle1">프로필 수정</Text>
           </S.StyledLink>
-          <S.StyledLink to={`/mypage/${userId}/privacy`}>
+          <S.StyledLink to="/mypage/privacy">
             <Text variant="subtitle1">개인정보 수정</Text>
           </S.StyledLink>
         </Text>
