@@ -1,18 +1,20 @@
-import styled from "@emotion/styled";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
 import Button from "@/components/Button";
 import Text from "@/components/Text";
 import Divider from "@/components/Divider";
-import MinMaxInput from "./MinMaxInput/MinMaxInput";
-import EstimatedTimeInput from "./EstimatedTimeInput/EstimatedTimeInput";
-import RegionInput from "./RegionInput/RegionInput";
-import LevelInput from "./LevelInput";
-import FeeInput from "./FeeInput/FeeInput";
-import BicycleTypeInput from "./BicycleTypeInput/BicycleTypeInput";
-import LocationInput from "./LocationInput/LocationInput";
-import ExpandableInput from "./ExpandableInput/ExpandableInput";
+import {
+  BicycleTypeInput,
+  EstimatedTimeInput,
+  ExpandableInput,
+  FeeInput,
+  LevelInput,
+  LocationInput,
+  MinMaxInput,
+  RegionInput,
+} from "./components";
+import { Form, TwoColumnContainer } from "./PostForm.style";
 
 type Section = {
   title: string;
@@ -39,20 +41,6 @@ export type RidingFormValues = {
   };
   detail: Section[];
 };
-
-const Form = styled.form`
-  min-width: 60rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const TwoColumnContainer = styled.div`
-  display: grid;
-  column-gap: 3rem;
-  row-gap: 2rem;
-  grid-template-columns: 1fr 1fr;
-`;
 
 function PostForm() {
   const methods = useForm<RidingFormValues>({
