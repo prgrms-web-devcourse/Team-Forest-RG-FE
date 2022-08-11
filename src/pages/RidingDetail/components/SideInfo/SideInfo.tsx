@@ -1,13 +1,24 @@
 import { useMemo, useState, useEffect } from "react";
-import { Grid, AvatarGroup, Stack } from "@mui/material";
+import {
+  Grid,
+  AvatarGroup,
+  Stack,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Icon,
+  DialogContentText,
+} from "@mui/material";
 import dayjs from "dayjs";
 import Text from "@/components/Text";
-import Card from "@/components/Card";
 import Avatar from "@/components/Avatar";
 import ToolTip from "@/components/ToolTip";
+import Card from "@/components/Card";
 import Chip from "@/components/Chip";
 import Button from "@/components/Button";
 import { keyToLabel } from "./utils/handleData";
+import Modal from "@/components/Modal";
+import useModal from "@/hooks/useModal";
 
 export interface SideInfoProps {
   data: {
@@ -53,7 +64,14 @@ const handleValue = (
       );
     case "bicycleType":
       return (
-        <Stack spacing={2} direction="row">
+        <Stack
+          spacing={2}
+          direction="row"
+          sx={{
+            flexWrap: "wrap",
+            rowGap: 2,
+          }}
+        >
           {(value as SideInfoDataType["bicycleType"]).map((type) => (
             <Chip key={type} label={type} />
           ))}
@@ -82,6 +100,12 @@ const handleValue = (
 
 const SideInfo = ({ data }: SideInfoProps) => {
   const [processedData, setProcessedData] = useState<Array<dataObjectType>>([]);
+  const { open, handleOpen, handleClose } = useModal();
+
+  const onSubmit = () => {
+    console.log("submitted!");
+    handleClose();
+  };
 
   useEffect(() => {
     const newData = (
@@ -96,29 +120,85 @@ const SideInfo = ({ data }: SideInfoProps) => {
 
   const SideInfoBlock = useMemo(() => {
     return (
-      <Grid direction="column" container spacing={2}>
-        {processedData.map(({ label, key, value }) => (
-          <Grid container item spacing={2} key={label} alignItems="center">
-            <Grid item xs={5}>
-              <Text variant="body1">{label}</Text>
+      <>
+        <Grid direction="column" container spacing={2}>
+          {processedData.map(({ label, key, value }) => (
+            <Grid container item spacing={2} key={label} alignItems="center">
+              {key === "bicycleType" ? (
+                <Grid item xs={12} py={0}>
+                  <Accordion
+                    sx={{
+                      maring: 0,
+                      boxShadow: "none",
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<Icon>expand_more</Icon>}
+                      sx={{ padding: 0 }}
+                    >
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        width="100%"
+                      >
+                        <Text variant="body1">{label}</Text>
+                        <Text variant="body1" color="primary">
+                          목록 보기
+                        </Text>
+                      </Stack>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {handleValue(key, value)}
+                    </AccordionDetails>
+                  </Accordion>
+                </Grid>
+              ) : (
+                <>
+                  <Grid item xs={5}>
+                    <Text variant="body1">{label}</Text>
+                  </Grid>
+                  <Grid item xs>
+                    {handleValue(key, value)}
+                  </Grid>
+                </>
+              )}
             </Grid>
-            <Grid item xs>
-              {handleValue(key, value)}
+          ))}
+          <Grid container item alignItems="center">
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={handleOpen}
+                disabled={data.participants.length === data.maxParticipant}
+              >
+                참여하기
+              </Button>
             </Grid>
-          </Grid>
-        ))}
-        <Grid container item alignItems="center">
-          <Grid item xs={12}>
-            <Button fullWidth variant="contained" color="primary">
-              참여하기
-            </Button>
           </Grid>
         </Grid>
-      </Grid>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          onSubmit={onSubmit}
+          label="라이딩 신청"
+        >
+          <DialogContentText>이 라이딩을 신청하시겠습니까?</DialogContentText>
+        </Modal>
+      </>
     );
-  }, [processedData]);
+  }, [processedData, handleOpen, open, handleClose, onSubmit]);
 
-  return <Card content={SideInfoBlock} />;
+  return (
+    <Card
+      content={SideInfoBlock}
+      sx={{
+        position: "sticky",
+        top: "200px",
+      }}
+    />
+  );
 };
 
 export default SideInfo;

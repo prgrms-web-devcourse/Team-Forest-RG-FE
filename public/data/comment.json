@@ -1,0 +1,23 @@
+{
+  "comments": [
+    {
+      "commentId": 1,
+      "parentCommentId": 0,
+      "authorId": 8,
+      "authorName": "Matt",
+      "authorImageUrl": "https://cdn.pixabay.com/photo/2018/02/16/14/38/portrait-3157821_960_720.jpg",
+      "createdAt": "2022-08-20T07:58:20Z",
+      "contents": "안녕하세요! 반갑습니다!",
+      "childComments": [
+        {
+          "commentId": 2,
+          "parentCommentId": 1,
+          "authorId": 3,
+          "authorName": "leader",
+          "contents": "반가워요!",
+          "authorImageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/andrea-brambila-mDMKysUxcCc-unsplash.jpg.jpeg"
+        }
+      ]
+    }
+  ]
+}
