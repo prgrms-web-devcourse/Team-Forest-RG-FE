@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Text from "@/components/Text";
 import Chip from "@/components/Chip";
 import IconButton from "@/components/IconButton";
@@ -12,11 +12,16 @@ const SideNavigation = () => {
   const [userInfo, setUserInfo] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const userActions = useUserActions();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
-      const data = userId && (await user.getUserInfo(Number(userId)));
-      setUserInfo(data);
+      try {
+        const data = userId && (await user.getUserInfo(Number(userId)));
+        setUserInfo(data);
+      } catch (error) {
+        navigate("/");
+      }
     };
     fetchUserInfo();
     setLoading(false);
