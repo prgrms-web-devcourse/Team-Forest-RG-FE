@@ -44,23 +44,20 @@ export type RidingFormValues = {
   detail: Section[];
 };
 
-interface PostFormProps {
-  onSubmit: SubmitHandler<RidingFormValues>;
-  defaultValues?: Partial<RidingFormValues>;
-}
-
-function PostForm({
-  onSubmit,
-  defaultValues = {
-    detail: [{ title: "", images: [], content: "" }],
-  },
-}: PostFormProps) {
-  const methods = useForm<RidingFormValues>({ defaultValues, mode: "onBlur" });
+function PostForm() {
+  const methods = useForm<RidingFormValues>({
+    defaultValues: {
+      detail: [{ title: "", images: [], content: "" }],
+    },
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = methods;
+  const onSubmit: SubmitHandler<RidingFormValues> = (data) => {
+    console.log(data);
+  };
   console.log(errors);
   return (
     <FormProvider {...methods}>
