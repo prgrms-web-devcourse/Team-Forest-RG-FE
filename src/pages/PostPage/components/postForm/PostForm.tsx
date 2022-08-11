@@ -13,6 +13,7 @@ import {
   LocationInput,
   MinMaxInput,
   RegionInput,
+  RouteInput,
 } from "./components";
 import { Form, TwoColumnContainer } from "./PostForm.style";
 
@@ -38,6 +39,7 @@ export type RidingFormValues = {
     };
     thumbnail: number;
     fee: number;
+    routes: string[];
   };
   detail: Section[];
 };
@@ -87,6 +89,7 @@ function PostForm() {
           <MinMaxInput required />
           <EstimatedTimeInput />
           <RegionInput />
+          <RouteInput />
           <LevelInput required />
           <FeeInput />
         </TwoColumnContainer>
