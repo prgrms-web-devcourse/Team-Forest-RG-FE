@@ -16,6 +16,7 @@ import {
   RatingTab,
   PrivacyModify,
 } from "@/pages/MyPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path="/mypage/:id/profile" element={<ProfileModify />} />
               <Route path="/mypage/:id/privacy" element={<PrivacyModify />} />
             </Route>
+            <Route path="/profile/:id" element={<ProfilePage />} />
             <Route element={<RequireAuth />}>
               <Route path="/post" element={<PostPage />} />
             </Route>
