@@ -1,11 +1,12 @@
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import Input from "@/components/Input";
 import { InputContainer } from "./ExpandableInput.style";
 import Button from "@/components/Button";
+import ImageInput from "./ImageInput";
 
 type Section = {
   title: string;
-  image: string[];
+  images: string[];
   content: string;
 };
 
@@ -31,6 +32,13 @@ function ExpandableInput() {
                 maxLength: 30,
               })}
             />
+            <Controller
+              control={control}
+              render={({ field: { onChange, value, ref } }) => (
+                <ImageInput onChange={onChange} value={value} inputRef={ref} />
+              )}
+              name={`detail.${index}.images`}
+            />
             <Input
               multiline
               rows={6}
@@ -46,7 +54,7 @@ function ExpandableInput() {
       ))}
       <Button
         type="button"
-        onClick={() => append({ title: "", image: [], content: "" })}
+        onClick={() => append({ title: "", images: [], content: "" })}
       >
         문단 추가
       </Button>
