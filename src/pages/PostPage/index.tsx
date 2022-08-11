@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { PostForm } from "./components";
+import { RidingFormValues } from "./components/postForm/PostForm";
 
 const Container = styled.div`
   margin: auto;
@@ -9,9 +10,12 @@ const Container = styled.div`
 `;
 
 function PostPage() {
+  const handleSubmit = (data: RidingFormValues) => {
+    console.log(data);
+  };
   return (
     <Container>
-      <PostForm />
+      <PostForm onSubmit={handleSubmit} />
     </Container>
   );
 }
