@@ -27,7 +27,6 @@ function LevelInput({ required = false }: { required?: boolean }) {
       <Text variant="h6">난이도</Text>
       <Radio
         row
-        label="난이도"
         data={levelData}
         useCustomIcon
         icon={RadioIconButton}
