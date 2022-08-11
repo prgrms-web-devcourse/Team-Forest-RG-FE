@@ -1,28 +1,9 @@
 import IconButton from "../IconButton";
 import Text from "../Text";
 import Chip from "../Chip";
-
 import * as S from "./UserInfo.style";
+import { UserInfoType } from "@/pages/MyPage/mypageService";
 
-export interface UserInfoType {
-  privacyProfile: {
-    phoneNumber: string;
-    kakaoEmail: string;
-  };
-  ridingProfile: {
-    nickname: string;
-    profileImage: string;
-    introduction: string;
-    ridingStartYear: number;
-    level: string;
-    bicycles: string[];
-  };
-  manner: {
-    mannerPoint: number;
-    noShow: number;
-    banned: null;
-  };
-}
 interface UserInfoProps {
   userInfo: UserInfoType;
 }
