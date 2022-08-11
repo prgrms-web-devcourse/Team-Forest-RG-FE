@@ -3,19 +3,10 @@ import Input from "@/components/Input";
 import { InputContainer } from "./ExpandableInput.style";
 import Button from "@/components/Button";
 import ImageInput from "./ImageInput";
-
-type Section = {
-  title: string;
-  images: string[];
-  content: string;
-};
-
-type Sections = {
-  detail: Section[];
-};
+import { RidingFormValues } from "../../PostForm";
 
 function ExpandableInput() {
-  const { control, register } = useFormContext<Sections>();
+  const { control, register } = useFormContext<RidingFormValues>();
   const { fields, append, remove } = useFieldArray({
     name: "detail",
     control,
