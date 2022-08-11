@@ -5,13 +5,13 @@ import Input from "@/components/Input";
 import { useGeocoder } from "@/pages/PostPage/hooks";
 import Button from "@/components/Button";
 import MapViewer from "./MapViewer";
+import { RidingFormValues } from "../../PostForm";
 import {
   Container,
   InputContainer,
   MapWrapper,
   PostSearchWrapper,
 } from "./LocationInput.style";
-import { RidingFormValues } from "../PostForm";
 
 function LocationInput() {
   const { register, setValue } = useFormContext<RidingFormValues>();
@@ -48,13 +48,12 @@ function LocationInput() {
           <MapViewer lat={LatLng.lat} lng={LatLng.lng} level={3} />
         </MapWrapper>
       )}
-      {false && (
-        <Input
-          {...register("information.departurePlace", {
-            required: "필수 입력항목입니다.",
-          })}
-        />
-      )}
+      <input
+        hidden
+        {...register("information.departurePlace", {
+          required: "필수 입력항목입니다.",
+        })}
+      />
     </Container>
   );
 }
