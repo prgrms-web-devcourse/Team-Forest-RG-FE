@@ -5,11 +5,18 @@ import Layout, {
   MainPage,
   NotFoundPage,
   PostPage,
-  ProfilePage,
+  MyPage,
   RegisterPage,
 } from "@/pages";
 import AuthRoute from "@/routes/AuthRoute";
 import RequireAuth from "@/routes/PrivateRoute";
+import {
+  RidingTab,
+  ProfileModify,
+  RatingTab,
+  PrivacyModify,
+} from "@/pages/MyPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -21,7 +28,14 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/posts" element={<ListPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/mypage" element={<MyPage />}>
+              <Route index element={<RidingTab />} />
+              <Route path="/mypage/riding" element={<RidingTab />} />
+              <Route path="/mypage/rating" element={<RatingTab />} />
+              <Route path="/mypage/profile" element={<ProfileModify />} />
+              <Route path="/mypage/privacy" element={<PrivacyModify />} />
+            </Route>
+            <Route path="/profile/:id" element={<ProfilePage />} />
             <Route element={<RequireAuth />}>
               <Route path="/post" element={<PostPage />} />
             </Route>

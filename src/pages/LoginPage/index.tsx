@@ -42,17 +42,16 @@ function LoginPage() {
   };
 
   return (
-    <div>
-      <Container>
-        <div
-          onClick={handleKakaoLogin}
-          onKeyDown={handleKakaoLogin}
-          role="button"
-          tabIndex={0}>
-          <img src={kakaoImage} alt="kakaoLogin" width="250px" />
-        </div>
-      </Container>
-    </div>
+    <Container>
+      <div
+        onClick={handleKakaoLogin}
+        onKeyDown={handleKakaoLogin}
+        role="button"
+        tabIndex={0}
+      >
+        <img src={kakaoImage} alt="kakaoLogin" width="250px" />
+      </div>
+    </Container>
   );
 }
 

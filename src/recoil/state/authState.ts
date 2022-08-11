@@ -27,3 +27,8 @@ export const isAuthState = atom<boolean>({
   key: "isAuth",
   default: false,
 });
+
+export const userState = atom<number | null>({
+  key: "user",
+  default: null,
+});

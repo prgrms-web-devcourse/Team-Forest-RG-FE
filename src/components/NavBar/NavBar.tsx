@@ -1,7 +1,6 @@
 import { useRecoilValue } from "recoil";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import { useUserActions } from "@/recoil/actions/auth";
-import { tokenState, isAuthState } from "@/recoil/state/authState";
+import { isAuthState } from "@/recoil/state/authState";
 import {
   NavBarContainer,
   ContentContainer,
@@ -13,8 +12,6 @@ import {
 import rgLogo from "@/assets/RG_Logo.png";
 
 const NavBar = () => {
-  const userActions = useUserActions();
-  const token = useRecoilValue(tokenState);
   const isAuth = useRecoilValue(isAuthState);
 
   return (
@@ -32,7 +29,7 @@ const NavBar = () => {
             {isAuth ? (
               <>
                 <NotificationsNoneIcon />
-                <StyledLink to="/profile"> 마이페이지 </StyledLink>
+                <StyledLink to="/mypage"> 마이페이지 </StyledLink>
               </>
             ) : (
               <StyledLink to="/login"> 로그인 / 회원가입 </StyledLink>
@@ -41,10 +38,6 @@ const NavBar = () => {
         </ContentContainer>
       </NavBarContainer>
       <NavBarSpace />
-      <div>token: {token || "없음"}</div>
-      <button type="button" onClick={() => userActions.logout()}>
-        로그아웃
-      </button>
     </>
   );
 };
