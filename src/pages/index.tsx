@@ -25,4 +25,4 @@ export { default as LoginPage } from "./LoginPage";
 export { default as PostPage } from "./PostPage";
 export { default as RegisterPage } from "./RegisterPage";
 export { default as ListPage } from "./ListPage";
-export { default as ProfilePage } from "./ProfilePage";
+export { default as MyPage } from "./MyPage";

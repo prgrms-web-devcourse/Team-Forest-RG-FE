@@ -5,7 +5,7 @@ import Layout, {
   MainPage,
   NotFoundPage,
   PostPage,
-  ProfilePage,
+  MyPage,
   RegisterPage,
 } from "@/pages";
 import AuthRoute from "@/routes/AuthRoute";
@@ -21,7 +21,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/posts" element={<ListPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/mypage" element={<MyPage />} />
             <Route element={<RequireAuth />}>
               <Route path="/post" element={<PostPage />} />
             </Route>
