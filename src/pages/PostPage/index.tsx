@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PostForm } from "./components";
+import { RidingFormValues } from "./components/postForm/PostForm";
 import auth from "@/api/auth";
 
 const Container = styled.div`
@@ -23,9 +24,12 @@ function PostPage() {
     };
     checkIsRegister();
   }, []);
+  const handleSubmit = (data: RidingFormValues) => {
+    console.log(data);
+  };
   return (
     <Container>
-      <PostForm />
+      <PostForm onSubmit={handleSubmit} />
     </Container>
   );
 }
