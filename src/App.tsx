@@ -10,6 +10,12 @@ import Layout, {
 } from "@/pages";
 import AuthRoute from "@/routes/AuthRoute";
 import RequireAuth from "@/routes/PrivateRoute";
+import {
+  RidingTab,
+  ProfileModify,
+  RatingTab,
+  PrivacyModify,
+} from "@/pages/MyPage";
 
 function App() {
   return (
@@ -21,7 +27,13 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/posts" element={<ListPage />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/:id" element={<MyPage />}>
+              <Route index element={<RidingTab />} />
+              <Route path="/mypage/:id/riding" element={<RidingTab />} />
+              <Route path="/mypage/:id/rating" element={<RatingTab />} />
+              <Route path="/mypage/:id/profile" element={<ProfileModify />} />
+              <Route path="/mypage/:id/privacy" element={<PrivacyModify />} />
+            </Route>
             <Route element={<RequireAuth />}>
               <Route path="/post" element={<PostPage />} />
             </Route>
