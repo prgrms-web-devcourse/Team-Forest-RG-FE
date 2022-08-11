@@ -15,23 +15,22 @@ function RouteInput() {
   const handleKeydown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key !== "Enter") return;
+      if (!(e.target instanceof HTMLInputElement)) return;
       e.preventDefault();
-      if (e.target instanceof HTMLInputElement) {
-        const inputValue = e.target.value;
-        if (inputValue.length < 1) {
-          setError("information.routes", {
-            type: "custom",
-            message: "1글자 이상 입력해주세요",
-          });
-        } else if (route.length >= 5) {
-          setError("information.routes", {
-            type: "custom",
-            message: "5개까지 입력 가능합니다.",
-          });
-        } else {
-          setRoute((prev) => [...prev, inputValue]);
-          e.target.value = "";
-        }
+      const inputValue = e.target.value;
+      if (inputValue.length < 1) {
+        setError("information.routes", {
+          type: "custom",
+          message: "1글자 이상 입력해주세요",
+        });
+      } else if (route.length >= 5) {
+        setError("information.routes", {
+          type: "custom",
+          message: "5개까지 입력 가능합니다.",
+        });
+      } else {
+        setRoute((prev) => [...prev, inputValue]);
+        e.target.value = "";
       }
     },
     [route, setError]
@@ -46,7 +45,9 @@ function RouteInput() {
   }, [handleKeydown, inputRef]);
 
   useEffect(() => {
-    setValue("information.routes", route, { shouldValidate: true });
+    setValue("information.routes", route, {
+      shouldValidate: route.length !== 0,
+    });
   }, [route, setValue]);
 
   return (
