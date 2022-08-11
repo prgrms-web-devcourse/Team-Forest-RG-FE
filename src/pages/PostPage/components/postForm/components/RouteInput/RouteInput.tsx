@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { createRef, useCallback, useEffect, useState } from "react";
 import { Breadcrumbs, Icon } from "@mui/material";
 import { RidingFormValues } from "../../PostForm";
-import { InputContainer, InvisibleWrapper } from "./RouteInput.style";
+import { InputContainer } from "./RouteInput.style";
 import Text from "@/components/Text";
 import Input from "@/components/Input";
 import Chip from "@/components/Chip";
@@ -74,14 +74,13 @@ function RouteInput() {
           ))}
         </Breadcrumbs>
       </InputContainer>
-      <InvisibleWrapper>
-        <Input
-          {...register("information.routes", {
-            required: true,
-            validate: { maxLength: (value) => value.length <= 5 },
-          })}
-        />
-      </InvisibleWrapper>
+      <input
+        hidden
+        {...register("information.routes", {
+          required: true,
+          validate: { maxLength: (value) => value.length <= 5 },
+        })}
+      />
     </div>
   );
 }
