@@ -1,5 +1,6 @@
 import {
   Card as MuiCard,
+  CardProps as MuiCardProps,
   CardActions,
   CardContent,
   CardHeader,
@@ -8,7 +9,7 @@ import {
   CardMediaProps,
 } from "@mui/material";
 
-interface CardProps {
+interface CardProps extends MuiCardProps {
   variant?: "outlined" | "elevation";
   useHeader?: boolean;
   headerOptions?: CardHeaderProps<"div">;
@@ -30,9 +31,10 @@ const Card = ({
   children,
   useHeader,
   useMedia,
+  ...props
 }: CardProps) => {
   return (
-    <MuiCard variant={variant}>
+    <MuiCard variant={variant} {...props}>
       {custom ? (
         children
       ) : (

@@ -26,7 +26,7 @@ const Map = ({ lat, lng }: Props) => {
     });
   }, [lat, lng]);
 
-  return <div style={{ width: "100%", height: "200px" }} ref={mapRef} />;
+  return <div style={{ width: "100%", height: "300px" }} ref={mapRef} />;
 };
 
 export default Map;
