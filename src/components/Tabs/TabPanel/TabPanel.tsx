@@ -5,8 +5,8 @@ interface TabPanelProps {
 }
 
 const TabPanel = ({ children, currentValue, tabValue }: TabPanelProps) => (
-  <div hidden={currentValue !== tabValue}>
-    {currentValue === tabValue && children}
+  <div role="tabpanel" hidden={currentValue !== tabValue}>
+    {children}
   </div>
 );
 

@@ -21,7 +21,9 @@ interface InputProps {
   InputLabelProps?: TextFieldProps["InputLabelProps"];
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+type customInputProps = InputProps & TextFieldProps;
+
+const Input = React.forwardRef<HTMLInputElement, customInputProps>(
   (
     {
       label,
