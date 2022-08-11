@@ -21,4 +21,15 @@ const register = async (registerData: RegisterData) => {
   }
 };
 
-export default { register };
+const getUserInfo = async (id: number) => {
+  try {
+    const res = await axiosInstance({
+      method: "GET",
+      url: `api/v1/users/${id}`,
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error("getUserInfo Failed");
+  }
+};
+export default { register, getUserInfo };

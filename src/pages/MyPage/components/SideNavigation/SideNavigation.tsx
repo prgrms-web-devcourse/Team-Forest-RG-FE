@@ -1,21 +1,33 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Text from "@/components/Text";
-import { userMockData as data } from "../../mypageService";
 import Chip from "@/components/Chip";
 import IconButton from "@/components/IconButton";
 import { useUserActions } from "@/recoil/actions/auth";
 import * as S from "./SideNavigation.style";
+import user from "@/api/user";
 
-interface SideNavigationProps {
-  userId: string | undefined;
-}
-const SideNavigation = ({ userId }: SideNavigationProps) => {
+const SideNavigation = () => {
+  const { id: userId } = useParams();
+  const [userInfo, setUserInfo] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const userActions = useUserActions();
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const data = userId && (await user.getUserInfo(Number(userId)));
+      setUserInfo(data);
+    };
+    fetchUserInfo();
+    setLoading(false);
+  }, [userId]);
+
+  if (loading || !userInfo) return <div>Loading</div>;
   return (
     <>
       <S.UserInfo>
         <S.UserIamgeBox>
-          <S.UserIamge src={data.ridingProfile.profileImage} />
+          <S.UserIamge src={userInfo.ridingProfile.profileImage} />
           <S.EditButton>
             <IconButton iconName="add_circle" component="label" color="primary">
               <input hidden accept="image/*" multiple type="file" />
@@ -23,10 +35,10 @@ const SideNavigation = ({ userId }: SideNavigationProps) => {
           </S.EditButton>
         </S.UserIamgeBox>
         <S.UserNickName>
-          <Text variant="h6">{data.ridingProfile.nickname}</Text>
+          <Text variant="h6">{userInfo.ridingProfile.nickname}</Text>
         </S.UserNickName>
         <S.UserChipBox>
-          {data.ridingProfile.bicycles.map((bike) => (
+          {userInfo.ridingProfile.bicycles.map((bike: string) => (
             <Chip
               key={bike}
               label={bike}
@@ -36,7 +48,7 @@ const SideNavigation = ({ userId }: SideNavigationProps) => {
           ))}
           <Chip
             label={`${
-              new Date().getFullYear() - data.ridingProfile.ridingStartYear
+              new Date().getFullYear() - userInfo.ridingProfile.ridingStartYear
             }년차`}
             bgColor="royalblue"
             textColor="white"
@@ -47,13 +59,13 @@ const SideNavigation = ({ userId }: SideNavigationProps) => {
           <S.GrayBox>
             <Text variant="body2">level</Text>
             <Text variant="body1" textStyle={{ fontWeight: 800 }}>
-              {data.ridingProfile.level}🦽
+              {userInfo.ridingProfile.level}🦽
             </Text>
           </S.GrayBox>
           <S.GrayBox>
             <Text variant="body2">매너</Text>
             <Text variant="body1" textStyle={{ fontWeight: 800 }}>
-              {data.manner.mannerPoint} 😀
+              {userInfo.manner.mannerPoint} 😀
             </Text>
           </S.GrayBox>
         </S.UserScoreBox>

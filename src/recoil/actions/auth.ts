@@ -1,12 +1,13 @@
 import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { tokenState, isAuthState } from "../state/authState";
+import { tokenState, isAuthState, userState } from "../state/authState";
 import auth from "@/api/auth";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 function useUserActions() {
   const setToken = useSetRecoilState(tokenState);
   const setIsAuth = useSetRecoilState(isAuthState);
+  const setUser = useSetRecoilState(userState);
   const [item, setItem] = useLocalStorage("token", "");
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ function useUserActions() {
   const logout = () => {
     setToken(null);
     setIsAuth(false);
+    setUser(null);
     navigate("/", { replace: true });
   };
 
@@ -41,11 +43,13 @@ function useUserActions() {
   //* AuthRoute 진입 시 바로 실행하여, 로그인 유지 및 현재 토큰 유효성 확인 용도
   const authUser = async () => {
     try {
-      await auth.checkAuth();
+      const data = await auth.checkAuth();
       setIsAuth(true);
+      setUser(data.userId);
     } catch (error) {
       setToken(null);
       setIsAuth(false);
+      setUser(null);
     }
   };
 
