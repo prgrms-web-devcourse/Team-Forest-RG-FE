@@ -3,13 +3,11 @@ import Text from "@/components/Text";
 import { userMockData as data } from "./mypageService";
 import Chip from "@/components/Chip";
 import IconButton from "@/components/IconButton";
-import * as S from "./myPage.style";
+import { useUserActions } from "@/recoil/actions/auth";
+import * as S from "./index.style";
 
 function MyPage() {
-  const MenuTextStyle = {
-    fontWeight: 800,
-    marginBottom: "2rem",
-  };
+  const userActions = useUserActions();
   return (
     <S.MyPageContainer>
       <S.SideNavigation>
@@ -62,11 +60,11 @@ function MyPage() {
         </S.UserInfo>
         <S.UserMenu>
           <S.StyledLink to="/mypage">
-            <Text variant="h6" textStyle={MenuTextStyle}>
+            <Text variant="h6" textStyle={S.MenuTextStyle}>
               마이페이지
             </Text>
           </S.StyledLink>
-          <Text variant="h6" textStyle={MenuTextStyle}>
+          <Text variant="h6" textStyle={S.MenuTextStyle}>
             라이딩 관리
             <S.StyledLink to="/mypage/riding">
               <Text variant="subtitle1">라이딩 현황</Text>
@@ -75,7 +73,7 @@ function MyPage() {
               <Text variant="subtitle1">라이딩 평가</Text>
             </S.StyledLink>
           </Text>
-          <Text variant="h6" textStyle={MenuTextStyle}>
+          <Text variant="h6" textStyle={S.MenuTextStyle}>
             계정 관리
             <S.StyledLink to="/mypage/rating">
               <Text variant="subtitle1">프로필 수정</Text>
@@ -84,9 +82,14 @@ function MyPage() {
               <Text variant="subtitle1">개인정보 수정</Text>
             </S.StyledLink>
           </Text>
-          <Text variant="h6" textStyle={MenuTextStyle}>
+          <S.Logout
+            onClick={() => userActions.logout()}
+            onKeyDown={() => userActions.logout()}
+            role="button"
+            tabIndex={0}
+          >
             로그아웃
-          </Text>
+          </S.Logout>
         </S.UserMenu>
       </S.SideNavigation>
       <S.ContentContainer>컨텐츠영역</S.ContentContainer>

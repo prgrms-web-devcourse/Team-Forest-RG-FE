@@ -122,3 +122,18 @@ export const MannerPoint = styled.div`
   background: #fafafa;
   border-radius: 1rem;
 `;
+
+export const Logout = styled.div`
+  margin: 0;
+  font-family: Pretendard-Regular, Roboto, sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.6;
+
+  cursor: pointer;
+`;
+
+export const MenuTextStyle = {
+  fontWeight: 800,
+  marginBottom: "2rem",
+};

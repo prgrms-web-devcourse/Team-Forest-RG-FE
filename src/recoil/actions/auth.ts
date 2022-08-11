@@ -34,6 +34,7 @@ function useUserActions() {
   const logout = () => {
     setToken(null);
     setIsAuth(false);
+    navigate("/", { replace: true });
   };
 
   //* Token이 유효한지 확인 후, 유효 여부에 따라 유저 정보 저장 및 비우기 처리
