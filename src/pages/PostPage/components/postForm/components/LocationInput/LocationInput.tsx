@@ -26,6 +26,7 @@ function LocationInput() {
   };
 
   useEffect(() => {
+    if (!LatLng) return;
     setValue("information.departurePlace", {
       lat: LatLng.lat,
       lng: LatLng.lng,
@@ -43,7 +44,7 @@ function LocationInput() {
           <DaumPostcodeEmbed onComplete={onComplete} autoClose={false} />
         </PostSearchWrapper>
       )}
-      {addressString && (
+      {addressString && LatLng && (
         <MapWrapper>
           <MapViewer lat={LatLng.lat} lng={LatLng.lng} level={3} />
         </MapWrapper>
