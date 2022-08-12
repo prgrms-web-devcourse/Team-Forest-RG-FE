@@ -60,7 +60,7 @@ const ImageInput = ({
       </Button>
       <ImageViewer images={imageList} />
       {error && <Text variant="caption">{errorMessage}</Text>}
-      <input hidden value={value} ref={inputRef} />
+      <input hidden value={value} ref={inputRef} readOnly />
     </div>
   );
 };
