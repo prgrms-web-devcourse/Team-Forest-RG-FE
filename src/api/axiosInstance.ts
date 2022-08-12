@@ -17,6 +17,7 @@ axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
       const item = localStorage.getItem("token");
       return item ? JSON.parse(item) : null;
     };
+    // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = getToken() ? `Bearer ${getToken()}` : "";
   }
   return config;
