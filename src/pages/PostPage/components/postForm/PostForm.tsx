@@ -4,6 +4,7 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+import dayjs from "dayjs";
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
 import Button from "@/components/Button";
@@ -33,7 +34,7 @@ type Section = {
 export type RidingFormValues = {
   information: {
     title: string;
-    ridingDate: string;
+    ridingDate: Date | string;
     minParticipantCount: number;
     maxParticipantCount: number;
     bicycleTypes: string[];
@@ -105,11 +106,17 @@ function PostForm({
             isRequired
             labelProps={{ marginBottom: true }}
           >
-            <DatePicker
-              {...register("information.ridingDate", {
-                valueAsDate: true,
-                // TODO validate 추가
-              })}
+            <Controller
+              control={control}
+              name="information.ridingDate"
+              render={({ field }) => <DatePicker {...field} />}
+              rules={{
+                validate: {
+                  afterNow: (value) => {
+                    return dayjs(value).diff(dayjs()) > 0;
+                  },
+                },
+              }}
             />
           </WithLabel>
 
