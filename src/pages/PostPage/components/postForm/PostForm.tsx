@@ -176,7 +176,11 @@ function PostForm({
             isRequired
             labelProps={{ marginBottom: true }}
           >
-            <RouteInput />
+            <Controller
+              control={control}
+              name="information.routes"
+              render={({ field }) => <RouteInput {...field} />}
+            />
           </WithLabel>
           <WithLabel
             variant="h6"
