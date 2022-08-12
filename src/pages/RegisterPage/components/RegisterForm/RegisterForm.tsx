@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
@@ -24,6 +24,7 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm<RegisterData>();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit = async (data: any) => {
     const parsedData = { ...data };
@@ -34,7 +35,8 @@ const RegisterForm = () => {
       parsedData.favoriteRegionCode = 0;
     }
     await user.register(data);
-    navigate("/", { replace: true });
+    const from = (location.state as any)?.from || "/";
+    navigate(from, { replace: true });
   };
 
   return (
