@@ -407,13 +407,22 @@ export const userMockData: UserInfoType = {
     ],
   },
 };
-
-export const RIDING_TAB_PANELS = [
+interface TabPanelType {
+  label: string;
+  value: "scheduled" | "finished" | "leading";
+}
+export interface TabDataType {
+  value: "scheduled" | "finished" | "leading";
+  targetData: JSX.Element;
+}
+export const RIDING_TAB_PANELS: TabPanelType[] = [
   { label: "예정된 라이딩", value: "scheduled" },
   { label: "지난 라이딩", value: "finished" },
   { label: "내가 만든 라이딩", value: "leading" },
 ];
 
-export const DEFAULT_RIDING_TAB_ITEM_LIST = RIDING_TAB_PANELS.map(
-  ({ label, value }) => ({ value, targetData: <div>{label}</div> })
-);
+export const DEFAULT_RIDING_TAB_ITEM_LIST: TabDataType[] =
+  RIDING_TAB_PANELS.map(({ label, value }) => ({
+    value,
+    targetData: <div>{label}</div>,
+  }));

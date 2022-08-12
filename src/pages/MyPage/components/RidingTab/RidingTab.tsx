@@ -11,10 +11,6 @@ import {
 import RidingRecords from "../RidingRecords";
 import { Container, TabContainer } from "./RidingTab.style";
 
-interface TabDataType {
-  value: string;
-  targetData: JSX.Element;
-}
 function RidingTab() {
   const myUserId = useRecoilValue(userState);
   const [userInfo, loading] = useUserInfo(myUserId);
@@ -22,9 +18,11 @@ function RidingTab() {
 
   useEffect(() => {
     const makeTabData = (user: any) =>
-      TabData.map((tab: TabDataType) => ({
+      TabData.map((tab) => ({
         value: tab.value,
-        targetData: <RidingRecords ridings={user.ridings[tab.value]} />,
+        targetData: (
+          <RidingRecords ridings={user.ridings[tab.value]} status={tab.value} />
+        ),
       }));
 
     if (userInfo) {
@@ -36,7 +34,9 @@ function RidingTab() {
   if (loading) return <div>Loading</div>;
   return (
     <Container>
-      <Text variant="h4">{myUserId}의 라이딩 내역</Text>
+      <Text variant="h5" textStyle={{ fontWeight: 600 }}>
+        나의 라이딩 내역
+      </Text>
       <TabContainer>
         <Tabs
           data={RIDING_TAB_PANELS}

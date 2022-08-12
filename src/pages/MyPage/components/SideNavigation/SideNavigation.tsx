@@ -23,7 +23,6 @@ const SideNavigation = () => {
     <>
       <UserInfo userInfo={userInfo} />
       <S.UserMenu>
-        <div>userId: {myUserId || "없음"}</div>
         <S.StyledLink to="/mypage">
           <Text variant="h6" textStyle={S.MenuTextStyle}>
             마이페이지
