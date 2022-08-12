@@ -1,5 +1,6 @@
 import { useRecoilValue } from "recoil";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { userState } from "@/recoil/state/authState";
 import Text from "@/components/Text";
 import Tabs from "@/components/Tabs";
@@ -16,6 +17,7 @@ function RidingTab() {
   const myUserId = useRecoilValue(userState);
   const [userInfo, loading] = useUserInfo(myUserId);
   const [TabData, setTabData] = useState(DEFAULT_RIDING_TAB_ITEM_LIST);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const makeTabData = (userData: UserInfoType) =>
@@ -25,6 +27,8 @@ function RidingTab() {
           <RidingRecords
             ridings={userData.ridings[tab.value]}
             status={tab.value}
+            onClickCard={handleCardClick}
+            onCancelRiding={handleCancelClick}
           />
         ),
       }));
@@ -34,6 +38,15 @@ function RidingTab() {
       setTabData(newTabData);
     }
   }, [myUserId, userInfo]);
+
+  const handleCardClick = (e: React.MouseEvent, id: number) => {
+    navigate(`/post/${id}`);
+  };
+
+  const handleCancelClick = (e: React.MouseEvent, id: number) => {
+    e.stopPropagation();
+    alert(`${id}번 라이딩 예약을 취소하시겠습니까?`);
+  };
 
   if (loading) return <div>Loading</div>;
   return (

@@ -10,12 +10,19 @@ import Button from "@/components/Button";
 interface RidingLongCardProps {
   data: Riding;
   scheduled?: boolean;
+  onClickCard: (e: React.MouseEvent, id: number) => void;
+  onCancelRiding: (e: React.MouseEvent, id: number) => void;
 }
-const RidingLongCard = ({ data, scheduled }: RidingLongCardProps) => {
+const RidingLongCard = ({
+  data,
+  scheduled,
+  onClickCard,
+  onCancelRiding,
+}: RidingLongCardProps) => {
   const { riding } = data;
 
   return (
-    <Container>
+    <Container onClick={(e) => onClickCard(e, data.postId)}>
       <Stack direction="row" spacing={1} mb={1}>
         <StyledImg src={riding.thumbnail} alt={riding.title} />
         <Stack direction="column">
@@ -38,20 +45,25 @@ const RidingLongCard = ({ data, scheduled }: RidingLongCardProps) => {
               />
             ))}
           </Stack>
-          <Text variant="body2" textStyle={{ color: "black", fontWeight: 700 }}>
-            <Stack direction="row" spacing={1} mb={1}>
-              {riding.estimatedTime} (
-              {riding.ridingCourses.map((course, idx, ridings) => (
-                <Text
-                  variant="body2"
-                  textStyle={{ color: "black", fontWeight: 700 }}
-                >
-                  {course} {ridings.length - 1 !== idx && ">"}
-                </Text>
-              ))}
-              )
-            </Stack>
-          </Text>
+          <Stack direction="row" spacing={1} mb={1}>
+            <Text
+              variant="body2"
+              textStyle={{ color: "black", fontWeight: 700 }}
+            >
+              {riding.estimatedTime}
+            </Text>
+            {riding.ridingCourses.map((course, idx, ridings) => (
+              <Text
+                variant="body2"
+                textStyle={{ color: "black", fontWeight: 700 }}
+                key={course}
+              >
+                {idx === 0 && "( "}
+                {course} {ridings.length - 1 !== idx ? ">" : ")"}
+              </Text>
+            ))}
+          </Stack>
+
           <Text
             variant="body2"
             textStyle={{ color: "#E21D47", fontWeight: 700 }}
@@ -62,7 +74,12 @@ const RidingLongCard = ({ data, scheduled }: RidingLongCardProps) => {
       </Stack>
       {scheduled && (
         <ButtonWrapper>
-          <Button variant="outlined" customTextColor="black" size="small">
+          <Button
+            variant="outlined"
+            customTextColor="black"
+            size="small"
+            onClick={(e) => onCancelRiding(e, data.postId)}
+          >
             신청취소
           </Button>
         </ButtonWrapper>
@@ -85,4 +102,5 @@ const StyledImg = styled.img`
 `;
 const ButtonWrapper = styled.div`
   height: 30%;
+  z-index: 999;
 `;

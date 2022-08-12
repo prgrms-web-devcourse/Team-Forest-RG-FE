@@ -6,15 +6,27 @@ import { CardWrapper, Container } from "./RidingRecords.style";
 interface RidingRecordsProps {
   ridings: Riding[];
   status: "scheduled" | "finished" | "leading";
+  onClickCard: (e: React.MouseEvent, id: number) => void;
+  onCancelRiding: (e: React.MouseEvent, id: number) => void;
 }
 
-const RidingRecords = ({ ridings, status }: RidingRecordsProps) => {
+const RidingRecords = ({
+  ridings,
+  status,
+  onClickCard,
+  onCancelRiding,
+}: RidingRecordsProps) => {
   return (
     <Container>
       {ridings.map((data) => (
-        <CardWrapper key={data.riding.title}>
+        <CardWrapper key={data.postId}>
           {/* <RidingCard data={data} /> */}
-          <RidingLongCard data={data} scheduled={status === "scheduled"} />
+          <RidingLongCard
+            data={data}
+            scheduled={status === "scheduled"}
+            onClickCard={onClickCard}
+            onCancelRiding={onCancelRiding}
+          />
         </CardWrapper>
       ))}
     </Container>
