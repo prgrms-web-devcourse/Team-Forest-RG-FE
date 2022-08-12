@@ -1,6 +1,6 @@
 import { Typography, TypographyProps } from "@mui/material";
 
-interface CustomTypographyProps {
+export interface CustomTypographyProps {
   variant?: TypographyProps["variant"];
   marginBottom?: boolean;
   noWrap?: boolean;

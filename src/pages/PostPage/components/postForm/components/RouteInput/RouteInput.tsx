@@ -2,8 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { createRef, useCallback, useEffect, useState } from "react";
 import { Breadcrumbs, Icon } from "@mui/material";
 import { RidingFormValues } from "../../PostForm";
-import { InputContainer } from "./RouteInput.style";
-import Text from "@/components/Text";
+import { Container } from "./RouteInput.style";
 import Input from "@/components/Input";
 import Chip from "@/components/Chip";
 
@@ -51,12 +50,8 @@ function RouteInput() {
   }, [route, setValue]);
 
   return (
-    <div>
-      <Text variant="h6">
-        라이딩 코스<Text variant="caption"> (최대 5개)</Text>
-      </Text>
-
-      <InputContainer>
+    <>
+      <Container>
         <Input fullWidth ref={inputRef} />
         <Breadcrumbs
           separator={<Icon fontSize="small">arrow_forward_ios_icon</Icon>}
@@ -74,7 +69,7 @@ function RouteInput() {
             />
           ))}
         </Breadcrumbs>
-      </InputContainer>
+      </Container>
       <input
         hidden
         {...register("information.routes", {
@@ -82,7 +77,7 @@ function RouteInput() {
           validate: { maxLength: (value) => value.length <= 5 },
         })}
       />
-    </div>
+    </>
   );
 }
 

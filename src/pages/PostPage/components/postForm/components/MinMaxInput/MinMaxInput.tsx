@@ -1,5 +1,4 @@
 import { RegisterOptions, useFormContext } from "react-hook-form";
-import Text from "@/components/Text";
 import { Container, InputContainer, StyledInput } from "./MinMaxInput.style";
 import Divider from "@/components/Divider";
 import { RidingFormValues } from "../../PostForm";
@@ -38,7 +37,6 @@ function MinMaxInput({ required = false }: MinMaxInputProps) {
 
   return (
     <Container>
-      <Text variant="h6">참가자 수</Text>
       <InputContainer>
         <StyledInput
           label="최소"
