@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import Text from "@/components/Text";
 import CommentsField from "./components/CommentsField";
 import CommentsContents from "./components/CommentsContents";
-import { getComments } from "@/api/mock";
+import { getComments } from "@/api/comment";
 
-const Comments = () => {
+const Comments = ({ postId }: { postId: number }) => {
   const { data: commentsData, isSuccess } = useQuery(
-    ["comments"],
-    getComments,
+    ["comments", postId],
+    () => getComments(postId),
     {
       select: (data) => data.comments,
       onSuccess: (data) => {

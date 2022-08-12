@@ -6,14 +6,14 @@ interface HeaderProps {
   leader: {
     id: string | number;
     nickname: string;
-    profile_image: string;
+    profileImage: string;
   };
   thumbnail: string;
   title: string;
 }
 
 const Header = ({ leader, thumbnail = "", title = "" }: HeaderProps) => {
-  const { nickname, profile_image: profileImage } = leader;
+  const { nickname, profileImage } = leader;
   return (
     <Container>
       <img src={thumbnail} alt="thumbnail" />

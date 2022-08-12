@@ -46,7 +46,7 @@ const MainInfo = ({
     <Grid container item direction="column">
       <Grid container item direction="column" alignItems="center">
         <Grid item width="100%">
-          <Map lat={departurePosition.lng} lng={departurePosition.lat} />
+          <Map {...departurePosition} />
         </Grid>
         <Grid container item justifyContent="center">
           <Grid item xs={2}>
