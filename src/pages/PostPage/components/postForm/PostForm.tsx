@@ -10,7 +10,7 @@ import DatePicker from "@/components/DatePicker";
 import Button from "@/components/Button";
 import Divider from "@/components/Divider";
 import {
-  EstimatedTimeInput,
+  BicycleTypeInput,
   ExpandableInput,
   FeeInput,
   LevelInput,
@@ -191,16 +191,11 @@ function PostForm({
           isRequired
           labelProps={{ marginBottom: true }}
         >
-          <ButtonCheckBoxGroup
-            direction="horizontal"
-            data={bicycleTypeData.map((type) => ({
-              ...type,
-              others: { btnStyle: { width: "6rem" }, style: {} },
-            }))}
-            variant="outlined"
-            btnColor="#999"
-            checkedBtnColor="primary"
-            {...register("information.bicycleTypes", { required: true })}
+          <Controller
+            control={control}
+            name="information.bicycleTypes"
+            render={({ field }) => <BicycleTypeInput {...field} />}
+            rules={{ required: "필수 입력사항입니다." }}
           />
         </WithLabel>
 
