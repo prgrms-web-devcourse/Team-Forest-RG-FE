@@ -181,7 +181,11 @@ function PostForm({
             label="참가비"
             labelProps={{ marginBottom: true }}
           >
-            <FeeInput />
+            <Controller
+              control={control}
+              name="information.fee"
+              render={({ field }) => <FeeInput {...field} />}
+            />
           </WithLabel>
         </TwoColumnContainer>
 
