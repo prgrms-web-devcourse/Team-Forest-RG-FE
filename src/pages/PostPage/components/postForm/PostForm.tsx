@@ -22,8 +22,7 @@ import {
 } from "./components";
 import { Form, TwoColumnContainer } from "./PostForm.style";
 import WithLabel from "@/components/WithLabel";
-import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
-import { bicycleTypeData } from "@/constants/data";
+import ridingThumbnailExample from "@/assets/riding_thumbnail_example.png";
 
 type Section = {
   title: string;
@@ -77,8 +76,8 @@ function PostForm({
         <Controller
           control={control}
           name="information.thumbnail"
-          render={({ field: { onChange, ref } }) => (
-            <ThumbnailInput inputRef={ref} onChange={onChange} />
+          render={({ field }) => (
+            <ThumbnailInput {...field} defaultUrl={ridingThumbnailExample} />
           )}
         />
         <WithLabel
