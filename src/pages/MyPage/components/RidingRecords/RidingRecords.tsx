@@ -1,17 +1,20 @@
-import RidingCard from "@/components/RidingCard/RidingCard";
+import RidingCard from "@/pages/MyPage/components/RidingCard";
+import RidingLongCard from "@/pages/MyPage/components/RidingLongCard";
 import { Riding } from "../../mypageService";
 import { CardWrapper, Container } from "./RidingRecords.style";
 
 interface RidingRecordsProps {
   ridings: Riding[];
+  status: "scheduled" | "finished" | "leading";
 }
 
-const RidingRecords = ({ ridings }: RidingRecordsProps) => {
+const RidingRecords = ({ ridings, status }: RidingRecordsProps) => {
   return (
     <Container>
       {ridings.map((data) => (
         <CardWrapper key={data.riding.title}>
-          <RidingCard data={data} />
+          {/* <RidingCard data={data} /> */}
+          <RidingLongCard data={data} scheduled={status === "scheduled"} />
         </CardWrapper>
       ))}
     </Container>

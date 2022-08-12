@@ -7,6 +7,7 @@ import useUserInfo from "../../hooks/useUserInfo";
 import {
   RIDING_TAB_PANELS,
   DEFAULT_RIDING_TAB_ITEM_LIST,
+  UserInfoType,
 } from "../../mypageService";
 import RidingRecords from "../RidingRecords";
 import { Container, TabContainer } from "./RidingTab.style";
@@ -17,11 +18,14 @@ function RidingTab() {
   const [TabData, setTabData] = useState(DEFAULT_RIDING_TAB_ITEM_LIST);
 
   useEffect(() => {
-    const makeTabData = (user: any) =>
+    const makeTabData = (userData: UserInfoType) =>
       TabData.map((tab) => ({
         value: tab.value,
         targetData: (
-          <RidingRecords ridings={user.ridings[tab.value]} status={tab.value} />
+          <RidingRecords
+            ridings={userData.ridings[tab.value]}
+            status={tab.value}
+          />
         ),
       }));
 
