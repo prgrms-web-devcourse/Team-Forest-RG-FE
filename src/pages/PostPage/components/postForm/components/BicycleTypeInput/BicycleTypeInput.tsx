@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
 import { bicycleTypeData } from "@/constants/data";
 import Text from "@/components/Text";
-import { RidingFormValues } from "../PostForm";
+import { RidingFormValues } from "../../PostForm";
 
 function BicycleTypeInput({ required = false }: { required?: boolean }) {
   const { register } = useFormContext<RidingFormValues>();

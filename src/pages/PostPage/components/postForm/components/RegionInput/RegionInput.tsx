@@ -5,7 +5,7 @@ import Select from "@/components/Select";
 import { regionCode } from "@/constants/region";
 import Text from "@/components/Text";
 import { InputContainer } from "./RegionInput.style";
-import { RidingFormValues } from "../PostForm";
+import { RidingFormValues } from "../../PostForm";
 
 function RegionInput() {
   const { register } = useFormContext<RidingFormValues>();

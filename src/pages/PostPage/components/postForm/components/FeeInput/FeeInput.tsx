@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { ButtonContainer, StyledContainer } from "./FeeInput.style";
 import Text from "@/components/Text";
-import { RidingFormValues } from "../PostForm";
+import { RidingFormValues } from "../../PostForm";
 
 function FeeInput() {
   const { register } = useFormContext<RidingFormValues>();
@@ -31,6 +31,9 @@ function FeeInput() {
           fullWidth
           label="참가비"
           defaultValue={0}
+          usePrefix
+          prefixPosition="end"
+          prefixComponent={<Text>원</Text>}
           {...register("information.fee", { valueAsNumber: true })}
         />
       )}

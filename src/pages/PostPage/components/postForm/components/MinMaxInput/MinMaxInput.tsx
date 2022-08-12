@@ -1,9 +1,8 @@
-import { ChangeEvent, useState } from "react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import Text from "@/components/Text";
 import { Container, InputContainer, StyledInput } from "./MinMaxInput.style";
 import Divider from "@/components/Divider";
-import { RidingFormValues } from "../PostForm";
+import { RidingFormValues } from "../../PostForm";
 
 interface MinMaxInputProps {
   required?: boolean;
