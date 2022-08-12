@@ -1,12 +1,12 @@
 import { useCallback, useState } from "react";
 
-export type ReturnTypes<T> = [T, (value: T) => void, () => void];
+export type ReturnTypes<T> = [string, (value: T) => void, () => void];
 
-function useLocalStorage<T>(key: string, defaultValue: T): ReturnTypes<T> {
-  const [value, setValue] = useState(() => {
+function useLocalStorage<T>(key: string, defaultValue: string): ReturnTypes<T> {
+  const [value, setValue] = useState<string>(() => {
     try {
       const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : defaultValue;
+      return item ? item : defaultValue;
     } catch (error) {
       console.error(error);
       return defaultValue;
@@ -16,8 +16,13 @@ function useLocalStorage<T>(key: string, defaultValue: T): ReturnTypes<T> {
   const setItem = useCallback(
     (newValue: T) => {
       try {
-        setValue(newValue);
-        localStorage.setItem(key, JSON.stringify(newValue));
+        setValue(
+          typeof newValue === "string" ? newValue : JSON.stringify(newValue)
+        );
+        localStorage.setItem(
+          key,
+          typeof newValue === "string" ? newValue : JSON.stringify(newValue)
+        );
       } catch (error) {
         console.error(error);
       }

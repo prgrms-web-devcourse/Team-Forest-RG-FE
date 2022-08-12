@@ -25,7 +25,7 @@ const Comments = ({ postId }: { postId: number }) => {
         }개의 댓글이 있습니다`}</Text>
       </Grid>
       <Grid item>
-        <CommentsField parentId={0} />
+        <CommentsField parentId={0} postId={postId} />
       </Grid>
       <Grid item>
         {isSuccess &&
@@ -39,13 +39,17 @@ const Comments = ({ postId }: { postId: number }) => {
               childComments,
             }) => (
               <CommentsContents
+                postId={postId}
                 commentId={commentId}
                 parentCommentId={commentId}
                 authorId={authorId}
                 authorName={authorName}
                 authorImageUrl={authorImageUrl}
                 contents={contents}
-                childComments={childComments}
+                childComments={childComments?.map((props) => ({
+                  ...props,
+                  postId,
+                }))}
                 key={commentId}
               />
             )
