@@ -12,6 +12,7 @@ import ImageViewer from "./ImageViewer/ImageViewer";
 interface ImageInputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   errorMessage?: string;
+  imageLimit?: number;
   value?: any;
   onChange?: (...event: any[]) => void;
   inputRef?: any;
@@ -20,6 +21,7 @@ interface ImageInputProps extends InputHTMLAttributes<HTMLInputElement> {
 const ImageInput = ({
   error,
   errorMessage,
+  imageLimit,
   value,
   onChange,
   inputRef,
@@ -28,6 +30,7 @@ const ImageInput = ({
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
     if (!e.target.files) return;
+    if (imageLimit && value.length >= imageLimit) return;
     const images = Array.from(e.target.files);
     const results = await Promise.all(
       images.map((image) => {
