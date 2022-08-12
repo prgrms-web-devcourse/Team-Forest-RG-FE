@@ -1,0 +1,16 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[context.production.environment]
+  TOML_ENV_VAR = "From netlify.toml"
+  REACT_APP_REST_API_KEY="8f248aa7874df072e8d15b2d0b284108"
+  REACT_APP_REDIRECT_URI="https://cool-dusk-ced14a.netlify.app/login"
+
+  REACT_APP_SERVER_HOST="https://rg-server.p-e.kr"
+  REACT_APP_SERVER_PORT=443

@@ -68,7 +68,7 @@ module.exports = (env, options) => {
               }
             : false,
       }),
-      new DotenvPlugin(),
+      new DotenvPlugin({ systemvars: true }),
     ],
   };
 };
