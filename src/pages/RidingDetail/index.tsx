@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Grid } from "@mui/material";
-import { getDetailPage } from "@/api/mock";
+import { useParams } from "react-router-dom";
+import { getPosts } from "@/api/posts";
 import Header from "./components/Header";
 import SideInfo from "./components/SideInfo";
 import MainInfo from "./components/MainInfo";
@@ -11,12 +12,17 @@ import Comments from "./components/Comments";
 type sideDataType = Pick<React.ComponentProps<typeof SideInfo>, "data">["data"];
 type mainDataType = React.ComponentProps<typeof MainInfo>;
 
-const RidingDetail = () => {
+interface Props {
+  postId?: number;
+}
+
+const RidingDetail = ({ postId = 1 }: Props) => {
   const [sideData, setSideData] = useState<sideDataType | null>(null);
   const [mainData, setMainData] = useState<mainDataType | null>(null);
+  const { id } = useParams();
   const { data: detailData, isSuccess } = useQuery(
-    ["riding-detail"],
-    getDetailPage,
+    ["riding-detail", id || postId],
+    () => getPosts(Number(id) || postId),
     {
       onSuccess: (data) => {
         const {
@@ -73,7 +79,7 @@ const RidingDetail = () => {
         </Grid>
       </Grid>
       <Grid container item direction="column">
-        <Comments />
+        <Comments postId={Number(id) || postId} />
       </Grid>
     </Grid>
   );

@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Grid } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 
@@ -11,9 +12,15 @@ interface CommentsProps {
   parentId: number;
   contents?: string;
   inputProps?: React.ComponentProps<typeof Input>;
+  isUpdate?: boolean;
 }
 
-const CommentsField = ({ parentId, contents, inputProps }: CommentsProps) => {
+const CommentsField = ({
+  parentId,
+  contents,
+  inputProps,
+  isUpdate = false,
+}: CommentsProps) => {
   const {
     register,
     handleSubmit,
@@ -23,6 +30,8 @@ const CommentsField = ({ parentId, contents, inputProps }: CommentsProps) => {
       comment: contents || "",
     },
   });
+
+  // const commentRegisterMutation = useMutation();
 
   const onSubmit = (data: commentType) => {
     console.log(data, parentId);
