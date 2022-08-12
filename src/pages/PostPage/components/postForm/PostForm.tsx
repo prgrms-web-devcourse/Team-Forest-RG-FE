@@ -64,17 +64,20 @@ function PostForm({
     detail: [{ title: "", images: [], content: "" }],
   },
 }: PostFormProps) {
-  const methods = useForm<RidingFormValues>({ defaultValues, mode: "onBlur" });
+  const methods = useForm<RidingFormValues>({
+    defaultValues,
+    mode: "onChange",
+  });
   const {
     register,
     control,
-    handleSubmit,
+    getValues,
     formState: { errors },
   } = methods;
   console.log(errors);
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form>
         <Controller
           control={control}
           name="information.thumbnail"
@@ -254,7 +257,9 @@ function PostForm({
         >
           <ExpandableInput />
         </WithLabel>
-        <Button type="submit">저장하기</Button>
+        <Button type="button" onClick={() => onSubmit(getValues())}>
+          저장하기
+        </Button>
       </Form>
     </FormProvider>
   );
