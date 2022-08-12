@@ -1,27 +1,37 @@
-import { useFormContext } from "react-hook-form";
+import { ChangeEvent, forwardRef } from "react";
 import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
 import { bicycleTypeData } from "@/constants/data";
-import Text from "@/components/Text";
-import { RidingFormValues } from "../../PostForm";
 
-function BicycleTypeInput({ required = false }: { required?: boolean }) {
-  const { register } = useFormContext<RidingFormValues>();
-  return (
-    <div>
-      <Text variant="h6">자전거 종류</Text>
+interface BicycleTypeInputProps {
+  onChange?: (...event: any[]) => void;
+  value?: string[];
+}
+
+const BicycleTypeInput = forwardRef<HTMLButtonElement, BicycleTypeInputProps>(
+  ({ onChange, value }, ref) => {
+    return (
       <ButtonCheckBoxGroup
         direction="horizontal"
-        data={bicycleTypeData.map((type) => ({
-          ...type,
-          others: { btnStyle: { width: "6rem" }, style: {} },
+        data={bicycleTypeData.map((item) => ({
+          ...item,
+          others: {
+            btnStyle: { width: "6rem" },
+            checked: value && value.includes(item.value),
+            onChange: (e: ChangeEvent<HTMLInputElement>) => {
+              if (!onChange) return;
+              if (e.target.checked)
+                onChange(value ? [...value, item.value] : [item.value]);
+              else onChange(value?.filter((val) => val !== item.value));
+            },
+          },
         }))}
         variant="outlined"
         btnColor="#999"
         checkedBtnColor="primary"
-        {...register("information.bicycleTypes", { required })}
+        ref={ref}
       />
-    </div>
-  );
-}
+    );
+  }
+);
 
 export default BicycleTypeInput;
