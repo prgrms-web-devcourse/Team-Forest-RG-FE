@@ -9,6 +9,7 @@ interface CustomTypographyProps {
   textStyle?: React.CSSProperties;
   children?: React.ReactNode;
   color?: TypographyProps["color"];
+  component?: React.ElementType;
 }
 
 const Text = ({
@@ -20,6 +21,7 @@ const Text = ({
   textStyle,
   children,
   color,
+  component = "div",
   ...props
 }: CustomTypographyProps & TypographyProps) => (
   <Typography
@@ -30,6 +32,7 @@ const Text = ({
     align={align}
     style={textStyle}
     color={color}
+    component={component}
     {...props}
   >
     {children}

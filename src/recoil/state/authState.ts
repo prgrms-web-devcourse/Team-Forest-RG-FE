@@ -6,13 +6,13 @@ const localStorageEffect =
     const savedValue = localStorage.getItem(key);
 
     if (savedValue !== null) {
-      setSelf(JSON.parse(savedValue));
+      setSelf(savedValue);
 
       onSet((newValue: string | null, _: any, isReset: boolean) => {
         if (isReset || !newValue) {
           localStorage.removeItem(key);
         } else {
-          localStorage.setItem(key, JSON.stringify(newValue));
+          localStorage.setItem(key, newValue);
         }
       });
     }

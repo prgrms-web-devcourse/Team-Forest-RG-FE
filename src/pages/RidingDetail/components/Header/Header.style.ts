@@ -22,6 +22,8 @@ export const Content = styled.div`
   flex-direction: column;
   z-index: 2;
   width: 100%;
+  padding-left: 20px;
+  padding-bottom: 20px;
   .leader-info {
     display: flex;
     align-items: center;

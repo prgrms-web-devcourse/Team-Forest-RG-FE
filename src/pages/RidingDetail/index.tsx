@@ -8,6 +8,7 @@ import SideInfo from "./components/SideInfo";
 import MainInfo from "./components/MainInfo";
 import Divider from "@/components/Divider";
 import Comments from "./components/Comments";
+import Spinner from "@/components/Spinner";
 
 type sideDataType = Pick<React.ComponentProps<typeof SideInfo>, "data">["data"];
 type mainDataType = React.ComponentProps<typeof MainInfo>;
@@ -20,7 +21,11 @@ const RidingDetail = ({ postId = 1 }: Props) => {
   const [sideData, setSideData] = useState<sideDataType | null>(null);
   const [mainData, setMainData] = useState<mainDataType | null>(null);
   const { postId: id } = useParams();
-  const { data: detailData, isSuccess } = useQuery(
+  const {
+    data: detailData,
+    isSuccess,
+    isLoading,
+  } = useQuery(
     ["riding-detail", id || postId],
     () => getPosts(Number(id) || postId),
     {
@@ -44,7 +49,9 @@ const RidingDetail = ({ postId = 1 }: Props) => {
     }
   );
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <Grid container direction="column" alignItems="center" spacing={3} px={10}>
       {isSuccess && (
         <>
