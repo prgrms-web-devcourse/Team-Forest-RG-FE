@@ -19,7 +19,7 @@ interface Props {
 const RidingDetail = ({ postId = 1 }: Props) => {
   const [sideData, setSideData] = useState<sideDataType | null>(null);
   const [mainData, setMainData] = useState<mainDataType | null>(null);
-  const { id } = useParams();
+  const { postId: id } = useParams();
   const { data: detailData, isSuccess } = useQuery(
     ["riding-detail", id || postId],
     () => getPosts(Number(id) || postId),

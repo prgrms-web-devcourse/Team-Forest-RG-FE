@@ -15,7 +15,7 @@ axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
   if (config.headers) {
     const getToken = () => {
       const item = localStorage.getItem("token");
-      return item ? JSON.parse(item) : null;
+      return item ? item : null;
     };
     config.headers.Authorization = getToken() ? `Bearer ${getToken()}` : "";
   }
