@@ -211,7 +211,11 @@ function PostForm({
             isRequired
             labelProps={{ marginBottom: true }}
           >
-            <LevelInput />
+            <Controller
+              control={control}
+              name="information.level"
+              render={({ field }) => <LevelInput {...field} />}
+            />
           </WithLabel>
 
           <WithLabel
