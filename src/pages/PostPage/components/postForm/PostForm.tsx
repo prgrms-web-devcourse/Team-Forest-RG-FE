@@ -22,6 +22,8 @@ import {
 } from "./components";
 import { Form, TwoColumnContainer } from "./PostForm.style";
 import WithLabel from "@/components/WithLabel";
+import { estimatedTime } from "@/constants/data";
+import Select from "@/components/Select";
 import ridingThumbnailExample from "@/assets/riding_thumbnail_example.png";
 
 type Section = {
@@ -145,7 +147,25 @@ function PostForm({
             isRequired
             labelProps={{ marginBottom: true }}
           >
-            <EstimatedTimeInput />
+            <Controller
+              control={control}
+              name="information.estimatedTime"
+              render={({ field: { onChange, value, ref } }) => (
+                <Select
+                  data={estimatedTime.map((item) => ({
+                    text: item,
+                    key: item,
+                    value: item,
+                  }))}
+                  value={value}
+                  onChange={onChange}
+                  ref={ref}
+                />
+              )}
+              rules={{
+                required: true,
+              }}
+            />
           </WithLabel>
 
           <WithLabel
