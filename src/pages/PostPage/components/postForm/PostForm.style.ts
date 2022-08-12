@@ -4,7 +4,7 @@ export const Form = styled.form`
   min-width: 60rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 `;
 
 export const TwoColumnContainer = styled.div`

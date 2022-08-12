@@ -1,11 +1,14 @@
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
 import Button from "@/components/Button";
-import Text from "@/components/Text";
 import Divider from "@/components/Divider";
 import {
-  BicycleTypeInput,
   EstimatedTimeInput,
   ExpandableInput,
   FeeInput,
@@ -14,8 +17,12 @@ import {
   MinMaxInput,
   RegionInput,
   RouteInput,
+  ThumbnailInput,
 } from "./components";
 import { Form, TwoColumnContainer } from "./PostForm.style";
+import WithLabel from "@/components/WithLabel";
+import ButtonCheckBoxGroup from "@/components/ButtonCheckBoxGroup";
+import { bicycleTypeData } from "@/constants/data";
 
 type Section = {
   title: string;
@@ -58,6 +65,7 @@ function PostForm({
   const methods = useForm<RidingFormValues>({ defaultValues, mode: "onBlur" });
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = methods;
@@ -65,10 +73,19 @@ function PostForm({
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <Text variant="h6" marginBottom>
-            제목
-          </Text>
+        <Controller
+          control={control}
+          name="information.thumbnail"
+          render={({ field: { onChange, ref } }) => (
+            <ThumbnailInput inputRef={ref} onChange={onChange} />
+          )}
+        />
+        <WithLabel
+          variant="h6"
+          label="제목"
+          isRequired
+          labelProps={{ marginBottom: true }}
+        >
           <Input
             placeholder="제목"
             fullWidth
@@ -79,28 +96,123 @@ function PostForm({
             error={!!errors.information?.title}
             errorMessage={errors.information?.title?.message}
           />
-        </div>
+        </WithLabel>
+
         <TwoColumnContainer>
-          <div>
-            <Text variant="h6" marginBottom>
-              모임날짜 및 시간
-            </Text>
+          <WithLabel
+            variant="h6"
+            label="모임날짜 및 시간"
+            isRequired
+            labelProps={{ marginBottom: true }}
+          >
             <DatePicker
-              {...register("information.ridingDate", { valueAsDate: true })}
+              {...register("information.ridingDate", {
+                valueAsDate: true,
+                // TODO validate 추가
+              })}
             />
-          </div>
-          <MinMaxInput required />
-          <EstimatedTimeInput />
-          <RegionInput />
-          <RouteInput />
-          <LevelInput required />
-          <FeeInput />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="참가자 수"
+            isRequired
+            labelProps={{ marginBottom: true }}
+          >
+            <MinMaxInput
+              required
+              error={{
+                min: !!errors.information?.minParticipantCount,
+                max: !!errors.information?.maxParticipantCount,
+              }}
+              errorMessage={{
+                min: errors.information?.minParticipantCount?.message,
+                max: errors.information?.maxParticipantCount?.message,
+              }}
+            />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="소요 시간"
+            isRequired
+            labelProps={{ marginBottom: true }}
+          >
+            <EstimatedTimeInput />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="지역 및 장소"
+            isRequired
+            labelProps={{ marginBottom: true }}
+          >
+            <RegionInput />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="라이딩 코스"
+            caption="(최대 5개)"
+            isRequired
+            labelProps={{ marginBottom: true }}
+          >
+            <RouteInput />
+          </WithLabel>
+          <WithLabel
+            variant="h6"
+            label="난이도"
+            isRequired
+            labelProps={{ marginBottom: true }}
+          >
+            <LevelInput />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="참가비"
+            labelProps={{ marginBottom: true }}
+          >
+            <FeeInput />
+          </WithLabel>
         </TwoColumnContainer>
-        <BicycleTypeInput />
-        <LocationInput />
+
+        <WithLabel
+          variant="h6"
+          label="자전거 종류"
+          isRequired
+          labelProps={{ marginBottom: true }}
+        >
+          <ButtonCheckBoxGroup
+            direction="horizontal"
+            data={bicycleTypeData.map((type) => ({
+              ...type,
+              others: { btnStyle: { width: "6rem" }, style: {} },
+            }))}
+            variant="outlined"
+            btnColor="#999"
+            checkedBtnColor="primary"
+            {...register("information.bicycleTypes", { required: true })}
+          />
+        </WithLabel>
+
+        <WithLabel
+          variant="h6"
+          label="출발 위치"
+          isRequired
+          labelProps={{ marginBottom: true }}
+        >
+          <LocationInput />
+        </WithLabel>
         <Divider />
-        <ExpandableInput />
-        <Button type="submit">완료</Button>
+        <WithLabel
+          variant="h5"
+          label="상세 내용"
+          labelProps={{ marginBottom: true }}
+        >
+          <ExpandableInput />
+        </WithLabel>
+        <Button type="submit">저장하기</Button>
       </Form>
     </FormProvider>
   );

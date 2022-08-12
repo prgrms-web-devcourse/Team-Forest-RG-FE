@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { useState } from "react";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { ButtonContainer, StyledContainer } from "./FeeInput.style";
+import { ButtonContainer, Container } from "./FeeInput.style";
 import Text from "@/components/Text";
 import { RidingFormValues } from "../../PostForm";
 
@@ -10,8 +10,7 @@ function FeeInput() {
   const { register } = useFormContext<RidingFormValues>();
   const [isPaid, setPaid] = useState<boolean>(false);
   return (
-    <StyledContainer>
-      <Text variant="h6">참가비</Text>
+    <Container>
       <ButtonContainer>
         <Button
           customColor={isPaid ? "#999" : "primary"}
@@ -37,7 +36,7 @@ function FeeInput() {
           {...register("information.fee", { valueAsNumber: true })}
         />
       )}
-    </StyledContainer>
+    </Container>
   );
 }
 
