@@ -44,7 +44,7 @@ export type RidingFormValues = {
       lat: number;
       lng: number;
     };
-    thumbnail: number;
+    thumbnail?: number;
     fee: number;
     routes: string[];
   };
@@ -116,6 +116,7 @@ function PostForm({
           <WithLabel
             variant="h6"
             label="참가자 수"
+            caption="(5~30 명)"
             isRequired
             labelProps={{ marginBottom: true }}
           >
