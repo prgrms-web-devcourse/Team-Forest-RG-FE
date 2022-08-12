@@ -26,6 +26,13 @@ const RegisterForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data: any) => {
+    const parsedData = { ...data };
+    if (!parsedData.bicycles) {
+      parsedData.bicycles = [];
+    }
+    if (!parsedData.favoriteRegionCode) {
+      parsedData.favoriteRegionCode = 0;
+    }
     await user.register(data);
     navigate("/", { replace: true });
   };
