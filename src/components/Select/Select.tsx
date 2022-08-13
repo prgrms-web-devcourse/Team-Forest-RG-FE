@@ -14,7 +14,7 @@ interface CustomProps extends SelectProps {
   data: {
     key: string | number;
     value: string | number;
-    text: string | number;
+    text: string | number | React.ReactNode;
   }[];
   autoWidth?: boolean;
   size?: "small" | "medium";

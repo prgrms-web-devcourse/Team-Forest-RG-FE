@@ -1,7 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import { ListItemText } from "@mui/material";
 import Select from "@/components/Select";
+import CheckBox from "@/components/CheckBox";
 
 export default {
   title: "MUI/Select",
@@ -82,6 +84,69 @@ export const Multiple: ComponentStory<typeof Select> = () => {
             defaultValue={[]}
           />
         )}
+      />
+      <button type="submit">submit</button>
+    </form>
+  );
+};
+
+const CheckBoxItem = ({
+  value,
+  values,
+}: {
+  value: string;
+  values: string[];
+}) => {
+  return (
+    <>
+      <CheckBox checked={values.indexOf(value) > -1} />
+      <ListItemText primary={value} />
+    </>
+  );
+};
+
+type testType = {
+  test: string[];
+};
+
+export const MultipleWithCheckBox: ComponentStory<typeof Select> = () => {
+  const { control, handleSubmit } = useForm<testType>({
+    defaultValues: {
+      test: [],
+    },
+  });
+
+  const watchTestData = useWatch({
+    control,
+    name: "test",
+  });
+
+  const checkBoxData = selectData.map((item) => ({
+    ...item,
+    text: <CheckBoxItem value={item.value} values={watchTestData} />,
+  }));
+
+  const onSubmit = (data: testType) => {
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} style={{ width: "150px" }}>
+      <Controller
+        name="test"
+        control={control}
+        defaultValue={[]}
+        render={({ field }) => {
+          return (
+            <Select
+              label="tags"
+              data={checkBoxData}
+              {...field}
+              multiple
+              renderValue={(selected) => (selected as string[]).join(", ")}
+            />
+          );
+        }}
       />
       <button type="submit">submit</button>
     </form>
