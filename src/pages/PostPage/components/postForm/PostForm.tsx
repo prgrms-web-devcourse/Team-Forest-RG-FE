@@ -26,7 +26,7 @@ import { Form, TwoColumnContainer } from "./PostForm.style";
 import WithLabel from "@/components/WithLabel";
 import { estimatedTime } from "@/constants/data";
 import Select from "@/components/Select";
-import ridingThumbnailExample from "@/assets/riding_thumbnail_example.png";
+import defaultThumbnail from "@/assets/RG_Logo.png";
 
 dayjs.extend(utc);
 
@@ -85,7 +85,7 @@ function PostForm({
           control={control}
           name="information.thumbnail"
           render={({ field }) => (
-            <ThumbnailInput {...field} defaultUrl={ridingThumbnailExample} />
+            <ThumbnailInput {...field} defaultUrl={defaultThumbnail} />
           )}
           defaultValue={null}
         />
