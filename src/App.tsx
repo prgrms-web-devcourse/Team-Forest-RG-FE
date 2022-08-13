@@ -13,8 +13,9 @@ import RequireAuth from "@/routes/PrivateRoute";
 import {
   RidingTab,
   ProfileModify,
-  RatingTab,
+  EvaluateTab,
   PrivacyModify,
+  UserEvaluate,
 } from "@/pages/MyPage";
 import ProfilePage from "./pages/ProfilePage";
 import RidingDetail from "./pages/RidingDetail";
@@ -33,7 +34,8 @@ function App() {
             <Route path="/mypage" element={<MyPage />}>
               <Route index element={<RidingTab />} />
               <Route path="/mypage/riding" element={<RidingTab />} />
-              <Route path="/mypage/rating" element={<RatingTab />} />
+              <Route path="/mypage/evaluate" element={<EvaluateTab />} />
+              <Route path="/mypage/evaluate/:id" element={<UserEvaluate />} />
               <Route path="/mypage/profile" element={<ProfileModify />} />
               <Route path="/mypage/privacy" element={<PrivacyModify />} />
             </Route>

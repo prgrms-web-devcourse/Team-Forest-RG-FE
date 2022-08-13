@@ -21,6 +21,7 @@ export interface UserInfoType {
     scheduled: Riding[];
     finished: Riding[];
     leading: Riding[];
+    canEvaluated: Riding[];
   };
 }
 export interface Riding {
@@ -412,14 +413,68 @@ export const userMockData: UserInfoType = {
         },
       },
     ],
+    canEvaluated: [
+      {
+        postId: 8,
+        leader: {
+          id: 1,
+          nickname: "testUser",
+          profileImage:
+            "https://programmers.co.kr/assets/icons/apple-icon-6eafc2c4c58a21aef692d6e44ce99d41f999c71789f277317532d0a9c6db8976.png",
+        },
+        riding: {
+          title: "평가가능 라이딩8",
+          thumbnail:
+            "https://team-05-storage.s3.ap-northeast-2.amazonaws.com/static/RG_Logo.png",
+          ridingLevel: "상",
+          zone: {
+            code: 11010,
+            name: "경기도성남시 분당구",
+          },
+          fee: 10000,
+          estimatedTime: "120분",
+          createdAt: "2022-08-17T17:42:37",
+          ridingDate: "2022-08-19T17:42:37",
+          bicycleType: ["MTB"],
+          ridingCourses: ["중앙 공원", "능골 공원", "탑골 공원"],
+          maxParticipant: 5,
+          minParticipant: 2,
+          participants: [
+            {
+              id: 1,
+              nickname: "testUser",
+              profileImage:
+                "https://programmers.co.kr/assets/icons/apple-icon-6eafc2c4c58a21aef692d6e44ce99d41f999c71789f277317532d0a9c6db8976.png",
+            },
+          ],
+          departurePosition: {
+            lat: 35.2326,
+            lng: 127.65025,
+          },
+          details: [
+            {
+              id: 7,
+              title: "sub title",
+              contents: "sub contents",
+              images: [
+                {
+                  id: 52,
+                  imageUrl: "http://amazons3/static/image/testimage.jpg",
+                },
+              ],
+            },
+          ],
+        },
+      },
+    ],
   },
 };
 interface TabPanelType {
   label: string;
-  value: "scheduled" | "finished" | "leading";
+  value: "scheduled" | "finished" | "leading" | "canEvaluated";
 }
 export interface TabDataType {
-  value: "scheduled" | "finished" | "leading";
+  value: "scheduled" | "finished" | "leading" | "canEvaluated";
   targetData: JSX.Element;
 }
 export const RIDING_TAB_PANELS: TabPanelType[] = [
@@ -428,8 +483,18 @@ export const RIDING_TAB_PANELS: TabPanelType[] = [
   { label: "내가 만든 라이딩", value: "leading" },
 ];
 
+export const EVALUATED_TAB_PANELS: TabPanelType[] = [
+  { label: "평가 가능 라이딩", value: "canEvaluated" },
+];
+
 export const DEFAULT_RIDING_TAB_ITEM_LIST: TabDataType[] =
   RIDING_TAB_PANELS.map(({ label, value }) => ({
+    value,
+    targetData: <div>{label}</div>,
+  }));
+
+export const DEFAULT_EVALUATED_TAB_ITEM_LIST: TabDataType[] =
+  EVALUATED_TAB_PANELS.map(({ label, value }) => ({
     value,
     targetData: <div>{label}</div>,
   }));
