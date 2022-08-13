@@ -13,7 +13,7 @@ import { RidingFormValues } from "../../PostForm";
 function ExpandableInput() {
   const { control, register } = useFormContext<RidingFormValues>();
   const { fields, append, remove } = useFieldArray({
-    name: "detail",
+    name: "details",
     control,
   });
   return (
@@ -25,7 +25,7 @@ function ExpandableInput() {
               <Input
                 placeholder="소제목 (최대 30자)"
                 fullWidth
-                {...register(`detail.${index}.title` as const, {
+                {...register(`details.${index}.title` as const, {
                   required: true,
                   maxLength: 30,
                 })}
@@ -53,13 +53,13 @@ function ExpandableInput() {
                   },
                 },
               }}
-              name={`detail.${index}.images`}
+              name={`details.${index}.images`}
             />
             <Input
               multiline
               rows={6}
               placeholder="내용 (최대 500자)"
-              {...register(`detail.${index}.content` as const, {
+              {...register(`details.${index}.content` as const, {
                 required: true,
                 maxLength: 500,
               })}

@@ -36,7 +36,7 @@ type Section = {
   content: string;
 };
 
-export type RidingFormValues = {
+export interface RidingFormValues {
   information: {
     title: string;
     ridingDate: Date | string;
@@ -50,12 +50,12 @@ export type RidingFormValues = {
       lat: number;
       lng: number;
     };
-    thumbnail?: number;
+    thumbnail: number | null;
     fee: number;
     routes: string[];
   };
-  detail: Section[];
-};
+  details: Section[];
+}
 
 interface PostFormProps {
   onSubmit: SubmitHandler<RidingFormValues>;
@@ -65,17 +65,16 @@ interface PostFormProps {
 function PostForm({
   onSubmit,
   defaultValues = {
-    detail: [{ title: "", images: [], content: "" }],
+    details: [{ title: "", images: [], content: "" }],
   },
 }: PostFormProps) {
   const methods = useForm<RidingFormValues>({
     defaultValues,
-    mode: "onChange",
   });
   const {
     register,
     control,
-    getValues,
+    handleSubmit,
     formState: { errors },
   } = methods;
   console.log(errors);
@@ -295,7 +294,7 @@ function PostForm({
         >
           <ExpandableInput />
         </WithLabel>
-        <Button type="button" onClick={() => onSubmit(getValues())}>
+        <Button type="button" onClick={handleSubmit(onSubmit)}>
           저장하기
         </Button>
       </Form>
