@@ -10,7 +10,11 @@ import Button from "@/components/Button";
 import ImageInput from "./ImageInput";
 import { RidingFormValues } from "../../PostForm";
 
-function ExpandableInput() {
+interface ExpandableInputProps {
+  imageUrls?: string[][];
+}
+
+function ExpandableInput({ imageUrls }: ExpandableInputProps) {
   const { control, register, getFieldState } =
     useFormContext<RidingFormValues>();
   const { fields, append, remove } = useFieldArray({
@@ -53,6 +57,7 @@ function ExpandableInput() {
                     value={value}
                     inputRef={ref}
                     imageLimit={2}
+                    defaultImages={imageUrls?.at(index)}
                   />
                 )}
                 name={`details.${index}.images`}

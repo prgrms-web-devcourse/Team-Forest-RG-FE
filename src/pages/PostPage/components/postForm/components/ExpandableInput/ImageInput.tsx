@@ -16,6 +16,7 @@ interface ImageInputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: any;
   onChange?: (...event: any[]) => void;
   inputRef?: any;
+  defaultImages?: string[];
 }
 
 const ImageInput = ({
@@ -24,9 +25,18 @@ const ImageInput = ({
   imageLimit,
   value,
   onChange,
+  defaultImages,
   inputRef,
 }: ImageInputProps) => {
-  const [imageList, setImageList] = useState<Image[]>([]);
+  const [imageList, setImageList] = useState<Image[]>(
+    defaultImages
+      ? defaultImages.map((image, index) => ({
+          url: image,
+          id: value[index],
+          originalFileName: value[index],
+        }))
+      : []
+  );
   const [customError, setCustomError] = useState<{
     error: boolean;
     errorMessage: string;

@@ -31,7 +31,10 @@ type Section = {
   images: number[];
   content: string;
 };
-
+type FormImageUrl = {
+  details?: string[][];
+  thumbnail?: string;
+};
 export interface RidingFormValues {
   information: {
     title: string;
@@ -56,6 +59,7 @@ export interface RidingFormValues {
 interface PostFormProps {
   onSubmit: SubmitHandler<RidingFormValues>;
   defaultValues?: Partial<RidingFormValues>;
+  defaultUrl?: FormImageUrl;
 }
 
 function PostForm({
@@ -63,6 +67,7 @@ function PostForm({
   defaultValues = {
     details: [{ title: "", images: [], content: "" }],
   },
+  defaultUrl,
 }: PostFormProps) {
   const methods = useForm<RidingFormValues>({
     defaultValues,
@@ -73,7 +78,6 @@ function PostForm({
     handleSubmit,
     formState: { errors },
   } = methods;
-  console.log(errors);
   return (
     <FormProvider {...methods}>
       <Form>
@@ -81,7 +85,13 @@ function PostForm({
           control={control}
           name="information.thumbnail"
           render={({ field }) => (
-            <ThumbnailInput {...field} defaultUrl={defaultThumbnail} />
+            <ThumbnailInput
+              {...field}
+              defaultUrl={
+                defaultUrl?.thumbnail ||
+                "https://team-05-storage.s3.ap-northeast-2.amazonaws.com/static/RG_Logo.png"
+              }
+            />
           )}
           defaultValue={null}
         />
@@ -299,7 +309,7 @@ function PostForm({
           label="상세 내용"
           labelProps={{ marginBottom: true }}
         >
-          <ExpandableInput />
+          <ExpandableInput imageUrls={defaultUrl?.details} />
         </WithLabel>
         <Button type="button" onClick={handleSubmit(onSubmit)}>
           저장하기
