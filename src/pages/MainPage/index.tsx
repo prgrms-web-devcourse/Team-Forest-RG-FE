@@ -1,5 +1,10 @@
 import axios from "axios";
+import { Grid } from "@mui/material";
 import axiosInstance from "@/api/axiosInstance";
+import mainCarouselData from "./constants/CarouselData";
+import { Navigation } from "swiper";
+import Carousel from "@/components/Carousel";
+import { CarouselWrapper } from "./MainPage.style";
 
 function MainPage() {
   const getUser = async () => {
@@ -23,15 +28,26 @@ function MainPage() {
   };
 
   return (
-    <div>
-      MainPage
-      <button type="button" onClick={getUser}>
-        api테스트
-      </button>
-      <button type="button" onClick={postWringToken}>
-        잘못된 토큰 테스트
-      </button>
-    </div>
+    <Grid container direction="column">
+      <Grid container item justifyContent="center">
+        <Grid item xs={6}>
+          <CarouselWrapper>
+            <Carousel
+              data={mainCarouselData}
+              options={{
+                navigation: true,
+                modules: [Navigation],
+              }}
+            />
+          </CarouselWrapper>
+        </Grid>
+      </Grid>
+      <Grid container item direction="column">
+        <Grid item>
+          <h1>여행 정보</h1>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 

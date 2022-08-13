@@ -4,9 +4,9 @@ import Layout, {
   LoginPage,
   MainPage,
   NotFoundPage,
-  PostPage,
   MyPage,
   RegisterPage,
+  PostPage,
 } from "@/pages";
 import AuthRoute from "@/routes/AuthRoute";
 import RequireAuth from "@/routes/PrivateRoute";
@@ -17,6 +17,7 @@ import {
   PrivacyModify,
 } from "@/pages/MyPage";
 import ProfilePage from "./pages/ProfilePage";
+import RidingDetail from "./pages/RidingDetail";
 
 function App() {
   return (
@@ -27,7 +28,9 @@ function App() {
             <Route index element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/posts" element={<ListPage />} />
+            <Route path="posts" element={<ListPage />}>
+              <Route path=":postId" element={<RidingDetail />} />
+            </Route>
             <Route path="/mypage" element={<MyPage />}>
               <Route index element={<RidingTab />} />
               <Route path="/mypage/riding" element={<RidingTab />} />

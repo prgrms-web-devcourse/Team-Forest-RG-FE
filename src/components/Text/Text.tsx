@@ -8,6 +8,8 @@ interface CustomTypographyProps {
   align?: TypographyProps["align"];
   textStyle?: React.CSSProperties;
   children?: React.ReactNode;
+  color?: TypographyProps["color"];
+  component?: React.ElementType;
 }
 
 const Text = ({
@@ -18,7 +20,10 @@ const Text = ({
   align,
   textStyle,
   children,
-}: CustomTypographyProps) => (
+  color,
+  component = "div",
+  ...props
+}: CustomTypographyProps & TypographyProps) => (
   <Typography
     variant={variant}
     gutterBottom={marginBottom}
@@ -26,6 +31,9 @@ const Text = ({
     paragraph={paragraph}
     align={align}
     style={textStyle}
+    color={color}
+    component={component}
+    {...props}
   >
     {children}
   </Typography>

@@ -1,0 +1,72 @@
+{
+  "leader": {
+    "id": 3,
+    "nickname": "leader",
+    "profile_image": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/andrea-brambila-mDMKysUxcCc-unsplash.jpg.jpeg"
+  },
+  "riding": {
+    "title": "제목",
+    "thumbnail": "https://team-05-storage.s3.ap-northeast-2.amazonaws.com/static/RG_Logo.png",
+    "ridingLevel": "초급",
+    "zone": {
+      "code": 11010,
+      "name": "경기도성남시 분당구"
+    },
+    "fee": 0,
+    "estimatedTime": "6시간 이상",
+    "createdAt": "2022-08-20T07:58:20Z",
+    "ridingDate": "2022-08-20T07:58:20Z",
+    "bicycleType": ["MTB", "픽시", "로드", "따릉이", "하이브리드"],
+    "ridingCourses": ["코스1", "코스2", "코스3"],
+    "maxParticipant": 5,
+    "minParticipant": 2,
+    "participants": [
+      {
+        "id": 7,
+        "nickname": "nickname",
+        "profileImage": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/ruslan-bardash-8MhejqEghLk-unsplash.jpg.jpeg"
+      },
+      {
+        "id": 8,
+        "nickname": "Matt",
+        "profileImage": "https://cdn.pixabay.com/photo/2018/02/16/14/38/portrait-3157821_960_720.jpg"
+      }
+    ],
+    "departurePosition": {
+      "lng": 37.49203922558992,
+      "lat": 127.0298553176825
+    },
+    "details": [
+      {
+        "id": 0,
+        "title": "내용 1",
+        "contents": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "images": [
+          {
+            "id": 50,
+            "imageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/zoom-19.jpg.jpeg"
+          },
+          {
+            "id": 51,
+            "imageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/8.jpg.jpeg"
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "title": "section 2",
+        "contents": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "images": [
+          {
+            "id": 52,
+            "imageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/8.jpg.jpeg"
+          },
+          {
+            "id": 53,
+            "imageUrl": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/zoom-19.jpg.jpeg"
+          }
+        ]
+      }
+    ]
+  }
+}
