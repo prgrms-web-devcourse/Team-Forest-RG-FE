@@ -7,15 +7,17 @@ export const StyledForm = styled.form`
   row-gap: 2rem;
   column-gap: 1rem;
 
-  div:nth-child(5) {
+  div:first-of-type {
     grid-column: 1 / span 2;
   }
 
-  div:nth-child(6) {
+  div:nth-of-type(6) {
     grid-column: 1 / span 2;
   }
 
-  button:nth-child(7) {
+  button {
     grid-column: 1 / span 2;
+    justify-self: flex-end;
+    align-self: center;
   }
 `;
