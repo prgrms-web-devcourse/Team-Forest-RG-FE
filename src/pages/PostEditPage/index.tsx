@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import dayjs from "dayjs";
+import { PostDetail } from "response";
 import { editPost, getPost } from "@/api/posts";
 import { PostForm } from "../PostPage/components";
 import { RidingFormValues } from "../PostPage/components/postForm/PostForm";
@@ -17,63 +18,63 @@ function PostEditPage() {
       details?: string[][];
       thumbnail?: string;
     }>();
+  const handleValue = useCallback((value: PostDetail) => {
+    const {
+      riding: {
+        bicycleType,
+        departurePosition,
+        minParticipant,
+        maxParticipant,
+        ridingCourses,
+        ridingDate,
+        ridingLevel,
+        thumbnail,
+        thumbnailId,
+        zone,
+        details,
+        ...datas
+      },
+    } = value;
+
+    const formUrls = {
+      details: details.map((item) =>
+        item.images.map((image) => image.imageUrl)
+      ),
+      thumbnail,
+    };
+    setUrlData(formUrls);
+
+    const detailsValue = details.map((item) => ({
+      title: item.title,
+      images: item.images.map((image) => image.id),
+      content: item.contents,
+    }));
+
+    const formattedDate = dayjs(ridingDate).format("YYYY-MM-DDTHH:mm");
+    const FormData = {
+      information: {
+        bicycleTypes: bicycleType,
+        departurePlace: departurePosition,
+        minParticipantCount: minParticipant,
+        maxParticipantCount: maxParticipant,
+        routes: ridingCourses,
+        level: ridingLevel,
+        regionCode: zone.code,
+        ridingDate: formattedDate,
+        thumbnail: thumbnailId,
+        ...datas,
+      },
+      details: detailsValue,
+    };
+
+    setRidingData(FormData);
+  }, []);
+
   useQuery(
     ["riding-edit", postId],
     () => getPost(postId ? parseInt(postId, 10) : 0),
     {
-      onSuccess: (value) => {
-        const {
-          riding: {
-            bicycleType,
-            departurePosition,
-            estimatedTime,
-            fee,
-            minParticipant,
-            maxParticipant,
-            ridingCourses,
-            ridingDate,
-            ridingLevel,
-            thumbnail,
-            thumbnailId,
-            title,
-            zone,
-            details,
-          },
-        } = value;
-
-        const formUrls = {
-          details: details.map((item) =>
-            item.images.map((image) => image.imageUrl)
-          ),
-          thumbnail,
-        };
-        setUrlData(formUrls);
-        const detailsValue = details.map((item) => ({
-          title: item.title,
-          images: item.images.map((image) => image.id),
-          content: item.contents,
-        }));
-
-        const formattedDate = dayjs(ridingDate).format("YYYY-MM-DDTHH:mm");
-        const FormData = {
-          information: {
-            bicycleTypes: bicycleType,
-            departurePlace: departurePosition,
-            minParticipantCount: minParticipant,
-            maxParticipantCount: maxParticipant,
-            routes: ridingCourses,
-            level: ridingLevel,
-            regionCode: zone.code,
-            ridingDate: formattedDate,
-            estimatedTime,
-            fee,
-            thumbnail: thumbnailId,
-            title,
-          },
-          details: detailsValue,
-        };
-        setRidingData(FormData);
-      },
+      onSuccess: handleValue,
     }
   );
 
