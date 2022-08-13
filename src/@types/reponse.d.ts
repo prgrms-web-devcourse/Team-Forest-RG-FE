@@ -16,6 +16,7 @@ declare module "response" {
   export interface PostDetail {
     leader: User;
     riding: {
+      id: number;
       title: string;
       thumbnail: string;
       ridingLevel: string;

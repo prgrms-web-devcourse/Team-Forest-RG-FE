@@ -10,5 +10,5 @@ export const OuterCard = styled(Card)`
   background-repeat: no-repeat;
   width: 100%;
   max-width: 300px;
-  height: 300px;
+  height: 400px;
 `;

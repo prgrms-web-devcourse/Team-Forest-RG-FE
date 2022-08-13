@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import Filter from "./components/Filter";
 import {
   bicycleTypeData,
@@ -7,6 +8,10 @@ import {
   levelData,
   regionData,
 } from "./constants/filterData";
+import Lists from "./components/Lists";
+import Text from "@/components/Text";
+import Spinner from "@/components/Spinner";
+import { getPostList } from "@/api/postList";
 
 type dataType = {
   key: string | number;
@@ -17,6 +22,12 @@ type dataType = {
 const RidingListPage = () => {
   const [cityCode, setCityCode] = useState<string | number>(0);
   const [cityRegionData, setCityRegionData] = useState<dataType[]>([]);
+
+  const { data, isLoading } = useQuery(["postList"], () => getPostList(), {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
 
   useEffect(() => {
     if (cityCode) {
@@ -35,7 +46,7 @@ const RidingListPage = () => {
   ];
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" spacing={3}>
       <Grid container item spacing={2}>
         {filters.map(({ id, data, placeholder }) => (
           <Grid item key={id} xs={2}>
@@ -54,6 +65,17 @@ const RidingListPage = () => {
           <Filter filterData={cityRegionData} placeholder="군/구" />
         </Grid>
       </Grid>
+      {isLoading ? (
+        <Spinner />
+      ) : data?.content?.length ? (
+        <Lists data={data?.content} />
+      ) : (
+        <Grid container item>
+          <Grid item xs={12}>
+            <Text variant="h3">🤦‍♂️ 아직 데이터가 존재하지 않습니다!</Text>
+          </Grid>
+        </Grid>
+      )}
     </Grid>
   );
 };
