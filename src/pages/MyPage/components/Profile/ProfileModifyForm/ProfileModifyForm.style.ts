@@ -11,7 +11,7 @@ export const StyledForm = styled.form`
     grid-column: 1 / span 2;
   }
 
-  div:nth-of-type(6) {
+  div:nth-of-type(7) {
     grid-column: 1 / span 2;
   }
 

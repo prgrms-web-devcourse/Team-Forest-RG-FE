@@ -147,6 +147,26 @@ const ProfileModifyForm = ({
             defaultValue={0}
           />
         </WithLabel>
+
+        <WithLabel
+          label="전화번호"
+          variant="h6"
+          isRequired
+          labelProps={{ gutterBottom: true }}
+          errorMessage={errors?.phoneNumber?.message}
+        >
+          <Input
+            fullWidth
+            {...register("phoneNumber", {
+              required: "필수 입력사항입니다.",
+              pattern: {
+                value: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+                message: "올바르지 않은 형식입니다.",
+              },
+            })}
+            error={!!errors?.phoneNumber}
+          />
+        </WithLabel>
         <WithLabel
           label="실력"
           variant="h6"
