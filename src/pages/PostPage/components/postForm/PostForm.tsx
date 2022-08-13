@@ -254,7 +254,8 @@ function PostForm({
                 <FeeInput
                   {...props}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    onChange(parseInt(e.target.value, 10) || 0);
+                    if (!e) onChange(0);
+                    else onChange(parseInt(e.target.value, 10) || 0);
                   }}
                 />
               )}
