@@ -23,7 +23,7 @@ const NavBar = () => {
               <Logo src={rgLogo} alt="logo" />
             </StyledLink>
             <StyledLink to="/posts">라이딩 찾아보기</StyledLink>
-            {isAuth && <StyledLink to="/post"> 라이딩 개설 </StyledLink>}
+            {isAuth && <StyledLink to="/post/create"> 라이딩 개설 </StyledLink>}
           </Box>
           <Box>
             {isAuth ? (
