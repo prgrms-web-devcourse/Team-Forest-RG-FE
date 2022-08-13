@@ -6,7 +6,6 @@ import {
 } from "react-hook-form";
 import dayjs from "dayjs";
 import { ChangeEvent } from "react";
-import utc from "dayjs/plugin/utc";
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
 import Button from "@/components/Button";
@@ -26,9 +25,6 @@ import { Form, TwoColumnContainer } from "./PostForm.style";
 import WithLabel from "@/components/WithLabel";
 import { estimatedTime } from "@/constants/data";
 import Select from "@/components/Select";
-import defaultThumbnail from "@/assets/RG_Logo.png";
-
-dayjs.extend(utc);
 
 type Section = {
   title: string;
@@ -122,9 +118,7 @@ function PostForm({
                 <DatePicker
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     onChange(
-                      dayjs(e.target.value)
-                        .utc()
-                        .format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+                      dayjs(e.target.value).format("YYYY-MM-DDTHH:mm:ss.SSS")
                     );
                   }}
                   error={!!errors.information?.ridingDate}
@@ -134,7 +128,7 @@ function PostForm({
               rules={{
                 validate: {
                   afterNow: (value) =>
-                    dayjs(value).utc().diff(dayjs().utc()) > 0 ||
+                    dayjs(value).diff(dayjs()) > 0 ||
                     "현재 시간 이전은 선택할 수 없습니다.",
                 },
               }}
