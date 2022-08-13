@@ -21,6 +21,7 @@ interface CustomProps extends SelectProps {
   error?: boolean;
   errorMessage?: string | number;
   disabled?: boolean;
+  placeholder?: string;
 }
 
 const Select = React.forwardRef<HTMLInputElement, CustomProps>(
@@ -34,6 +35,7 @@ const Select = React.forwardRef<HTMLInputElement, CustomProps>(
       error,
       errorMessage,
       disabled,
+      placeholder,
       ...props
     },
     ref
@@ -48,6 +50,11 @@ const Select = React.forwardRef<HTMLInputElement, CustomProps>(
       >
         {label && <InputLabel>{label}</InputLabel>}
         <MuiSelect label={label} autoWidth={autoWidth} {...props} ref={ref}>
+          {placeholder && (
+            <MenuItem key={placeholder} value="none" disabled>
+              {placeholder}
+            </MenuItem>
+          )}
           {data.map(({ key, value, text }) => (
             <MenuItem key={key} value={value}>
               {text}
