@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { SubmitHandler } from "react-hook-form";
 import { PostForm } from "./components";
 import { RidingFormValues } from "./components/postForm/PostForm";
 import auth from "@/api/auth";
+import { postPosts } from "@/api/posts";
 
 const Container = styled.div`
   margin: auto;
@@ -24,8 +26,10 @@ function PostPage() {
     };
     checkIsRegister();
   }, []);
-  const handleSubmit = (data: RidingFormValues) => {
-    console.log(data);
+
+  const handleSubmit: SubmitHandler<RidingFormValues> = async (data) => {
+    const postId = await postPosts(data);
+    navigate(`/post/${postId}`, { replace: true });
   };
   return (
     <Container>
