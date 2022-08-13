@@ -4,8 +4,8 @@ export const StyledForm = styled.form`
   padding: 2.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  row-gap: 2rem;
-  column-gap: 1rem;
+  row-gap: 3rem;
+  column-gap: 5rem;
 
   div:first-of-type {
     grid-column: 1 / span 2;
@@ -20,4 +20,10 @@ export const StyledForm = styled.form`
     justify-self: flex-end;
     align-self: center;
   }
+`;
+
+export const HeaderContainer = styled.div`
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2rem;
 `;
