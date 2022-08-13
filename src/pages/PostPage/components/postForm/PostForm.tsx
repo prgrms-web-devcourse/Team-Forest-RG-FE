@@ -5,6 +5,7 @@ import {
   useForm,
 } from "react-hook-form";
 import dayjs from "dayjs";
+import { ChangeEvent } from "react";
 import utc from "dayjs/plugin/utc";
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
@@ -87,6 +88,7 @@ function PostForm({
           render={({ field }) => (
             <ThumbnailInput {...field} defaultUrl={ridingThumbnailExample} />
           )}
+          defaultValue={null}
         />
         <WithLabel
           variant="h6"
@@ -174,13 +176,19 @@ function PostForm({
                     key: item,
                     value: item,
                   }))}
+                  placeholder="예상 시간을 골라주세요"
                   value={value}
                   onChange={onChange}
                   ref={ref}
                 />
               )}
+              defaultValue="none"
               rules={{
-                required: true,
+                required: "필수 입력사항입니다.",
+                validate: {
+                  required: (value) =>
+                    value !== "none" || "필수 입력사항입니다.",
+                },
               }}
             />
           </WithLabel>
@@ -263,6 +271,7 @@ function PostForm({
             name="information.bicycleTypes"
             render={({ field }) => <BicycleTypeInput {...field} />}
             rules={{ required: "필수 입력사항입니다." }}
+            defaultValue={[]}
           />
         </WithLabel>
 
