@@ -1,6 +1,6 @@
 import { TypographyProps } from "@mui/material";
 import Text from "@/components/Text";
-import { Container } from "./WithLabel.style";
+import { Container, TextWrapper } from "./WithLabel.style";
 import { CustomTypographyProps } from "../Text/Text";
 
 interface WithLabelProps {
@@ -25,15 +25,13 @@ const WithLabel = ({
 }: WithLabelProps) => {
   return (
     <Container width={wd} {...props}>
-      <Text variant={variant} {...labelProps}>
-        {label}
-        {isRequired && (
-          <Text variant="caption" textStyle={{ color: "red" }}>
-            &nbsp;*
-          </Text>
-        )}
+      <TextWrapper>
+        <Text variant={variant} {...labelProps}>
+          {label}
+        </Text>
+        {isRequired && <Text textStyle={{ color: "red" }}>&nbsp;*</Text>}
         {caption && <Text variant="caption">&nbsp;{caption}</Text>}
-      </Text>
+      </TextWrapper>
       {children}
     </Container>
   );
