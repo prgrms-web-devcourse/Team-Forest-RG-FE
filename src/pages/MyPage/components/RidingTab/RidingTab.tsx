@@ -10,7 +10,7 @@ import {
   DEFAULT_RIDING_TAB_ITEM_LIST,
   UserInfoType,
 } from "../../mypageService";
-import RidingRecords from "../RidingRecords";
+import RidingRecords from "../common/RidingRecords";
 import { Container, TabContainer } from "./RidingTab.style";
 
 function RidingTab() {

@@ -11,7 +11,7 @@ interface RidingLongCardProps {
   data: Riding;
   scheduled?: boolean;
   onClickCard: (e: React.MouseEvent, id: number) => void;
-  onCancelRiding: (e: React.MouseEvent, id: number) => void;
+  onCancelRiding?: (e: React.MouseEvent, id: number) => void;
 }
 const RidingLongCard = ({
   data,
@@ -78,7 +78,7 @@ const RidingLongCard = ({
             variant="outlined"
             customTextColor="black"
             size="small"
-            onClick={(e) => onCancelRiding(e, data.postId)}
+            onClick={(e) => onCancelRiding && onCancelRiding(e, data.postId)}
           >
             신청취소
           </Button>

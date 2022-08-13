@@ -1,13 +1,13 @@
-import RidingCard from "@/pages/MyPage/components/RidingCard";
-import RidingLongCard from "@/pages/MyPage/components/RidingLongCard";
-import { Riding } from "../../mypageService";
+import RidingCard from "@/pages/MyPage/components/common/RidingCard";
+import RidingLongCard from "@/pages/MyPage/components/common/RidingLongCard";
+import { Riding } from "../../../mypageService";
 import { CardWrapper, Container } from "./RidingRecords.style";
 
 interface RidingRecordsProps {
   ridings: Riding[];
-  status: "scheduled" | "finished" | "leading";
+  status: "scheduled" | "finished" | "leading" | "canEvaluated";
   onClickCard: (e: React.MouseEvent, id: number) => void;
-  onCancelRiding: (e: React.MouseEvent, id: number) => void;
+  onCancelRiding?: (e: React.MouseEvent, id: number) => void;
 }
 
 const RidingRecords = ({
