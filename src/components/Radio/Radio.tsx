@@ -26,6 +26,7 @@ interface CustomRadioProps extends RadioGroupProps {
   errorMessage?: string;
   defaultValue?: string | number;
   useCustomIcon?: boolean;
+  sx?: any;
   icon?: ({
     label,
     type,
@@ -59,12 +60,13 @@ const Radio = React.forwardRef<HTMLButtonElement, CustomRadioProps>(
       useCustomIcon,
       icon,
       checkedIcon,
+      sx,
       ...props
     },
     ref
   ) => {
     return (
-      <FormControl error={error}>
+      <FormControl error={error} sx={sx}>
         {label && (
           <FormLabel id={id} error={error} color={error ? "error" : "primary"}>
             {label}
