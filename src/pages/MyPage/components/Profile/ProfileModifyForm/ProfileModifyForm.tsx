@@ -15,7 +15,7 @@ import {
   RadioIconButton,
   regionOptions,
 } from "@/pages/RegisterPage/registerService";
-import { StyledForm } from "./ProfileModifyForm.style";
+import { HeaderContainer, StyledForm } from "./ProfileModifyForm.style";
 import Button from "@/components/Button";
 import Text from "@/components/Text";
 import ProfileImageInput from "./ProfileImageInput/ProfileImageInput";
@@ -48,18 +48,24 @@ const ProfileModifyForm = ({
     <>
       <Text variant="h4">프로필 수정</Text>
       <StyledForm>
-        <WithLabel
-          label="프로필 이미지"
-          variant="h6"
-          wd={200}
-          labelProps={{ gutterBottom: true }}
-        >
+        <HeaderContainer>
           <Controller
             control={control}
             name="profileImageId"
             render={({ field }) => <ProfileImageInput {...field} />}
           />
-        </WithLabel>
+          <WithLabel
+            label="한 줄 소개"
+            variant="subtitle1"
+            labelProps={{ gutterBottom: true }}
+          >
+            <Input
+              fullWidth
+              placeholder="간단한 소개해보세요😊"
+              {...register("introduction")}
+            />
+          </WithLabel>
+        </HeaderContainer>
         <WithLabel
           label="닉네임"
           variant="h6"
@@ -68,6 +74,7 @@ const ProfileModifyForm = ({
           errorMessage={errors?.nickname?.message}
         >
           <Input
+            fullWidth
             {...register("nickname", {
               required: "필수 입력사항입니다.",
               minLength: { value: 2, message: "최소 2글자 이상 작성해주세요" },
@@ -86,7 +93,6 @@ const ProfileModifyForm = ({
           labelProps={{ gutterBottom: true }}
           isRequired
           errorMessage={errors?.ridingStartYear?.message}
-          wd={200}
         >
           <Controller
             name="ridingStartYear"
@@ -117,7 +123,6 @@ const ProfileModifyForm = ({
           labelProps={{ gutterBottom: true }}
           isRequired
           errorMessage={errors?.favoriteRegionCode?.message}
-          wd={200}
         >
           <Controller
             name="favoriteRegionCode"
