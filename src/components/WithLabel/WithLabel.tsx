@@ -10,6 +10,7 @@ interface WithLabelProps {
   children: any;
   wd?: number;
   isRequired?: boolean;
+  errorMessage?: string;
   labelProps?: Partial<CustomTypographyProps>;
 }
 
@@ -21,6 +22,7 @@ const WithLabel = ({
   wd,
   isRequired,
   labelProps,
+  errorMessage,
   ...props
 }: WithLabelProps) => {
   return (
@@ -31,6 +33,11 @@ const WithLabel = ({
         </Text>
         {isRequired && <Text textStyle={{ color: "red" }}>&nbsp;*</Text>}
         {caption && <Text variant="caption">&nbsp;{caption}</Text>}
+        {errorMessage && (
+          <Text textStyle={{ color: "#d32f2f" }} variant="caption">
+            &nbsp;{errorMessage}
+          </Text>
+        )}
       </TextWrapper>
       {children}
     </Container>

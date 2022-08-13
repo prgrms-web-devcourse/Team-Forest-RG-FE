@@ -17,10 +17,11 @@ interface LocationInputProps {
     lat: number;
     lng: number;
   };
+  error?: boolean;
 }
 
 const LocationInput = forwardRef<HTMLInputElement, LocationInputProps>(
-  ({ value, onChange }, ref) => {
+  ({ value, onChange, error }, ref) => {
     const { setAddress, coordResult, setCoord, addressResult } = useGeocoder();
     const [addressString, setAddressString] = useState<string>("");
     const [isOpen, setOpen] = useState<boolean>(false);
@@ -53,6 +54,7 @@ const LocationInput = forwardRef<HTMLInputElement, LocationInputProps>(
             placeholder="주소"
             value={addressString}
             ref={ref}
+            error={error}
           />
           <Button onClick={() => setOpen((prev) => !prev)}>주소 검색</Button>
         </InputContainer>

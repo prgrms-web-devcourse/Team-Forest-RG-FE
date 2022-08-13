@@ -8,29 +8,37 @@ interface RouteInputProps {
   onChange: (...event: any) => void;
   onBlur?: (...event: any) => void;
   value?: string[];
+  error?: boolean;
+  errorMessage?: string;
 }
 
 const RouteInput = forwardRef<HTMLInputElement, RouteInputProps>(
-  ({ onChange, onBlur, value = [] }, ref) => {
-    const [error, setError] = useState<{
+  ({ onChange, onBlur, value = [], error, errorMessage }, ref) => {
+    const [customError, setCustomError] = useState<{
       error: boolean;
       message: string;
     }>({ error: false, message: "" });
 
     const handleKeydown = useCallback(
       (e: KeyboardEvent) => {
-        setError({ error: false, message: "" });
+        setCustomError({ error: false, message: "" });
         if (e.key !== "Enter") return;
         if (!(e.target instanceof HTMLInputElement)) return;
         e.preventDefault();
         const inputValue = e.target.value;
 
         if (inputValue.length < 1) {
-          setError({ error: true, message: "1글자 이상 입력해주세요" });
+          setCustomError({ error: true, message: "1글자 이상 입력해주세요" });
         } else if (inputValue.length >= 15) {
-          setError({ error: true, message: "최대 15자 입력 가능합니다." });
+          setCustomError({
+            error: true,
+            message: "최대 15자 입력 가능합니다.",
+          });
         } else if (value.length >= 5) {
-          setError({ error: true, message: "5개까지 추가할 수 있습니다." });
+          setCustomError({
+            error: true,
+            message: "5개까지 추가할 수 있습니다.",
+          });
         } else {
           onChange([...value, inputValue]);
           e.target.value = "";
@@ -47,11 +55,11 @@ const RouteInput = forwardRef<HTMLInputElement, RouteInputProps>(
             onKeyDown={handleKeydown}
             onBlur={() => {
               if (onBlur) onBlur();
-              setError({ error: false, message: "" });
+              setCustomError({ error: false, message: "" });
             }}
             placeholder="행선지 추가 (최대 15자)"
-            error={error.error}
-            errorMessage={error.message}
+            error={customError.error || error}
+            errorMessage={customError.message || errorMessage}
           />
           <Breadcrumbs
             separator={<Icon fontSize="small">arrow_forward_ios_icon</Icon>}

@@ -10,6 +10,7 @@ interface DatePickerProps {
   value?: string | Date;
   onChange?: (...event: any) => void;
   label?: string;
+  error?: boolean;
 }
 
 const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
@@ -19,6 +20,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
       defaultValule = dayjs().format("YYYY-MM-DDTHH:mm"),
       value,
       onChange,
+      error,
       ...props
     },
     ref
@@ -36,6 +38,7 @@ const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
             value ? dayjs(value).format("YYYY-MM-DDTHH:mm") : defaultValule
           }
           onChange={onChange}
+          error={error}
           {...props}
         />
       </LocalizationProvider>

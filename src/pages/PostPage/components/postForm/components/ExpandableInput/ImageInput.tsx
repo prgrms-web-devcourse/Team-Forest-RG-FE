@@ -27,10 +27,20 @@ const ImageInput = ({
   inputRef,
 }: ImageInputProps) => {
   const [imageList, setImageList] = useState<Image[]>([]);
+  const [customError, setCustomError] = useState<{
+    error: boolean;
+    errorMessage: string;
+  }>({ error: true, errorMessage: "" });
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
     if (!e.target.files) return;
-    if (imageLimit && value.length >= imageLimit) return;
+    if (imageLimit && value.length >= imageLimit) {
+      setCustomError({
+        error: true,
+        errorMessage: "최대 2개까지 추가할 수 있습니다.",
+      });
+      return;
+    }
     const images = Array.from(e.target.files);
     const results = await Promise.all(
       images.map((image) => {
@@ -58,8 +68,23 @@ const ImageInput = ({
           onChange={handleChange}
         />
       </Button>
-      <ImageViewer images={imageList} />
-      {error && <Text variant="caption">{errorMessage}</Text>}
+      <ImageViewer
+        images={imageList}
+        onDelete={(id) => {
+          setCustomError({ error: false, errorMessage: "" });
+          setImageList((prev) => prev.filter((image) => image.id !== id));
+        }}
+      />
+      {error && (
+        <Text textStyle={{ color: "#d32f2f" }} variant="caption">
+          {errorMessage}
+        </Text>
+      )}
+      {customError.error && (
+        <Text textStyle={{ color: "#d32f2f" }} variant="caption">
+          {customError.errorMessage}
+        </Text>
+      )}
       <input hidden value={value} ref={inputRef} readOnly />
     </div>
   );

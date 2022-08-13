@@ -6,10 +6,12 @@ import { Container } from "./RegionInput.style";
 interface RegionInputProps {
   onChange?: (...event: any[]) => void;
   value?: number;
+  error?: boolean;
+  errorMessage?: string;
 }
 
 const RegionInput = forwardRef<HTMLInputElement, RegionInputProps>(
-  ({ onChange, value }, ref) => {
+  ({ onChange, value, error, errorMessage }, ref) => {
     const [city, setCity] = useState<number>(0);
 
     const detailData = useMemo(() => {
@@ -37,15 +39,17 @@ const RegionInput = forwardRef<HTMLInputElement, RegionInputProps>(
             setCity(Number(e.target.value));
             if (onChange) onChange(0);
           }}
+          error={error}
+          errorMessage={errorMessage}
           ref={ref}
         />
 
         <Select
           placeholder="시/군/구"
-          disabled={city === 0}
           data={detailData}
           value={value || "none"}
           onChange={onChange}
+          error={error}
           ref={ref}
         />
       </Container>

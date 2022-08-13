@@ -24,6 +24,6 @@ export const TitleContainer = styled.div`
   gap: 0.5rem;
   & button {
     flex-shrink: 0;
-    min-height: 3.5rem;
+    max-height: 3.5rem;
   }
 `;

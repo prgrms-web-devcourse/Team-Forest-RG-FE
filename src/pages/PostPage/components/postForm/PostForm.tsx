@@ -93,6 +93,7 @@ function PostForm({
           variant="h6"
           label="제목"
           isRequired
+          errorMessage={errors.information?.title?.message}
           labelProps={{ marginBottom: true }}
         >
           <Input
@@ -100,10 +101,9 @@ function PostForm({
             fullWidth
             {...register("information.title", {
               required: "필수 입력사항입니다.",
-              maxLength: 30,
+              maxLength: { value: 30, message: "최대 길이는 30자 입니다." },
             })}
             error={!!errors.information?.title}
-            errorMessage={errors.information?.title?.message}
           />
         </WithLabel>
 
@@ -112,6 +112,7 @@ function PostForm({
             variant="h6"
             label="모임날짜 및 시간"
             isRequired
+            errorMessage={errors.information?.ridingDate?.message}
             labelProps={{ marginBottom: true }}
           >
             <Controller
@@ -126,14 +127,15 @@ function PostForm({
                         .format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
                     );
                   }}
+                  error={!!errors.information?.ridingDate}
                   {...props}
                 />
               )}
               rules={{
                 validate: {
-                  afterNow: (value) => {
-                    return dayjs(value).diff(dayjs()) > 0;
-                  },
+                  afterNow: (value) =>
+                    dayjs(value).utc().diff(dayjs().utc()) > 0 ||
+                    "현재 시간 이전은 선택할 수 없습니다.",
                 },
               }}
             />
@@ -146,23 +148,14 @@ function PostForm({
             isRequired
             labelProps={{ marginBottom: true }}
           >
-            <MinMaxInput
-              required
-              error={{
-                min: !!errors.information?.minParticipantCount,
-                max: !!errors.information?.maxParticipantCount,
-              }}
-              errorMessage={{
-                min: errors.information?.minParticipantCount?.message,
-                max: errors.information?.maxParticipantCount?.message,
-              }}
-            />
+            <MinMaxInput required />
           </WithLabel>
 
           <WithLabel
             variant="h6"
             label="소요 시간"
             isRequired
+            errorMessage={errors.information?.estimatedTime?.message}
             labelProps={{ marginBottom: true }}
           >
             <Controller
@@ -178,6 +171,7 @@ function PostForm({
                   placeholder="예상 시간을 골라주세요"
                   value={value}
                   onChange={onChange}
+                  error={!!errors.information?.estimatedTime}
                   ref={ref}
                 />
               )}
@@ -196,6 +190,7 @@ function PostForm({
             variant="h6"
             label="지역 및 장소"
             isRequired
+            errorMessage={errors.information?.regionCode?.message}
             labelProps={{ marginBottom: true }}
           >
             <Controller
@@ -207,7 +202,9 @@ function PostForm({
                   required: (value) => value !== 0 || "필수 입력사항입니다.",
                 },
               }}
-              render={({ field }) => <RegionInput {...field} />}
+              render={({ field, fieldState: { error } }) => (
+                <RegionInput error={!!error} {...field} />
+              )}
             />
           </WithLabel>
 
@@ -216,18 +213,25 @@ function PostForm({
             label="라이딩 코스"
             caption="(최대 5개)"
             isRequired
+            errorMessage={errors.information?.routes?.message}
             labelProps={{ marginBottom: true }}
           >
             <Controller
               control={control}
               name="information.routes"
-              render={({ field }) => <RouteInput {...field} />}
+              render={({ field }) => (
+                <RouteInput {...field} error={!!errors.information?.routes} />
+              )}
+              rules={{
+                required: "필수 입력사항입니다.",
+              }}
             />
           </WithLabel>
           <WithLabel
             variant="h6"
             label="난이도"
             isRequired
+            errorMessage={errors.information?.level?.message}
             labelProps={{ marginBottom: true }}
           >
             <Controller
@@ -263,6 +267,7 @@ function PostForm({
           variant="h6"
           label="자전거 종류"
           isRequired
+          errorMessage={errors.information?.bicycleTypes?.message}
           labelProps={{ marginBottom: true }}
         >
           <Controller
@@ -278,12 +283,19 @@ function PostForm({
           variant="h6"
           label="출발 위치"
           isRequired
+          errorMessage={errors.information?.departurePlace?.message}
           labelProps={{ marginBottom: true }}
         >
           <Controller
             control={control}
             name="information.departurePlace"
-            render={({ field }) => <LocationInput {...field} />}
+            render={({ field }) => (
+              <LocationInput
+                {...field}
+                error={!!errors.information?.departurePlace}
+              />
+            )}
+            rules={{ required: "필수 입력사항입니다." }}
           />
         </WithLabel>
         <Divider />
