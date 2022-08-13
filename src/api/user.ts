@@ -32,4 +32,17 @@ const getUserInfo = async (id: number) => {
     throw new Error("getUserInfo Failed");
   }
 };
-export default { register, getUserInfo };
+
+const evaluate = async (data: any) => {
+  try {
+    const res = await axiosInstance({
+      method: "POST",
+      url: "api/v1/user/evaluate",
+      data,
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error("Evaluate Failed");
+  }
+};
+export default { register, getUserInfo, evaluate };

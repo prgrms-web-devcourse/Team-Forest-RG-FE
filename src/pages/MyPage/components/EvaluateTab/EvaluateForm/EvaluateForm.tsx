@@ -16,6 +16,7 @@ import {
   numToDay,
   recommendedOptions,
 } from "./evaluateFormService";
+import user from "@/api/user";
 
 export interface EvaluateFormValues {
   [key: string]: boolean | string | null;
@@ -28,10 +29,12 @@ const EvaluateForm = () => {
   console.log("post from API", post, loading);
 
   const { register, handleSubmit, setValue } = useForm();
-  const onSubmit: SubmitHandler<EvaluateFormValues> = (data) => {
-    console.log("---formData---", data);
-    const EvaluateList = getEvaluateListFrom(data);
-    console.log("---EvaluateData---", EvaluateList);
+  const onSubmit: SubmitHandler<EvaluateFormValues> = async (formData) => {
+    const evaluatedMemberList = getEvaluateListFrom(formData);
+    await user.evaluate({
+      postId,
+      evaluatedMemberList,
+    });
   };
 
   if (loading) return <div>Loading</div>;
@@ -39,13 +42,13 @@ const EvaluateForm = () => {
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Stack>
         <Text variant="h6" textStyle={{ fontWeight: 800 }}>
-          {`${dayjs(post.riding.ridingDate).get("M") + 1}월
-            ${dayjs(post.riding.ridingDate).get("D")}일
-            ${numToDay[dayjs(post.riding.ridingDate).get("d")]}요일
-            ${dayjs(post.riding.ridingDate).get("h")}:00`}
+          {`${dayjs(post?.riding.ridingDate).get("M") + 1}월
+            ${dayjs(post?.riding.ridingDate).get("D")}일
+            ${numToDay[dayjs(post?.riding.ridingDate).get("d")]}요일
+            ${dayjs(post?.riding.ridingDate).get("h")}:00`}
         </Text>
         <Text variant="body1" marginBottom>
-          {post.riding.zone.name} {post.riding.ridingCourses[0]}
+          {post?.riding.zone.name} {post?.riding.ridingCourses[0]}
         </Text>
       </Stack>
       <Text variant="h6" textStyle={{ fontWeight: 800 }}>
@@ -55,7 +58,7 @@ const EvaluateForm = () => {
         비매너 리포트를 통해 같은 리뷰가 반복될 때 알림을 보내드리고 있어요.
       </Text>
       <UserListContainer>
-        {post.riding.participants.map((userInfo, idx) => (
+        {post?.riding.participants.map((userInfo, idx) => (
           <Stack
             key={userInfo.id}
             direction="row"
@@ -72,7 +75,7 @@ const EvaluateForm = () => {
                 <CheckBox
                   customColor="red"
                   sx={{ marginBottom: "1.5rem", marginRight: "1rem" }}
-                  {...register(`${userInfo.id} noShow`)}
+                  {...register(`${userInfo.id} noshow`)}
                 />
               </Stack>
               <Stack direction="column">
