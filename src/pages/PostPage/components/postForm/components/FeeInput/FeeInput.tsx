@@ -19,7 +19,7 @@ const FeeInput = forwardRef<HTMLInputElement, FeeInputProps>(
             customColor={isPaid ? "#999" : "primary"}
             onClick={() => {
               setPaid(false);
-              if (onChange) onChange(0);
+              if (onChange) onChange();
             }}
           >
             없음
