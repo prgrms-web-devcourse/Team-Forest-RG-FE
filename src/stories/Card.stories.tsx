@@ -54,9 +54,7 @@ const CHIPS = [
 const RgContent = (
   <>
     <Text variant="h3">Title</Text>
-    <Text variant="subtitle1" marginBottom>
-      Subtitle
-    </Text>
+    <Text variant="subtitle1">Subtitle</Text>
     <Stack direction="row" spacing={2} mb={2}>
       {CHIPS.map(({ id, label }) => (
         <Chip key={id} label={label} color="info" />
