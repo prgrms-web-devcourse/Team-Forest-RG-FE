@@ -20,8 +20,8 @@ function PostPage() {
 
   useEffect(() => {
     const checkIsRegister = async () => {
-      const { isRegistered } = await auth.checkAuth();
-      if (!isRegistered)
+      const { registered } = await auth.checkAuth();
+      if (!registered)
         navigate("/register", { state: { from: location.pathname } });
     };
     checkIsRegister();
