@@ -77,7 +77,6 @@ function PostForm({
     handleSubmit,
     formState: { errors },
   } = methods;
-  console.log(errors);
   return (
     <FormProvider {...methods}>
       <Form>
@@ -94,7 +93,7 @@ function PostForm({
           label="제목"
           isRequired
           errorMessage={errors.information?.title?.message}
-          labelProps={{ marginBottom: true }}
+          labelProps={{ gutterBottom: true }}
         >
           <Input
             placeholder="제목"
@@ -113,7 +112,7 @@ function PostForm({
             label="모임날짜 및 시간"
             isRequired
             errorMessage={errors.information?.ridingDate?.message}
-            labelProps={{ marginBottom: true }}
+            labelProps={{ gutterBottom: true }}
           >
             <Controller
               control={control}
@@ -146,7 +145,7 @@ function PostForm({
             label="참가자 수"
             caption="(5~30 명)"
             isRequired
-            labelProps={{ marginBottom: true }}
+            labelProps={{ gutterBottom: true }}
           >
             <MinMaxInput required />
           </WithLabel>
@@ -156,7 +155,7 @@ function PostForm({
             label="소요 시간"
             isRequired
             errorMessage={errors.information?.estimatedTime?.message}
-            labelProps={{ marginBottom: true }}
+            labelProps={{ gutterBottom: true }}
           >
             <Controller
               control={control}
@@ -191,7 +190,7 @@ function PostForm({
             label="지역 및 장소"
             isRequired
             errorMessage={errors.information?.regionCode?.message}
-            labelProps={{ marginBottom: true }}
+            labelProps={{ gutterBottom: true }}
           >
             <Controller
               control={control}
@@ -214,7 +213,7 @@ function PostForm({
             caption="(최대 5개)"
             isRequired
             errorMessage={errors.information?.routes?.message}
-            labelProps={{ marginBottom: true }}
+            labelProps={{ gutterBottom: true }}
           >
             <Controller
               control={control}
@@ -232,7 +231,7 @@ function PostForm({
             label="난이도"
             isRequired
             errorMessage={errors.information?.level?.message}
-            labelProps={{ marginBottom: true }}
+            labelProps={{ gutterBottom: true }}
           >
             <Controller
               control={control}
@@ -245,7 +244,7 @@ function PostForm({
           <WithLabel
             variant="h6"
             label="참가비"
-            labelProps={{ marginBottom: true }}
+            labelProps={{ gutterBottom: true }}
           >
             <Controller
               control={control}
@@ -268,7 +267,7 @@ function PostForm({
           label="자전거 종류"
           isRequired
           errorMessage={errors.information?.bicycleTypes?.message}
-          labelProps={{ marginBottom: true }}
+          labelProps={{ gutterBottom: true }}
         >
           <Controller
             control={control}
@@ -284,7 +283,7 @@ function PostForm({
           label="출발 위치"
           isRequired
           errorMessage={errors.information?.departurePlace?.message}
-          labelProps={{ marginBottom: true }}
+          labelProps={{ gutterBottom: true }}
         >
           <Controller
             control={control}
@@ -302,7 +301,7 @@ function PostForm({
         <WithLabel
           variant="h5"
           label="상세 내용"
-          labelProps={{ marginBottom: true }}
+          labelProps={{ gutterBottom: true }}
         >
           <ExpandableInput />
         </WithLabel>

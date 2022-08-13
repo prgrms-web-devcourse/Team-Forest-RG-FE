@@ -1,7 +1,6 @@
 import { TypographyProps } from "@mui/material";
-import Text from "@/components/Text";
 import { Container, TextWrapper } from "./WithLabel.style";
-import { CustomTypographyProps } from "../Text/Text";
+import Text, { CustomTypographyProps } from "../Text/Text";
 
 interface WithLabelProps {
   variant?: TypographyProps["variant"];
@@ -21,7 +20,7 @@ const WithLabel = ({
   caption,
   wd,
   isRequired,
-  labelProps,
+  labelProps = {},
   errorMessage,
   ...props
 }: WithLabelProps) => {
