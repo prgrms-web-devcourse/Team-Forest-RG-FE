@@ -5,6 +5,7 @@ import {
   useForm,
 } from "react-hook-form";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
 import Button from "@/components/Button";
@@ -25,6 +26,8 @@ import WithLabel from "@/components/WithLabel";
 import { estimatedTime } from "@/constants/data";
 import Select from "@/components/Select";
 import ridingThumbnailExample from "@/assets/riding_thumbnail_example.png";
+
+dayjs.extend(utc);
 
 type Section = {
   title: string;
@@ -113,7 +116,18 @@ function PostForm({
             <Controller
               control={control}
               name="information.ridingDate"
-              render={({ field }) => <DatePicker {...field} />}
+              render={({ field: { onChange, ...props } }) => (
+                <DatePicker
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    onChange(
+                      dayjs(e.target.value)
+                        .utc()
+                        .format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+                    );
+                  }}
+                  {...props}
+                />
+              )}
               rules={{
                 validate: {
                   afterNow: (value) => {
