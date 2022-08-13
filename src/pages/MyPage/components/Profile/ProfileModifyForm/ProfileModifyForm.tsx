@@ -179,9 +179,9 @@ const ProfileModifyForm = ({
             defaultValue={[]}
           />
         </WithLabel>
-      <Button type="submit" size="large">
-        제출
-      </Button>
+        <Button size="large" onClick={onSubmit && handleSubmit(onSubmit)}>
+          수정 완료
+        </Button>
       </StyledForm>
     </>
   );
