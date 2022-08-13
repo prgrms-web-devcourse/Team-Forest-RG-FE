@@ -1,26 +1,30 @@
 import { useRecoilValue } from "recoil";
+import { SubmitHandler } from "react-hook-form";
 import { userState } from "@/recoil/state/authState";
 import useUserInfo from "../../hooks/useUserInfo";
 import ProfileModifyForm from "@/pages/MyPage/components/Profile/ProfileModifyForm";
+import user, { RegisterData } from "@/api/user";
 
 function ProfileModify() {
   const myUserId = useRecoilValue(userState);
   const [userInfo, loading] = useUserInfo(myUserId);
-  console.log(userInfo);
-  const dummyUserInfo = {
-    nickname: "out",
-    ridingStartYear: "2020",
-    favoriteRegionCode: 11,
-    level: "상",
-    bicycles: ["따릉이"],
+
+  const onSubmit: SubmitHandler<RegisterData> = async (data) => {
+    if (!myUserId) return;
+    await user.setUserInfo(myUserId, data);
+  };
+  const formData = {
+    ...userInfo?.ridingProfile,
+    phoneNumber: userInfo?.privacyProfile.phoneNumber,
   };
 
   if (loading) return <div>Loading</div>;
   return (
-    <div>
-      프로필 수정 탭 id: {myUserId}
-      <ProfileModifyForm userInfo={dummyUserInfo} />
-    </div>
+    userInfo && (
+      <div>
+        <ProfileModifyForm profileData={formData} onSubmit={onSubmit} />
+      </div>
+    )
   );
 }
 
