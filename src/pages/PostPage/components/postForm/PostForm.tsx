@@ -251,7 +251,11 @@ function PostForm({
           isRequired
           labelProps={{ marginBottom: true }}
         >
-          <LocationInput />
+          <Controller
+            control={control}
+            name="information.departurePlace"
+            render={({ field }) => <LocationInput {...field} />}
+          />
         </WithLabel>
         <Divider />
         <WithLabel
