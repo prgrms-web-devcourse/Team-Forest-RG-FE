@@ -239,7 +239,15 @@ function PostForm({
             <Controller
               control={control}
               name="information.fee"
-              render={({ field }) => <FeeInput {...field} />}
+              render={({ field: { onChange, ...props } }) => (
+                <FeeInput
+                  {...props}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    onChange(parseInt(e.target.value, 10) || 0);
+                  }}
+                />
+              )}
+              defaultValue={0}
             />
           </WithLabel>
         </TwoColumnContainer>
