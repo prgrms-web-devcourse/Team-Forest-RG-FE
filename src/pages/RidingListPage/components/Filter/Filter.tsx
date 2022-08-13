@@ -17,9 +17,15 @@ interface props {
   }[];
   placeholder?: string;
   setData?: Dispatch<SetStateAction<string | number>>;
+  disableFetch?: boolean;
 }
 
-const Filter = ({ filterData, placeholder, setData }: props) => {
+const Filter = ({
+  filterData,
+  placeholder,
+  setData,
+  disableFetch = false,
+}: props) => {
   const { control } = useForm<Type>({
     defaultValues: {
       filter: "",
@@ -32,7 +38,7 @@ const Filter = ({ filterData, placeholder, setData }: props) => {
   });
 
   useEffect(() => {
-    if (watchFilterData) {
+    if (watchFilterData && !disableFetch) {
       console.log(watchFilterData, "fetch api call,.....");
     }
     if (setData) {

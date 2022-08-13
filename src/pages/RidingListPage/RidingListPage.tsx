@@ -47,6 +47,7 @@ const RidingListPage = () => {
             filterData={regionData}
             setData={setCityCode}
             placeholder="시"
+            disableFetch
           />
         </Grid>
         <Grid item xs={2}>
