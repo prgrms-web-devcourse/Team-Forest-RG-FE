@@ -30,7 +30,6 @@ const RidingDetail = ({ postId = 1 }: Props) => {
     () => getPost(Number(id) || postId),
     {
       onSuccess: (data) => {
-        console.log("디테일", data);
         const {
           title,
           thumbnail,

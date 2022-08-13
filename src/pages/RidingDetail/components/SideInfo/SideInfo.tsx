@@ -103,7 +103,6 @@ const SideInfo = ({ data }: SideInfoProps) => {
   const { open, handleOpen, handleClose } = useModal();
 
   const onSubmit = () => {
-    console.log("submitted!");
     handleClose();
   };
 
