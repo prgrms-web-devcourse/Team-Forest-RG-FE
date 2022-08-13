@@ -229,6 +229,7 @@ function PostForm({
               control={control}
               name="information.level"
               render={({ field }) => <LevelInput {...field} />}
+              defaultValue="하"
             />
           </WithLabel>
 

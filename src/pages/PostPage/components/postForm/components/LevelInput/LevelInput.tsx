@@ -34,7 +34,6 @@ const LevelInput = forwardRef<HTMLButtonElement, LevelInputProps>(
           useCustomIcon
           icon={RadioIconButton}
           checkedIcon={RadioIconButton}
-          defaultChecked={!!value}
           value={value}
           {...props}
         />
