@@ -5,8 +5,9 @@ export interface RegisterData {
   phoneNumber: string;
   ridingStartYear?: number;
   favoriteRegionCode?: number;
-  level: string;
+  ridingLevel: string;
   bicycles: string[];
+  profileImageId: number;
 }
 const register = async (registerData: RegisterData) => {
   try {
@@ -33,6 +34,19 @@ const getUserInfo = async (id: number) => {
   }
 };
 
+const editUserInfo = async (id: number, data: any) => {
+  try {
+    const res = await axiosInstance({
+      method: "PUT",
+      url: `api/v1/users/${id}`,
+      data,
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error("getUserInfo Failed");
+  }
+};
+
 const evaluate = async (data: any) => {
   try {
     const res = await axiosInstance({
@@ -45,4 +59,4 @@ const evaluate = async (data: any) => {
     throw new Error("Evaluate Failed");
   }
 };
-export default { register, getUserInfo, evaluate };
+export default { register, getUserInfo, setUserInfo: editUserInfo, evaluate };
