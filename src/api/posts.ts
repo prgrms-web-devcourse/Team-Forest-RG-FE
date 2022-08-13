@@ -20,3 +20,15 @@ export const postPost = async (
   });
   return response.data;
 };
+
+export const editPost = async (
+  postId: number,
+  postData: RidingFormValues
+): Promise<T.PostDetail> => {
+  const response = await axiosInstance({
+    method: "PUT",
+    url: `/api/v1/ridingposts/${postId}`,
+    data: postData,
+  });
+  return response.data;
+};
