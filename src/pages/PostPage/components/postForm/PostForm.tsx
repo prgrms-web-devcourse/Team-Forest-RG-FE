@@ -138,8 +138,8 @@ function PostForm({
               rules={{
                 validate: {
                   afterNow: (value) =>
-                    dayjs(value).diff(dayjs()) > 0 ||
-                    "현재 시간 이전은 선택할 수 없습니다.",
+                    dayjs(value).diff(dayjs().add(1, "day")) > 0 ||
+                    "24시간 이후 시간만 가능합니다.",
                 },
               }}
             />
