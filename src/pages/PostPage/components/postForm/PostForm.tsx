@@ -197,9 +197,7 @@ function PostForm({
               rules={{
                 required: "필수 입력사항입니다.",
                 validate: {
-                  requiredDetail: (value) => {
-                    return value % 1000 !== 0 || "세부 지역을 선택해주세요.";
-                  },
+                  required: (value) => value !== 0 || "필수 입력사항입니다.",
                 },
               }}
               render={({ field }) => <RegionInput {...field} />}

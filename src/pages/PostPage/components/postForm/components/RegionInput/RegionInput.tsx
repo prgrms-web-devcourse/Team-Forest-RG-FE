@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import Select from "@/components/Select";
 import { regionCode } from "@/constants/region";
 import { Container } from "./RegionInput.style";
@@ -10,38 +10,41 @@ interface RegionInputProps {
 
 const RegionInput = forwardRef<HTMLInputElement, RegionInputProps>(
   ({ onChange, value }, ref) => {
-    const cityCode = value && Math.floor(value / 1000);
+    const [city, setCity] = useState<number>(0);
 
     const detailData = useMemo(() => {
       const result = regionCode
-        .find(({ code }) => code === cityCode)
+        .find(({ code }) => code === city)
         ?.detail.map(({ code, name }) => ({
           key: code,
           value: code,
           text: name,
         }));
       return result || [{ key: 0, value: 0, text: "" }];
-    }, [cityCode]);
+    }, [city]);
+
     return (
       <Container>
         <Select
-          label="시/도"
+          placeholder="시/도"
           data={regionCode.map(({ code, name }) => ({
             key: code,
             value: code,
             text: name,
           }))}
-          value={value && Math.floor(value / 1000)}
+          value={city || "none"}
           onChange={(e) => {
-            if (onChange) onChange(Number(e.target.value) * 1000);
+            setCity(Number(e.target.value));
+            if (onChange) onChange(0);
           }}
           ref={ref}
         />
 
         <Select
-          label="시/군/구"
+          placeholder="시/군/구"
+          disabled={city === 0}
           data={detailData}
-          value={value}
+          value={value || "none"}
           onChange={onChange}
           ref={ref}
         />
