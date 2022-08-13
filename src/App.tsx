@@ -18,6 +18,7 @@ import {
 } from "@/pages/MyPage";
 import ProfilePage from "./pages/ProfilePage";
 import RidingDetail from "./pages/RidingDetail";
+import PostEditPage from "./pages/PostEditPage";
 
 function App() {
   return (
@@ -28,9 +29,8 @@ function App() {
             <Route index element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="posts" element={<ListPage />}>
-              <Route path=":postId" element={<RidingDetail />} />
-            </Route>
+            <Route path="posts" element={<ListPage />} />
+            <Route path="post/:postId" element={<RidingDetail />} />
             <Route path="/mypage" element={<MyPage />}>
               <Route index element={<RidingTab />} />
               <Route path="/mypage/riding" element={<RidingTab />} />
@@ -40,7 +40,8 @@ function App() {
             </Route>
             <Route path="/profile/:id" element={<ProfilePage />} />
             <Route element={<RequireAuth />}>
-              <Route path="/post" element={<PostPage />} />
+              <Route path="/post/create" element={<PostPage />} />
+              <Route path="/post/edit/:postId" element={<PostEditPage />} />
             </Route>
           </Route>
         </Route>

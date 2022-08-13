@@ -7,3 +7,8 @@ interface WithLabelProps {
 export const Container = styled.div<WithLabelProps>`
   width: ${({ width }) => (width ? `${width}px` : "100%")};
 `;
+
+export const TextWrapper = styled.div`
+  display: flex;
+  align-items: baseline;
+`;
