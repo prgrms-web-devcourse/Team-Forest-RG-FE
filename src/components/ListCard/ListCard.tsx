@@ -44,7 +44,7 @@ const ListCard = ({
             <Avatar src={profileImage} alt={nickname} />
           </Grid>
           <Grid container item xs>
-            <Grid item xs>
+            <Grid item xs zeroMinWidth>
               <Text variant="h5" color="white" noWrap>
                 {nickname}
               </Text>
@@ -63,10 +63,12 @@ const ListCard = ({
               <CardContent>
                 <Grid container direction="column" spacing={1}>
                   <Grid container item direction="column">
-                    <Grid item>
-                      <Text variant="h4" noWrap>
-                        {ridingTitle}
-                      </Text>
+                    <Grid item zeroMinWidth sx={{ width: "100%" }}>
+                      <Grid container item zeroMinWidth>
+                        <Text variant="h4" noWrap>
+                          {ridingTitle}
+                        </Text>
+                      </Grid>
                     </Grid>
                     <Grid>
                       <Text variant="subtitle1">{subtitle}</Text>
