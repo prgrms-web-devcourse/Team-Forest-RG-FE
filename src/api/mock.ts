@@ -32,4 +32,13 @@ const getComments = async (): Promise<returnType> => {
   return res.data;
 };
 
-export { getDetailPage, getComments };
+const getMockUserInfo = async () => {
+  const res = await axios.get(`/data/userInfo.json`, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+  return res.data;
+};
+
+export { getDetailPage, getComments, getMockUserInfo };

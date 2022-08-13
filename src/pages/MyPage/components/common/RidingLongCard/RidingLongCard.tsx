@@ -2,13 +2,13 @@
 import { Stack } from "@mui/material";
 import dayjs from "dayjs";
 import styled from "@emotion/styled";
+import { PostDetail } from "response";
 import Text from "@/components/Text";
 import Chip from "@/components/Chip";
-import { Riding } from "@/pages/MyPage/mypageService";
 import Button from "@/components/Button";
 
 interface RidingLongCardProps {
-  data: Riding;
+  data: PostDetail;
   scheduled?: boolean;
   onClickCard: (e: React.MouseEvent, id: number) => void;
   onCancelRiding?: (e: React.MouseEvent, id: number) => void;

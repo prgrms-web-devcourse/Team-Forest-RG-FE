@@ -14,6 +14,7 @@ declare module "response" {
     }[];
   }
   export interface PostDetail {
+    postId: number;
     leader: User;
     riding: {
       id: number;
@@ -42,8 +43,34 @@ declare module "response" {
       details: Section[];
     };
   }
-}
 
-module.exports = {
-  PostDetail: response.PostDetail,
-};
+  export interface UserInfo {
+    privacyProfile: {
+      phoneNumber: string;
+      kakaoEmail: string;
+    };
+    ridingProfile: {
+      nickname: string;
+      profileImage: string;
+      introduction: string;
+      ridingStartYear: number;
+      level: string;
+      bicycles: string[];
+    };
+    manner: {
+      mannerPoint: number;
+      noShow: number;
+      banned: null;
+    };
+    ridings: {
+      scheduled: PostDetail[];
+      finished: PostDetail[];
+      leading: PostDetail[];
+      canEvaluated: PostDetail[];
+    };
+  }
+  module.exports = {
+    PostDetail: response.PostDetail,
+    UserInfo: Response.UserInfo,
+  };
+}
