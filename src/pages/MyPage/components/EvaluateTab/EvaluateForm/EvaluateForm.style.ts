@@ -2,9 +2,10 @@ import styled from "@emotion/styled";
 
 export const StyledForm = styled.form`
   width: 100%;
-  margin: 0 5rem;
+  margin: 0 3rem;
   padding: 2rem 0;
   background-color: #fafafa;
+  border-radius: 1rem;
 
   display: flex;
   flex-direction: column;

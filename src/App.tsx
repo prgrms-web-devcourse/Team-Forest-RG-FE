@@ -35,7 +35,10 @@ function App() {
               <Route index element={<RidingTab />} />
               <Route path="/mypage/riding" element={<RidingTab />} />
               <Route path="/mypage/evaluate" element={<EvaluateTab />} />
-              <Route path="/mypage/evaluate/:id" element={<UserEvaluate />} />
+              <Route
+                path="/mypage/evaluate/:postId"
+                element={<UserEvaluate />}
+              />
               <Route path="/mypage/profile" element={<ProfileModify />} />
               <Route path="/mypage/privacy" element={<PrivacyModify />} />
             </Route>

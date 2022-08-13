@@ -1,40 +1,51 @@
 import dayjs from "dayjs";
 import { Stack } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { StyledForm, UserIamge, UserListContainer } from "./UserEvaluate.style";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { StyledForm, UserIamge, UserListContainer } from "./EvaluateForm.style";
 import Text from "@/components/Text";
 import Radio from "@/components/Radio";
 import Button from "@/components/Button";
 import CheckBox from "@/components/CheckBox";
 import { RadioIconButton } from "@/pages/RegisterPage/registerService";
-import { PostMockData } from "@/api/post";
+import { userState } from "@/recoil/state/authState";
+import usePost from "@/pages/MyPage/hooks/usePost";
+import {
+  getEvaluateListFrom,
+  numToDay,
+  recommendedOptions,
+} from "./evaluateFormService";
 
-export const recommendedOptions = [
-  { value: "true", dataLabel: "추천" },
-  { value: "false", dataLabel: "비추천" },
-];
+export interface EvaluateFormValues {
+  [key: string]: boolean | string | null;
+}
 
-const UserEvaluate = () => {
-  const { riding } = PostMockData;
-  const { participants } = riding;
+const EvaluateForm = () => {
+  const myUserId = useRecoilValue(userState);
+  const { postId } = useParams();
+  const [post, loading] = usePost(Number(postId));
+  console.log("post from API", post, loading);
 
   const { register, handleSubmit, setValue } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<EvaluateFormValues> = (data) => {
+    console.log("---formData---", data);
+    const EvaluateList = getEvaluateListFrom(data);
+    console.log("---EvaluateData---", EvaluateList);
   };
 
-  const numToDay = ["월", "화", "수", "목", "금", "토", "일"];
+  if (loading) return <div>Loading</div>;
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <Stack>
         <Text variant="h6" textStyle={{ fontWeight: 800 }}>
-          {`${dayjs(riding.ridingDate).get("M") + 1}월
-            ${dayjs(riding.ridingDate).get("D")}일
-            ${numToDay[dayjs(riding.ridingDate).get("d")]}요일
-            ${dayjs(riding.ridingDate).get("h")}:00`}
+          {`${dayjs(post.riding.ridingDate).get("M") + 1}월
+            ${dayjs(post.riding.ridingDate).get("D")}일
+            ${numToDay[dayjs(post.riding.ridingDate).get("d")]}요일
+            ${dayjs(post.riding.ridingDate).get("h")}:00`}
         </Text>
         <Text variant="body1" marginBottom>
-          {riding.zone.name} {riding.ridingCourses[0]}
+          {post.riding.zone.name} {post.riding.ridingCourses[0]}
         </Text>
       </Stack>
       <Text variant="h6" textStyle={{ fontWeight: 800 }}>
@@ -43,9 +54,8 @@ const UserEvaluate = () => {
       <Text variant="caption">
         비매너 리포트를 통해 같은 리뷰가 반복될 때 알림을 보내드리고 있어요.
       </Text>
-
       <UserListContainer>
-        {participants.map((userInfo, idx) => (
+        {post.riding.participants.map((userInfo, idx) => (
           <Stack
             key={userInfo.id}
             direction="row"
@@ -96,4 +106,4 @@ const UserEvaluate = () => {
   );
 };
 
-export default UserEvaluate;
+export default EvaluateForm;
