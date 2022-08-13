@@ -1,11 +1,9 @@
-import { useFormContext } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import DaumPostcodeEmbed, { Address } from "react-daum-postcode";
 import Input from "@/components/Input";
 import { useGeocoder } from "@/pages/PostPage/hooks";
 import Button from "@/components/Button";
 import MapViewer from "./MapViewer";
-import { RidingFormValues } from "../../PostForm";
 import {
   Container,
   InputContainer,
@@ -13,50 +11,64 @@ import {
   PostSearchWrapper,
 } from "./LocationInput.style";
 
-function LocationInput() {
-  const { register, setValue } = useFormContext<RidingFormValues>();
-  const { setAddress, LatLng } = useGeocoder();
-  const [addressString, setAddressString] = useState<string>("");
-  const [isOpen, setOpen] = useState<boolean>(false);
-
-  const onComplete = (data: Address) => {
-    setAddressString(data.address);
-    setAddress(data.address);
-    setOpen(false);
+interface LocationInputProps {
+  onChange?: (...event: any) => void;
+  value?: {
+    lat: number;
+    lng: number;
   };
-
-  useEffect(() => {
-    if (!LatLng) return;
-    setValue("information.departurePlace", {
-      lat: LatLng.lat,
-      lng: LatLng.lng,
-    });
-  }, [LatLng, setValue]);
-
-  return (
-    <Container>
-      <InputContainer>
-        <Input readOnly fullWidth placeholder="주소" value={addressString} />
-        <Button onClick={() => setOpen((prev) => !prev)}>주소 검색</Button>
-      </InputContainer>
-      {isOpen && (
-        <PostSearchWrapper>
-          <DaumPostcodeEmbed onComplete={onComplete} autoClose={false} />
-        </PostSearchWrapper>
-      )}
-      {addressString && LatLng && (
-        <MapWrapper>
-          <MapViewer lat={LatLng.lat} lng={LatLng.lng} level={3} />
-        </MapWrapper>
-      )}
-      <input
-        hidden
-        {...register("information.departurePlace", {
-          required: "필수 입력항목입니다.",
-        })}
-      />
-    </Container>
-  );
 }
+
+const LocationInput = forwardRef<HTMLInputElement, LocationInputProps>(
+  ({ value, onChange }, ref) => {
+    const { setAddress, coordResult, setCoord, addressResult } = useGeocoder();
+    const [addressString, setAddressString] = useState<string>("");
+    const [isOpen, setOpen] = useState<boolean>(false);
+
+    const onComplete = (data: Address) => {
+      setAddressString(data.address);
+      setAddress(data.address);
+      setOpen(false);
+    };
+
+    useEffect(() => {
+      if (value) setCoord(value);
+    }, []);
+
+    useEffect(() => {
+      if (!coordResult) return;
+      if (onChange) onChange(coordResult);
+    }, [coordResult, onChange]);
+
+    useEffect(() => {
+      setAddressString(addressResult);
+    }, [addressResult]);
+
+    return (
+      <Container>
+        <InputContainer>
+          <Input
+            readOnly
+            fullWidth
+            placeholder="주소"
+            value={addressString}
+            ref={ref}
+          />
+          <Button onClick={() => setOpen((prev) => !prev)}>주소 검색</Button>
+        </InputContainer>
+        {isOpen && (
+          <PostSearchWrapper>
+            <DaumPostcodeEmbed onComplete={onComplete} autoClose={false} />
+          </PostSearchWrapper>
+        )}
+        {addressString && value && (
+          <MapWrapper>
+            <MapViewer {...value} level={3} />
+          </MapWrapper>
+        )}
+      </Container>
+    );
+  }
+);
 
 export default LocationInput;
