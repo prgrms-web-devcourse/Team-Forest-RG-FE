@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
+import { useRecoilValue } from "recoil";
+import { userState } from "@/recoil/state/authState";
 import { joinPost } from "@/api/posts";
 import Text from "@/components/Text";
 import Avatar from "@/components/Avatar";
@@ -112,14 +114,18 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
   }>({ message: "", isError: false });
   const { open, modalOpen, modalClose } = useModal();
   const queryClient = useQueryClient();
+  const userId = useRecoilValue(userState);
 
   const onSnackBarClose = useCallback(() => {
     setSnackBarOpen(false);
   }, []);
 
   const joinRiding = useMutation(() => joinPost(postId), {
-    onSuccess: (response) => {
-      setSnackBarOptions({ message: response?.data, isError: false });
+    onSuccess: () => {
+      setSnackBarOptions({
+        message: "참가 신청이 완료 되었습니다",
+        isError: false,
+      });
       setSnackBarOpen(true);
       queryClient.invalidateQueries(["riding-detail", postId]);
     },
@@ -147,6 +153,13 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
     }));
     setProcessedData(newData);
   }, [data]);
+
+  const isJoinDisable = useMemo(() => {
+    return (
+      !!data.participants.find((item) => item.id === userId) ||
+      data.maxParticipant <= data.participants.length
+    );
+  }, [data, userId]);
 
   const SideInfoBlock = useMemo(() => {
     return (
@@ -207,8 +220,8 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={modalOpen}
-                disabled={data.participants.length === data.maxParticipant}
+                onClick={handleOpen}
+                disabled={isJoinDisable}
               >
                 참여하기
               </Button>

@@ -23,20 +23,25 @@ const Text = ({
   color,
   component = "div",
   ...props
-}: CustomTypographyProps & TypographyProps) => (
-  <Typography
-    variant={variant}
-    gutterBottom={gutterBottom}
-    noWrap={noWrap}
-    paragraph={paragraph}
-    align={align}
-    style={textStyle}
-    color={color}
-    component={component}
-    {...props}
-  >
-    {children}
-  </Typography>
-);
+}: CustomTypographyProps & TypographyProps) => {
+  if (typeof children === "boolean") {
+    return null;
+  }
+  return (
+    <Typography
+      variant={variant}
+      gutterBottom={gutterBottom}
+      noWrap={noWrap}
+      paragraph={paragraph}
+      align={align}
+      style={textStyle}
+      color={color}
+      component={component}
+      {...props}
+    >
+      {children}
+    </Typography>
+  );
+};
 
 export default Text;
