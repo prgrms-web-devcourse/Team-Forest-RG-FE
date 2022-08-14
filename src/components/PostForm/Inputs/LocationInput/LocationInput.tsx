@@ -9,7 +9,7 @@ import {
   MapWrapper,
   PostSearchWrapper,
 } from "./LocationInput.style";
-import useGeocoder from "./useGeocoder";
+import useGeocoder from "@/hooks/useGeocoder";
 
 interface LocationInputProps {
   onChange?: (...event: any) => void;
