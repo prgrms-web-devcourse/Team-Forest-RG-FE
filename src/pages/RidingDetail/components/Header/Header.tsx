@@ -23,7 +23,7 @@ const Header = ({ leader, thumbnail = "", title = "" }: HeaderProps) => {
         </Text>
         <div className="leader-info">
           <Avatar src={profileImage} alt={nickname} />
-          <Text variant="subtitle1" noWrap textStyle={{ color: "white" }}>
+          <Text variant="h6" noWrap textStyle={{ color: "white" }}>
             {nickname}
           </Text>
         </div>

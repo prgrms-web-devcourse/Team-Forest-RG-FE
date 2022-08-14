@@ -35,6 +35,7 @@ export const Content = styled.div`
   position: absolute;
   bottom: 0;
   display: flex;
+  gap: 1rem;
   flex-direction: column;
   z-index: 2;
   width: 100%;
