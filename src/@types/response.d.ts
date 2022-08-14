@@ -18,6 +18,7 @@ declare module "response" {
     riding: {
       id: number;
       title: string;
+      recruiting: boolean;
       thumbnail: string;
       thumbnailId: number | null;
       ridingLevel: string;

@@ -16,6 +16,7 @@ interface props {
   maxParticipants: number;
   currentParticipants: number;
   region: string;
+  onClick?: () => void;
 }
 
 const ListCard = ({
@@ -30,8 +31,9 @@ const ListCard = ({
   maxParticipants,
   currentParticipants,
   region,
+  onClick,
 }: props) => (
-  <OuterCard thumbnail={thumbnail}>
+  <OuterCard thumbnail={thumbnail} onClick={onClick}>
     <CardContent sx={{ height: "100%" }}>
       <Grid
         container

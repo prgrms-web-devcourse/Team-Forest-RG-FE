@@ -1,6 +1,10 @@
 import { useEffect, Dispatch, SetStateAction } from "react";
 import { useForm, useWatch, Controller } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { ListItemText } from "@mui/material";
+import { postList, postParameters } from "@/recoil/state/PostState";
+import { getPostList, postParameter } from "@/api/postList";
 import Select from "@/components/Select";
 import CheckBox from "@/components/CheckBox";
 
@@ -18,6 +22,8 @@ interface props {
   placeholder?: string;
   setData?: Dispatch<SetStateAction<string | number>>;
   disableFetch?: boolean;
+  filterName: string;
+  isReset?: boolean;
 }
 
 const Filter = ({
@@ -25,12 +31,25 @@ const Filter = ({
   placeholder,
   setData,
   disableFetch = false,
+  filterName,
+  isReset = false,
 }: props) => {
-  const { control } = useForm<Type>({
+  const { control, reset } = useForm<Type>({
     defaultValues: {
       filter: "",
     },
   });
+  const setPostData = useSetRecoilState(postList);
+  const [currentParameter, setCurrentParameter] =
+    useRecoilState(postParameters);
+  const filterMutation = useMutation(
+    (parameter: postParameter) => getPostList(parameter),
+    {
+      onSuccess: (postData) => {
+        setPostData(postData?.content);
+      },
+    }
+  );
 
   const watchFilterData = useWatch({
     control,
@@ -39,12 +58,23 @@ const Filter = ({
 
   useEffect(() => {
     if (watchFilterData && !disableFetch) {
-      console.log(watchFilterData, "fetch api call,.....");
+      const nextParameter = {
+        ...currentParameter,
+        [filterName]: watchFilterData,
+      };
+      filterMutation.mutate(nextParameter);
+      setCurrentParameter(nextParameter);
     }
     if (setData) {
       setData(watchFilterData);
     }
-  }, [watchFilterData, setData]);
+  }, [watchFilterData, setData, disableFetch]);
+
+  useEffect(() => {
+    if (isReset) {
+      reset();
+    }
+  }, [isReset]);
 
   const data = filterData.map((item) => ({
     ...item,

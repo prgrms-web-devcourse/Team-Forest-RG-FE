@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout, {
-  ListPage,
   LoginPage,
   MainPage,
   NotFoundPage,
   MyPage,
   RegisterPage,
   PostPage,
+  RidingListPage,
 } from "@/pages";
 import AuthRoute from "@/routes/AuthRoute";
 import RequireAuth from "@/routes/PrivateRoute";
@@ -29,8 +29,7 @@ function App() {
             <Route index element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="posts" element={<ListPage />} />
-            <Route path="post/:postId" element={<RidingDetail />} />
+            <Route path="posts" element={<RidingListPage />} />
             <Route path="/mypage" element={<MyPage />}>
               <Route index element={<RidingTab />} />
               <Route path="/mypage/riding" element={<RidingTab />} />
@@ -42,6 +41,7 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="/post/create" element={<PostPage />} />
               <Route path="/post/edit/:postId" element={<PostEditPage />} />
+              <Route path="/post/:postId" element={<RidingDetail />} />
             </Route>
           </Route>
         </Route>

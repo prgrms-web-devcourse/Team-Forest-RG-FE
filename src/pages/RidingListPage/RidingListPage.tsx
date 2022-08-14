@@ -1,6 +1,9 @@
+/* eslint-disable no-nested-ternary */
 import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRecoilState } from "recoil";
+import { postList } from "@/recoil/state/PostState";
 import Filter from "./components/Filter";
 import {
   bicycleTypeData,
@@ -11,6 +14,7 @@ import {
 import Lists from "./components/Lists";
 import Text from "@/components/Text";
 import Spinner from "@/components/Spinner";
+import Button from "@/components/Button";
 import { getPostList } from "@/api/postList";
 
 type dataType = {
@@ -22,10 +26,13 @@ type dataType = {
 const RidingListPage = () => {
   const [cityCode, setCityCode] = useState<string | number>(0);
   const [cityRegionData, setCityRegionData] = useState<dataType[]>([]);
+  const [isReset, setIsReset] = useState<boolean>(false);
+  const [posts, setPosts] = useRecoilState(postList);
+  const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery(["postList"], () => getPostList(), {
-    onSuccess: (data) => {
-      console.log(data);
+  const { isLoading } = useQuery(["postList"], () => getPostList(), {
+    onSuccess: (postData) => {
+      setPosts(postData?.content);
     },
   });
 
@@ -39,18 +46,44 @@ const RidingListPage = () => {
     }
   }, [cityCode]);
 
-  const filters: { id: number; data: any[]; placeholder?: string }[] = [
-    { id: 1, data: bicycleTypeData, placeholder: "자전거 종류" },
-    { id: 2, data: recruitTypeData, placeholder: "모집 상태" },
-    { id: 3, data: levelData, placeholder: "레벨" },
+  const filters: {
+    id: number;
+    data: any[];
+    placeholder?: string;
+    filterName: string;
+  }[] = [
+    {
+      id: 1,
+      data: bicycleTypeData,
+      placeholder: "자전거 종류",
+      filterName: "bicycleCode",
+    },
+    {
+      id: 2,
+      data: recruitTypeData,
+      placeholder: "모집 상태",
+      filterName: "ridingStatusCode",
+    },
+    { id: 3, data: levelData, placeholder: "레벨", filterName: "ridingLevel" },
   ];
 
   return (
-    <Grid container direction="column" spacing={3}>
-      <Grid container item spacing={2}>
-        {filters.map(({ id, data, placeholder }) => (
+    <Grid container direction="column" spacing={3} mt={2}>
+      <Grid
+        container
+        item
+        spacing={2}
+        alignItems="center"
+        justifyContent="center"
+      >
+        {filters.map(({ id, data: filterData, placeholder, filterName }) => (
           <Grid item key={id} xs={2}>
-            <Filter filterData={data} placeholder={placeholder} />
+            <Filter
+              filterData={filterData}
+              placeholder={placeholder}
+              filterName={filterName}
+              isReset={isReset}
+            />
           </Grid>
         ))}
         <Grid item xs={2}>
@@ -59,16 +92,37 @@ const RidingListPage = () => {
             setData={setCityCode}
             placeholder="시"
             disableFetch
+            filterName=""
+            isReset={isReset}
           />
         </Grid>
         <Grid item xs={2}>
-          <Filter filterData={cityRegionData} placeholder="군/구" />
+          <Filter
+            filterData={cityRegionData}
+            placeholder="군/구"
+            filterName="addressCode"
+            isReset={isReset}
+          />
+        </Grid>
+        <Grid item xs="auto">
+          <Button
+            color="error"
+            onClick={() => {
+              setIsReset(true);
+              setTimeout(() => {
+                setIsReset(false);
+              }, 1000);
+              queryClient.invalidateQueries(["postList"]);
+            }}
+          >
+            리셋
+          </Button>
         </Grid>
       </Grid>
       {isLoading ? (
         <Spinner />
-      ) : data?.content?.length ? (
-        <Lists data={data?.content} />
+      ) : posts?.length ? (
+        <Lists data={posts} />
       ) : (
         <Grid container item>
           <Grid item xs={12}>
