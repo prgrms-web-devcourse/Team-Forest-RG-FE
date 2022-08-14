@@ -1,6 +1,6 @@
 import { EvaluateFormValues } from "./EvaluateForm";
 
-export const numToDay = ["월", "화", "수", "목", "금", "토", "일"];
+export const numToDay = ["일", "월", "화", "수", "목", "금", "토"];
 
 export const recommendedOptions = [
   { value: "true", dataLabel: "추천" },

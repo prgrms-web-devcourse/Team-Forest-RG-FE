@@ -3,6 +3,7 @@ import { DialogContentText, Stack } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
 import { StyledForm, UserIamge, UserListContainer } from "./EvaluateForm.style";
 import Text from "@/components/Text";
 import Radio from "@/components/Radio";
@@ -45,6 +46,14 @@ const EvaluateForm = () => {
     navigate("/mypage", { replace: true });
     handleClose();
   };
+  useEffect(() => {
+    if (loading) return;
+
+    const isMyRiding =
+      post.riding.participants.filter(({ id }) => id === myUserId).length > 0;
+    if (!isMyRiding) navigate("/mypage", { replace: true });
+  }, [myUserId, loading]);
+
   if (loading) return <div>Loading</div>;
   return (
     <>
@@ -54,7 +63,9 @@ const EvaluateForm = () => {
             {`${dayjs(post?.riding.ridingDate).get("M") + 1}월
             ${dayjs(post?.riding.ridingDate).get("D")}일
             ${numToDay[dayjs(post?.riding.ridingDate).get("d")]}요일
-            ${dayjs(post?.riding.ridingDate).get("h")}:00`}
+            ${dayjs(post?.riding.ridingDate).get("h")}:${dayjs(
+              post?.riding.ridingDate
+            ).get("m")}`}
           </Text>
           <Text variant="body1" marginBottom>
             {post?.riding.zone.name} {post?.riding.ridingCourses[0]}
