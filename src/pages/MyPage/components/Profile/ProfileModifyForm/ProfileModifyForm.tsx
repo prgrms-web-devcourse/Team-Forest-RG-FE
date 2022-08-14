@@ -3,7 +3,7 @@
 import { Controller, SubmitHandler, useForm, useWatch } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { UserInfo } from "response";
-import { BicycleTypeInput } from "@/pages/PostPage/components/postForm/components";
+import { BicycleTypeInput } from "@/components/PostForm/Inputs";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import WithLabel from "@/components/WithLabel";

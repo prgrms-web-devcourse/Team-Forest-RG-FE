@@ -1,7 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import DaumPostcodeEmbed, { Address } from "react-daum-postcode";
 import Input from "@/components/Input";
-import { useGeocoder } from "@/pages/PostPage/hooks";
 import Button from "@/components/Button";
 import MapViewer from "./MapViewer";
 import {
@@ -10,6 +9,7 @@ import {
   MapWrapper,
   PostSearchWrapper,
 } from "./LocationInput.style";
+import useGeocoder from "./useGeocoder";
 
 interface LocationInputProps {
   onChange?: (...event: any) => void;

@@ -20,8 +20,8 @@ import {
   RegionInput,
   RouteInput,
   ThumbnailInput,
-} from "./components";
-import { Form, TwoColumnContainer } from "./PostForm.style";
+} from "@/components/PostForm/Inputs";
+import { Form, TwoColumnContainer } from "@/components/PostForm/PostForm.style";
 import WithLabel from "@/components/WithLabel";
 import { estimatedTime } from "@/constants/data";
 import Select from "@/components/Select";
