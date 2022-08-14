@@ -7,7 +7,8 @@ export interface RegisterData {
   favoriteRegionCode?: number;
   ridingLevel: string;
   bicycles: string[];
-  profileImageId: number;
+  introduction: string;
+  profileImageId: number | null;
 }
 const register = async (registerData: RegisterData) => {
   try {
