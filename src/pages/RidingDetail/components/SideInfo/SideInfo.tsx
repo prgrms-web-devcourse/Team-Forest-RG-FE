@@ -124,7 +124,10 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
       queryClient.invalidateQueries(["riding-detail", postId]);
     },
     onError: (error: any) => {
-      setSnackBarOptions({ message: error.message, isError: true });
+      setSnackBarOptions({
+        message: error.response.data.message,
+        isError: true,
+      });
       setSnackBarOpen(true);
     },
   });
