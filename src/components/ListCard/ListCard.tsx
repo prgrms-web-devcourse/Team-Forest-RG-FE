@@ -1,4 +1,5 @@
 import { Card, Grid, CardContent } from "@mui/material";
+import dayjs from "dayjs";
 import Chip from "@/components/Chip";
 import Text from "@/components/Text";
 import Avatar from "@/components/Avatar";
@@ -11,7 +12,8 @@ interface props {
   leaderId: number;
   ridingStatus: boolean;
   ridingTitle: string;
-  subtitle: string;
+  ridingLevel: string;
+  ridingData: string;
   tags: string[];
   minParticipants: number;
   maxParticipants: number;
@@ -27,7 +29,8 @@ const ListCard = ({
   nickname,
   ridingStatus,
   ridingTitle,
-  subtitle,
+  ridingLevel,
+  ridingData,
   tags,
   minParticipants,
   maxParticipants,
@@ -74,13 +77,16 @@ const ListCard = ({
                   <Grid container item direction="column">
                     <Grid item zeroMinWidth sx={{ width: "100%" }}>
                       <Grid container item zeroMinWidth>
-                        <Text variant="h4" noWrap>
+                        <Text variant="h5" noWrap>
                           {ridingTitle}
                         </Text>
                       </Grid>
                     </Grid>
                     <Grid>
-                      <Text variant="subtitle1">{subtitle}</Text>
+                      <Text variant="subtitle1">{region}</Text>
+                      <Text variant="subtitle2">
+                        {dayjs(ridingData).format("MM월DD일")}
+                      </Text>
                     </Grid>
                   </Grid>
                   <Grid container item spacing={1}>
@@ -92,25 +98,23 @@ const ListCard = ({
                   </Grid>
                   <Grid container item spacing={1}>
                     <Grid item xs="auto">
-                      <Text variant="caption">최소 {minParticipants}</Text>
+                      <Text variant="caption">
+                        인원 {`${minParticipants}~${maxParticipants} 명`}
+                      </Text>
                     </Grid>
                     <Grid item xs="auto">
                       <Text variant="caption">•</Text>
                     </Grid>
                     <Grid item xs="auto">
-                      <Text variant="caption">최대 {maxParticipants}</Text>
+                      <Text variant="caption">
+                        현재 {currentParticipants} 명
+                      </Text>
                     </Grid>
                     <Grid item xs="auto">
                       <Text variant="caption">•</Text>
                     </Grid>
                     <Grid item xs="auto">
-                      <Text variant="caption">현재 {currentParticipants}</Text>
-                    </Grid>
-                    <Grid item xs="auto">
-                      <Text variant="caption">•</Text>
-                    </Grid>
-                    <Grid item xs="auto">
-                      <Text variant="caption">{region}</Text>
+                      <Text variant="caption">레벨 {ridingLevel}</Text>
                     </Grid>
                   </Grid>
                 </Grid>
