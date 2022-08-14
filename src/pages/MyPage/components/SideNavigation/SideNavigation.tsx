@@ -33,7 +33,7 @@ const SideNavigation = () => {
           <S.StyledLink to="/mypage/riding">
             <Text variant="subtitle1">라이딩 내역</Text>
           </S.StyledLink>
-          <S.StyledLink to="/mypage/rating">
+          <S.StyledLink to="/mypage/evaluate">
             <Text variant="subtitle1">노쇼 체크 / 평가</Text>
           </S.StyledLink>
         </Text>

@@ -24,5 +24,6 @@ export default MyPage;
 
 export { default as PrivacyModify } from "./components/Privacy";
 export { default as ProfileModify } from "./components/Profile";
-export { default as RatingTab } from "./components/RatingTab";
+export { default as EvaluateTab } from "./components/EvaluateTab";
+export { default as UserEvaluate } from "./components/EvaluateTab/EvaluateForm";
 export { default as RidingTab } from "./components/RidingTab";
