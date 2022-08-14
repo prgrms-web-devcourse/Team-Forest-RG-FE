@@ -48,6 +48,7 @@ const Lists = ({ data }: { data: props }) => {
               ref={index === data.length - 1 ? ref : null}
             >
               <ListCard
+                leaderId={leader.id}
                 thumbnail={riding.thumbnail}
                 subtitle={riding.ridingLevel}
                 nickname={leader.nickname}

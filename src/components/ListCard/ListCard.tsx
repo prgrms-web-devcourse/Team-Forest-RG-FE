@@ -2,12 +2,13 @@ import { Card, Grid, CardContent } from "@mui/material";
 import Chip from "@/components/Chip";
 import Text from "@/components/Text";
 import Avatar from "@/components/Avatar";
-import { OuterCard } from "./ListCard.style";
+import { OuterCard, StyledLink } from "./ListCard.style";
 
 interface props {
   thumbnail: string;
   profileImage: string;
   nickname: string;
+  leaderId: number;
   ridingStatus: boolean;
   ridingTitle: string;
   subtitle: string;
@@ -22,6 +23,7 @@ interface props {
 const ListCard = ({
   thumbnail,
   profileImage,
+  leaderId,
   nickname,
   ridingStatus,
   ridingTitle,
@@ -47,9 +49,14 @@ const ListCard = ({
           </Grid>
           <Grid container item xs>
             <Grid item xs zeroMinWidth>
-              <Text variant="h5" color="white" noWrap>
-                {nickname}
-              </Text>
+              <StyledLink
+                to={`/profile/${leaderId}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Text variant="h6" color="white" noWrap>
+                  {nickname}
+                </Text>
+              </StyledLink>
             </Grid>
             <Grid item xs="auto">
               <Chip
