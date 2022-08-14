@@ -14,7 +14,6 @@ declare module "response" {
     }[];
   }
   export interface PostDetail {
-    postId: number;
     leader: User;
     riding: {
       id: number;
@@ -39,7 +38,7 @@ declare module "response" {
       departurePosition: {
         lat: number;
         lng: number;
-      };
+      } | null;
       details: Section[];
     };
   }
