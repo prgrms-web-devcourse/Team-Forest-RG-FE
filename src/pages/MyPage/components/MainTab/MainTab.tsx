@@ -18,7 +18,6 @@ import Button from "@/components/Button";
 const MainTab = () => {
   const myUserId = useRecoilValue(userState);
   const [userInfo, loading] = useUserInfo(myUserId);
-  console.log(userInfo);
   return !userInfo || loading ? (
     <Spinner />
   ) : (
