@@ -15,7 +15,7 @@ axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
   if (config.headers) {
     const getToken = () => {
       const item = localStorage.getItem("token");
-      return item ? item : null;
+      return item;
     };
     // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = getToken() ? `Bearer ${getToken()}` : "";

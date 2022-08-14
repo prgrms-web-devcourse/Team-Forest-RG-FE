@@ -2,7 +2,7 @@ import { Typography, TypographyProps } from "@mui/material";
 
 export interface CustomTypographyProps {
   variant?: TypographyProps["variant"];
-  marginBottom?: boolean;
+  gutterBottom?: boolean;
   noWrap?: boolean;
   paragraph?: boolean;
   align?: TypographyProps["align"];
@@ -14,7 +14,7 @@ export interface CustomTypographyProps {
 
 const Text = ({
   variant,
-  marginBottom,
+  gutterBottom,
   noWrap,
   paragraph,
   align,
@@ -26,7 +26,7 @@ const Text = ({
 }: CustomTypographyProps & TypographyProps) => (
   <Typography
     variant={variant}
-    gutterBottom={marginBottom}
+    gutterBottom={gutterBottom}
     noWrap={noWrap}
     paragraph={paragraph}
     align={align}
