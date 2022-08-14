@@ -1,7 +1,6 @@
 {
   "name": "team-forest-rg-fe",
   "version": "1.0.0",
-  "proxy": "https://cool-dusk-ced14a.netlify.app/",
   "description": "Forest 팀 프론트엔드 repository입니다.",
   "main": "index.ts",
   "scripts": {

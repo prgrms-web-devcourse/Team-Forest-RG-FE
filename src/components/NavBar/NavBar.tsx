@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 import { useLocation } from "react-router-dom";
-import { isAuthState, tokenState } from "@/recoil/state/authState";
+import { isAuthState, tokenState, userState } from "@/recoil/state/authState";
 import {
   NavBarContainer,
   ContentContainer,
@@ -17,17 +17,17 @@ import rgLogo from "@/assets/RG_Logo.png";
 const NavBar = () => {
   const isAuth = useRecoilValue(isAuthState);
   const token = useRecoilValue(tokenState);
+  const userId = useRecoilValue(userState);
   const EventSource = EventSourcePolyfill || NativeEventSource;
 
   useEffect(() => {
-    if (isAuth && token) {
+    if (isAuth && token && userId) {
       const eventSource = new EventSourcePolyfill(
-        "https://rg-server.p-e.kr/api/v1/connection/sse ",
+        `https://rg-server.p-e.kr/api/v1/connection/sse/${userId}`,
         {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
-            "Access-Control-Allow-Origin": "https://rg-server.p-e.kr",
           },
         }
       );
