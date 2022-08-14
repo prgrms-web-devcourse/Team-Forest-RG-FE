@@ -1,33 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UserInfo } from "response";
+import { useQuery } from "@tanstack/react-query";
 import user from "@/api/user";
 
 type UseUserInfo = [UserInfo | null, boolean, any];
 
 const useUserInfo = (userId: number | null): UseUserInfo => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        if (!userId) {
-          setError("UserId Is Not Exist");
-          return;
-        }
-        const data = await user.getUserInfo(userId);
+  const { isLoading, error } = useQuery(
+    ["user-fetch", userId],
+    () => {
+      if (!userId) return new Error("UserId Is Not Exist");
+      return user.getUserInfo(userId);
+    },
+    {
+      onSuccess: (data) => {
         setUserInfo(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
-      }
-    };
-    fetchUserInfo();
-  }, [userId]);
+      },
+    }
+  );
 
-  return [userInfo, loading, error];
+  return [userInfo, isLoading, error];
 };
 
 export default useUserInfo;

@@ -1,5 +1,4 @@
 import { UserInfo as UserInfoType } from "response";
-import IconButton from "../IconButton";
 import Text from "../Text";
 import Chip from "../Chip";
 import * as S from "./UserInfo.style";
@@ -12,11 +11,6 @@ const UserInfo = ({ userInfo }: UserInfoProps) => {
     <S.UserInfo>
       <S.UserIamgeBox>
         <S.UserIamge src={userInfo.ridingProfile.profileImage} />
-        <S.EditButton>
-          <IconButton iconName="add_circle" component="label" color="primary">
-            <input hidden accept="image/*" multiple type="file" />
-          </IconButton>
-        </S.EditButton>
       </S.UserIamgeBox>
       <S.UserNickName>
         <Text variant="h6">{userInfo.ridingProfile.nickname}</Text>
