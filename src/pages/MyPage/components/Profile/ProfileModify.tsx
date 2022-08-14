@@ -13,16 +13,12 @@ function ProfileModify() {
     if (!myUserId) return;
     await user.setUserInfo(myUserId, data);
   };
-  const formData = {
-    ...userInfo?.ridingProfile,
-    phoneNumber: userInfo?.privacyProfile.phoneNumber,
-  };
 
   if (loading) return <div>Loading</div>;
   return (
     userInfo && (
       <div>
-        <ProfileModifyForm profileData={formData} onSubmit={onSubmit} />
+        <ProfileModifyForm profileData={userInfo} onSubmit={onSubmit} />
       </div>
     )
   );
