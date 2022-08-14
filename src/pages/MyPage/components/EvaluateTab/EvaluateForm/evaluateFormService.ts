@@ -14,6 +14,8 @@ interface Evaluate {
   noshow?: boolean;
 }
 const DEFAULT_RECOMMNED_VALUE = true;
+const DEFAULT_NOSHOW_VALUE = false;
+
 export const getEvaluateListFrom = (formData: EvaluateFormValues) => {
   const evaluateList: Evaluate[] = [];
 
@@ -43,5 +45,12 @@ export const getEvaluateListFrom = (formData: EvaluateFormValues) => {
     evaluateList[memberId][key] = newValue as boolean;
     evaluateList[memberId].memberId = memberId;
   });
-  return evaluateList.filter((el) => el);
+
+  return evaluateList
+    .filter((el) => el)
+    .map((el) =>
+      typeof el.noshow === "undefined"
+        ? { ...el, noshow: DEFAULT_NOSHOW_VALUE }
+        : el
+    );
 };

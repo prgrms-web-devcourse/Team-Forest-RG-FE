@@ -26,11 +26,11 @@ const EvaluateForm = () => {
   const myUserId = useRecoilValue(userState);
   const { postId } = useParams();
   const [post, loading] = usePost(Number(postId));
-  console.log("post from API", post, loading);
-
   const { register, handleSubmit, setValue } = useForm();
+
   const onSubmit: SubmitHandler<EvaluateFormValues> = async (formData) => {
     const evaluatedMemberList = getEvaluateListFrom(formData);
+
     await user.evaluate({
       postId,
       evaluatedMemberList,
@@ -58,48 +58,52 @@ const EvaluateForm = () => {
         비매너 리포트를 통해 같은 리뷰가 반복될 때 알림을 보내드리고 있어요.
       </Text>
       <UserListContainer>
-        {post?.riding.participants.map((userInfo, idx) => (
-          <Stack
-            key={userInfo.id}
-            direction="row"
-            justifyContent="space-evenly"
-            width="100%"
-          >
-            <Stack direction="row">
-              <Stack direction="column">
-                {idx === 0 && (
-                  <Text variant="caption" textStyle={{ fontWeight: 800 }}>
-                    노쇼여부
-                  </Text>
+        {post?.riding.participants
+          .filter((participant) => participant.id !== myUserId)
+          .map((userInfo, idx) => (
+            <Stack
+              key={userInfo.id}
+              direction="row"
+              justifyContent="space-evenly"
+              width="100%"
+            >
+              <Stack direction="row">
+                {myUserId === post.leader.id && (
+                  <Stack direction="column">
+                    {idx === 0 && (
+                      <Text variant="caption" textStyle={{ fontWeight: 800 }}>
+                        노쇼여부
+                      </Text>
+                    )}
+                    <CheckBox
+                      customColor="red"
+                      sx={{ marginBottom: "1.5rem", marginRight: "1rem" }}
+                      {...register(`${userInfo.id} noshow`)}
+                    />
+                  </Stack>
                 )}
-                <CheckBox
-                  customColor="red"
-                  sx={{ marginBottom: "1.5rem", marginRight: "1rem" }}
-                  {...register(`${userInfo.id} noshow`)}
-                />
+                <Stack direction="column">
+                  <UserIamge src={userInfo.profileImage} />
+                  <Text>{userInfo.nickname}</Text>
+                </Stack>
               </Stack>
-              <Stack direction="column">
-                <UserIamge src={userInfo.profileImage} />
-                <Text>{userInfo.nickname}</Text>
-              </Stack>
+              <Radio
+                id={`${userInfo.id} recommended`}
+                data={recommendedOptions}
+                row
+                useCustomIcon
+                icon={RadioIconButton}
+                defaultValue="recommended"
+                checkedIcon={RadioIconButton}
+                sx={{ justifyContent: "center" }}
+                {...register(`${userInfo.id} recommended`, {
+                  onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                    setValue(`${userInfo.id} recommended`, e.target.value);
+                  },
+                })}
+              />
             </Stack>
-            <Radio
-              id={`${userInfo.id} recommended`}
-              data={recommendedOptions}
-              row
-              useCustomIcon
-              icon={RadioIconButton}
-              defaultValue="recommended"
-              checkedIcon={RadioIconButton}
-              sx={{ justifyContent: "center" }}
-              {...register(`${userInfo.id} recommended`, {
-                onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                  setValue(`${userInfo.id} recommended`, e.target.value);
-                },
-              })}
-            />
-          </Stack>
-        ))}
+          ))}
       </UserListContainer>
 
       <Button type="submit" size="large" sx={{ width: "60%" }}>
