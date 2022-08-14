@@ -1,7 +1,8 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { Controller, SubmitHandler, useForm, useWatch } from "react-hook-form";
+import { useEffect, useRef } from "react";
+import { UserInfo } from "response";
 import { BicycleTypeInput } from "@/pages/PostPage/components/postForm/components";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
@@ -35,13 +36,21 @@ const ProfileModifyForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterData>();
-
+  const imageUrl = useRef<string>();
+  const nickNameByte = useWatch({ control, name: "nickname" });
+  const introductionByte = useWatch({ control, name: "introduction" });
   useEffect(() => {
-    const data = profileData;
+    const data: UserInfo = profileData;
     if (!data) return;
-    data.ridingLevel = data.level;
-    delete data.level;
-    reset(data);
+    const { profileImage, level, ...ridingData } = data.ridingProfile;
+    const formData: RegisterData = {
+      ...ridingData,
+      phoneNumber: data.privacyProfile.phoneNumber,
+      ridingLevel: level,
+      profileImageId: null,
+    };
+    imageUrl.current = profileImage;
+    reset(formData);
   }, [profileData]);
 
   return (
@@ -52,14 +61,30 @@ const ProfileModifyForm = ({
           <Controller
             control={control}
             name="profileImageId"
-            render={({ field }) => <ProfileImageInput {...field} />}
+            render={({ field: { onChange, ref } }) => (
+              <ProfileImageInput
+                defaultUrl={imageUrl.current}
+                ref={ref}
+                onChange={onChange}
+              />
+            )}
           />
           <WithLabel
             label="한 줄 소개"
             variant="subtitle1"
+            caption={
+              !errors?.introduction
+                ? `최대 255바이트 (${
+                    new TextEncoder().encode(introductionByte).length
+                  }byte)`
+                : undefined
+            }
+            errorMessage={errors?.introduction?.message}
             labelProps={{ gutterBottom: true }}
           >
             <Input
+              multiline
+              rows={3}
               fullWidth
               placeholder="간단한 소개해보세요😊"
               {...register("introduction")}
@@ -71,16 +96,38 @@ const ProfileModifyForm = ({
           variant="h6"
           labelProps={{ gutterBottom: true }}
           isRequired
+          caption={
+            !errors?.nickname
+              ? `6~24byte (${
+                  new TextEncoder().encode(nickNameByte).length
+                }byte)`
+              : undefined
+          }
           errorMessage={errors?.nickname?.message}
         >
           <Input
             fullWidth
             {...register("nickname", {
               required: "필수 입력사항입니다.",
-              minLength: { value: 2, message: "최소 2글자 이상 작성해주세요" },
-              maxLength: {
-                value: 8,
-                message: "최대 8글자 이하로 작성해주세요",
+              validate: {
+                minbyteLength: (value: string) => {
+                  const byteLength = new TextEncoder().encode(value).length;
+                  return (
+                    byteLength >= 6 ||
+                    `6byte 이상 입력해주세요. (현재 ${byteLength}byte)`
+                  );
+                },
+                maxbyteLength: (value: string) => {
+                  const byteLength = new TextEncoder().encode(value).length;
+                  return (
+                    byteLength <= 24 ||
+                    `24byte 이하로 입력해주세요. (현재 ${byteLength}byte)`
+                  );
+                },
+              },
+              pattern: {
+                value: /^[가-힣|a-z|A-Z|]+$/,
+                message: "한글과 영어만 가능합니다.",
               },
             })}
             error={!!errors?.nickname}
@@ -157,6 +204,7 @@ const ProfileModifyForm = ({
         >
           <Input
             fullWidth
+            type="number"
             {...register("phoneNumber", {
               required: "필수 입력사항입니다.",
               pattern: {
