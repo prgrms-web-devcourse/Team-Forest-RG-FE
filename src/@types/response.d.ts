@@ -18,6 +18,7 @@ declare module "response" {
     riding: {
       title: string;
       thumbnail: string;
+      thumbnailId: number | null;
       ridingLevel: string;
       zone: {
         code: number;

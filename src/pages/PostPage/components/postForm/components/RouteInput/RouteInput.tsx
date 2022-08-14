@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useState } from "react";
+import { ChangeEvent, forwardRef, useCallback, useState } from "react";
 import { Breadcrumbs, Icon } from "@mui/material";
 import { Container } from "./RouteInput.style";
 import Input from "@/components/Input";
@@ -18,14 +18,13 @@ const RouteInput = forwardRef<HTMLInputElement, RouteInputProps>(
       error: boolean;
       message: string;
     }>({ error: false, message: "" });
+    const [inputValue, setInputValue] = useState<string>("");
 
     const handleKeydown = useCallback(
-      (e: KeyboardEvent) => {
+      (e: any) => {
         setCustomError({ error: false, message: "" });
         if (e.key !== "Enter") return;
-        if (!(e.target instanceof HTMLInputElement)) return;
         e.preventDefault();
-        const inputValue = e.target.value;
 
         if (inputValue.length < 1) {
           setCustomError({ error: true, message: "1글자 이상 입력해주세요" });
@@ -41,10 +40,10 @@ const RouteInput = forwardRef<HTMLInputElement, RouteInputProps>(
           });
         } else {
           onChange([...value, inputValue]);
-          e.target.value = "";
+          setInputValue("");
         }
       },
-      [onChange, value]
+      [inputValue, onChange, value]
     );
 
     return (
@@ -52,6 +51,10 @@ const RouteInput = forwardRef<HTMLInputElement, RouteInputProps>(
         <Container>
           <Input
             fullWidth
+            value={inputValue}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setInputValue(e.target.value);
+            }}
             onKeyDown={handleKeydown}
             onBlur={() => {
               if (onBlur) onBlur();

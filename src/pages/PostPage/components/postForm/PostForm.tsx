@@ -6,7 +6,6 @@ import {
 } from "react-hook-form";
 import dayjs from "dayjs";
 import { ChangeEvent } from "react";
-import utc from "dayjs/plugin/utc";
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
 import Button from "@/components/Button";
@@ -26,16 +25,16 @@ import { Form, TwoColumnContainer } from "./PostForm.style";
 import WithLabel from "@/components/WithLabel";
 import { estimatedTime } from "@/constants/data";
 import Select from "@/components/Select";
-import defaultThumbnail from "@/assets/RG_Logo.png";
-
-dayjs.extend(utc);
 
 type Section = {
   title: string;
   images: number[];
   content: string;
 };
-
+type FormImageUrl = {
+  details?: string[][];
+  thumbnail?: string;
+};
 export interface RidingFormValues {
   information: {
     title: string;
@@ -60,6 +59,7 @@ export interface RidingFormValues {
 interface PostFormProps {
   onSubmit: SubmitHandler<RidingFormValues>;
   defaultValues?: Partial<RidingFormValues>;
+  defaultUrl?: FormImageUrl;
 }
 
 function PostForm({
@@ -67,6 +67,7 @@ function PostForm({
   defaultValues = {
     details: [{ title: "", images: [], content: "" }],
   },
+  defaultUrl,
 }: PostFormProps) {
   const methods = useForm<RidingFormValues>({
     defaultValues,
@@ -77,7 +78,6 @@ function PostForm({
     handleSubmit,
     formState: { errors },
   } = methods;
-  console.log(errors);
   return (
     <FormProvider {...methods}>
       <Form>
@@ -85,7 +85,13 @@ function PostForm({
           control={control}
           name="information.thumbnail"
           render={({ field }) => (
-            <ThumbnailInput {...field} defaultUrl={defaultThumbnail} />
+            <ThumbnailInput
+              {...field}
+              defaultUrl={
+                defaultUrl?.thumbnail ||
+                "https://team-05-storage.s3.ap-northeast-2.amazonaws.com/static/RG_Logo.png"
+              }
+            />
           )}
           defaultValue={null}
         />
@@ -122,9 +128,7 @@ function PostForm({
                 <DatePicker
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     onChange(
-                      dayjs(e.target.value)
-                        .utc()
-                        .format("YYYY-MM-DDTHH:mm:ss.SSS[Z]")
+                      dayjs(e.target.value).format("YYYY-MM-DDTHH:mm:ss.SSS")
                     );
                   }}
                   error={!!errors.information?.ridingDate}
@@ -134,8 +138,8 @@ function PostForm({
               rules={{
                 validate: {
                   afterNow: (value) =>
-                    dayjs(value).utc().diff(dayjs().utc()) > 0 ||
-                    "현재 시간 이전은 선택할 수 없습니다.",
+                    dayjs(value).diff(dayjs().add(1, "day")) > 0 ||
+                    "24시간 이후 시간만 가능합니다.",
                 },
               }}
             />
@@ -254,7 +258,8 @@ function PostForm({
                 <FeeInput
                   {...props}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    onChange(parseInt(e.target.value, 10) || 0);
+                    if (!e) onChange(0);
+                    else onChange(parseInt(e.target.value, 10) || 0);
                   }}
                 />
               )}
@@ -304,7 +309,7 @@ function PostForm({
           label="상세 내용"
           labelProps={{ marginBottom: true }}
         >
-          <ExpandableInput />
+          <ExpandableInput imageUrls={defaultUrl?.details} />
         </WithLabel>
         <Button type="button" onClick={handleSubmit(onSubmit)}>
           저장하기

@@ -12,7 +12,9 @@ interface RegionInputProps {
 
 const RegionInput = forwardRef<HTMLInputElement, RegionInputProps>(
   ({ onChange, value, error, errorMessage }, ref) => {
-    const [city, setCity] = useState<number>(0);
+    const [city, setCity] = useState<number>(
+      value ? Math.floor(value / 1000) : 0
+    );
 
     const detailData = useMemo(() => {
       const result = regionCode
@@ -22,7 +24,7 @@ const RegionInput = forwardRef<HTMLInputElement, RegionInputProps>(
           value: code,
           text: name,
         }));
-      return result || [{ key: 0, value: 0, text: "" }];
+      return result || [];
     }, [city]);
 
     return (
