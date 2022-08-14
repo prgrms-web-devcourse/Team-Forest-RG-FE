@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import DaumPostcodeEmbed, { Address } from "react-daum-postcode";
+import { ClickAwayListener } from "@mui/material";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import MapViewer from "./MapViewer";
@@ -25,7 +26,6 @@ const LocationInput = forwardRef<HTMLInputElement, LocationInputProps>(
     const { setAddress, coordResult, setCoord, addressResult } = useGeocoder();
     const [addressString, setAddressString] = useState<string>("");
     const [isOpen, setOpen] = useState<boolean>(false);
-
     const onComplete = (data: Address) => {
       setAddressString(data.address);
       setAddress(data.address);
@@ -47,22 +47,25 @@ const LocationInput = forwardRef<HTMLInputElement, LocationInputProps>(
 
     return (
       <Container>
-        <InputContainer>
-          <Input
-            readOnly
-            fullWidth
-            placeholder="주소"
-            value={addressString}
-            ref={ref}
-            error={error}
-          />
-          <Button onClick={() => setOpen((prev) => !prev)}>주소 검색</Button>
-        </InputContainer>
-        {isOpen && (
-          <PostSearchWrapper>
-            <DaumPostcodeEmbed onComplete={onComplete} autoClose={false} />
-          </PostSearchWrapper>
-        )}
+        <ClickAwayListener onClickAway={() => setOpen(false)}>
+          <InputContainer>
+            <Input
+              readOnly
+              fullWidth
+              placeholder="주소"
+              value={addressString}
+              ref={ref}
+              error={error}
+              onFocus={() => setOpen(true)}
+            />
+            <Button onClick={() => setOpen((prev) => !prev)}>주소 검색</Button>
+            {isOpen && (
+              <PostSearchWrapper>
+                <DaumPostcodeEmbed onComplete={onComplete} autoClose={false} />
+              </PostSearchWrapper>
+            )}
+          </InputContainer>
+        </ClickAwayListener>
         {addressString && value && (
           <MapWrapper>
             <MapViewer {...value} level={3} />
