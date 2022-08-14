@@ -11,8 +11,10 @@ import Button from "@/components/Button";
 interface ModalProps extends DialogProps {
   label?: string | React.ReactNode;
   open: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   onSubmit?: () => void;
+  closeText?: string;
+  submitText?: string;
 }
 
 const Modal = ({
@@ -20,6 +22,8 @@ const Modal = ({
   open,
   onClose,
   onSubmit,
+  closeText,
+  submitText,
   children,
   ...props
 }: ModalProps) => {
@@ -30,12 +34,16 @@ const Modal = ({
         {label && <DialogTitle>{label}</DialogTitle>}
         <DialogContent dividers>{children}</DialogContent>
         <DialogActions>
-          <Button color="error" onClick={onClose}>
-            취소
-          </Button>
-          <Button color="primary" onClick={onSubmit}>
-            신청
-          </Button>
+          {onClose && (
+            <Button color="error" onClick={onClose}>
+              {closeText || "취소"}
+            </Button>
+          )}
+          {onSubmit && (
+            <Button color="primary" onClick={onSubmit}>
+              {submitText || "확인"}
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </Portal>
