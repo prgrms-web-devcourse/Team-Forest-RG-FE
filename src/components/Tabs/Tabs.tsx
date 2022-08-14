@@ -2,6 +2,7 @@ import { Tab, Tabs as MuiTabs } from "@mui/material";
 import React from "react";
 import useTabs from "@/hooks/useTabs";
 import TabPanel from "./TabPanel";
+import { LabelTab } from "./Tabs.style";
 
 interface TabProps {
   data?: {
@@ -43,7 +44,7 @@ const Tabs = ({
         {data.map(({ label, value, disabled }) => (
           <Tab
             key={value}
-            label={label}
+            label={<LabelTab>{label}</LabelTab>}
             value={value}
             disabled={disabled}
             sx={tabStyle}

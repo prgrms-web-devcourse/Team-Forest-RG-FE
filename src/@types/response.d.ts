@@ -38,7 +38,7 @@ declare module "response" {
       departurePosition: {
         lat: number;
         lng: number;
-      } | null;
+      };
       details: Section[];
     };
   }

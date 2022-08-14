@@ -1,3 +1,5 @@
+import { Container } from "./TabPanel.style";
+
 interface TabPanelProps {
   children?: React.ReactNode;
   currentValue: number | string;
@@ -5,9 +7,9 @@ interface TabPanelProps {
 }
 
 const TabPanel = ({ children, currentValue, tabValue }: TabPanelProps) => (
-  <div role="tabpanel" hidden={currentValue !== tabValue}>
+  <Container role="tabpanel" hidden={currentValue !== tabValue}>
     {children}
-  </div>
+  </Container>
 );
 
 export default TabPanel;

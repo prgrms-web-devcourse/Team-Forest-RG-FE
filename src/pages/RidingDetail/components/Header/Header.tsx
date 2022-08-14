@@ -1,6 +1,6 @@
 import Avatar from "@/components/Avatar";
 import Text from "@/components/Text";
-import { Container, Content } from "./Header.style";
+import { Container, Content, Image } from "./Header.style";
 
 interface HeaderProps {
   leader: {
@@ -16,14 +16,14 @@ const Header = ({ leader, thumbnail = "", title = "" }: HeaderProps) => {
   const { nickname, profileImage } = leader;
   return (
     <Container>
-      <img src={thumbnail} alt="thumbnail" />
+      <Image src={thumbnail} alt="thumbnail" />
       <Content>
-        <Text variant="h2" noWrap>
+        <Text variant="h3" noWrap textStyle={{ color: "white" }}>
           {title}
         </Text>
         <div className="leader-info">
           <Avatar src={profileImage} alt={nickname} />
-          <Text variant="subtitle1" noWrap>
+          <Text variant="subtitle1" noWrap textStyle={{ color: "white" }}>
             {nickname}
           </Text>
         </div>
