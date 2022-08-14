@@ -27,8 +27,15 @@ const MainTab = () => {
         마이 페이지
       </Text>
       <ProfileContainer>
-        <Avatar src={userInfo.ridingProfile.profileImage} />
+        <Avatar
+          src={userInfo.ridingProfile.profileImage}
+          style={{ justifySelf: "center", width: "4rem", height: "4rem" }}
+        />
         <Text variant="subtitle1">{userInfo.ridingProfile.introduction}</Text>
+        <Text variant="subtitle1" textStyle={{ fontWeight: 600 }}>
+          전화번호
+        </Text>
+        <Text variant="subtitle1">{userInfo.privacyProfile.phoneNumber}</Text>
       </ProfileContainer>
       <Divider />
       <MenuContainer>
@@ -37,12 +44,12 @@ const MainTab = () => {
           <Text variant="subtitle1">라이딩 내역</Text>
         </StyledLink>
         <Divider direction="vertical" />
-        <StyledLink to="/mypage/riding">
+        <StyledLink to="/mypage/evaluate">
           <Icon fontSize="large">fact_check_icon</Icon>
           <Text variant="subtitle1">평가</Text>
         </StyledLink>
         <Divider direction="vertical" />
-        <StyledLink to="/mypage/riding">
+        <StyledLink to="/mypage/profile">
           <Icon fontSize="large">settings_icon</Icon>
           <Text variant="subtitle1">프로필 수정</Text>
         </StyledLink>

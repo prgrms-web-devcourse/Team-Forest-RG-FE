@@ -20,9 +20,10 @@ export const Container = styled.div`
 export const ProfileContainer = styled.div`
   box-sizing: border-box;
   padding: 2rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   border-radius: 0.5rem;
 `;
 
