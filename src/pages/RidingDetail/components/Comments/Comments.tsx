@@ -11,9 +11,6 @@ const Comments = ({ postId }: { postId: number }) => {
     () => getComments(postId),
     {
       select: (data) => data.comments,
-      onSuccess: (data) => {
-        console.log(data);
-      },
     }
   );
 

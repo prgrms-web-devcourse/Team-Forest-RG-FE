@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useCallback } from "react";
 import {
   Grid,
   AvatarGroup,
@@ -8,8 +8,11 @@ import {
   AccordionDetails,
   Icon,
   DialogContentText,
+  Portal,
 } from "@mui/material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
+import { joinPost } from "@/api/posts";
 import Text from "@/components/Text";
 import Avatar from "@/components/Avatar";
 import ToolTip from "@/components/ToolTip";
@@ -19,6 +22,7 @@ import Button from "@/components/Button";
 import { keyToLabel } from "./utils/handleData";
 import Modal from "@/components/Modal";
 import useModal from "@/hooks/useModal";
+import SnackBar from "@/components/SnackBar";
 
 export interface SideInfoProps {
   data: {
@@ -39,6 +43,7 @@ export interface SideInfoProps {
       profileImage: string;
     }[];
   };
+  postId: number;
 }
 
 type SideInfoDataType = SideInfoProps["data"];
@@ -98,11 +103,34 @@ const handleValue = (
   }
 };
 
-const SideInfo = ({ data }: SideInfoProps) => {
+const SideInfo = ({ data, postId }: SideInfoProps) => {
   const [processedData, setProcessedData] = useState<Array<dataObjectType>>([]);
+  const [snackBarOpen, setSnackBarOpen] = useState<boolean>(false);
+  const [snackBarOptions, setSnackBarOptions] = useState<{
+    message: string;
+    isError: boolean;
+  }>({ message: "", isError: false });
   const { open, handleOpen, handleClose } = useModal();
+  const queryClient = useQueryClient();
+
+  const onSnackBarClose = useCallback(() => {
+    setSnackBarOpen(false);
+  }, []);
+
+  const joinRiding = useMutation(() => joinPost(postId), {
+    onSuccess: (response) => {
+      setSnackBarOptions({ message: response?.data, isError: false });
+      setSnackBarOpen(true);
+      queryClient.invalidateQueries(["riding-detail", postId]);
+    },
+    onError: (error: any) => {
+      setSnackBarOptions({ message: error.message, isError: true });
+      setSnackBarOpen(true);
+    },
+  });
 
   const onSubmit = () => {
+    joinRiding.mutate();
     handleClose();
   };
 
@@ -120,6 +148,13 @@ const SideInfo = ({ data }: SideInfoProps) => {
   const SideInfoBlock = useMemo(() => {
     return (
       <>
+        <Portal container={document.querySelector("#root")}>
+          <SnackBar
+            open={snackBarOpen}
+            onClose={onSnackBarClose}
+            {...snackBarOptions}
+          />
+        </Portal>
         <Grid direction="column" container spacing={2}>
           {processedData.map(({ label, key, value }) => (
             <Grid container item spacing={2} key={label} alignItems="center">

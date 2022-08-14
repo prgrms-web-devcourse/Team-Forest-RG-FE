@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Grid } from "@mui/material";
@@ -37,6 +38,8 @@ const RidingDetail = ({ postId = 1 }: Props) => {
           departurePosition,
           details,
           createdAt,
+          id: ridingId,
+          thumbnailId,
           ...side
         } = data.riding;
         setSideData(side);
@@ -75,7 +78,9 @@ const RidingDetail = ({ postId = 1 }: Props) => {
                 position: "relative",
               }}
             >
-              {sideData && <SideInfo data={sideData} />}
+              {sideData && (
+                <SideInfo data={sideData} postId={detailData?.riding?.id} />
+              )}
             </Grid>
           </Grid>
         </>

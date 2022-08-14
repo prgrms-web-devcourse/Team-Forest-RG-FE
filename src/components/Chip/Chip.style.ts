@@ -4,11 +4,9 @@ import { Chip } from "@mui/material";
 
 const StyledChip = styled(Chip)`
   ${({ bgcolor, textcolor }: { bgcolor?: string; textcolor?: string }) =>
-    bgcolor &&
-    textcolor &&
     css`
-      background-color: ${bgcolor};
-      color: ${textcolor};
+      ${bgcolor && `background-color: ${bgcolor}`}
+      ${textcolor && `color: ${textcolor}`}
     `}
 `;
 

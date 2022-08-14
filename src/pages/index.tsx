@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import NavBar from "@/components/NavBar";
 
 const Container = styled.div`
-  max-width: 1140px;
+  max-width: 1300px;
   margin: 0 auto;
 `;
 
@@ -26,3 +26,4 @@ export { default as PostPage } from "./PostPage";
 export { default as RegisterPage } from "./RegisterPage";
 export { default as ListPage } from "./ListPage";
 export { default as MyPage } from "./MyPage";
+export { default as RidingListPage } from "./RidingListPage";

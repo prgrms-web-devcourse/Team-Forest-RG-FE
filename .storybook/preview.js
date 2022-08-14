@@ -1,4 +1,5 @@
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "@mui/material";
 import Theme from "@/styles/theme";
 import { Global } from "@emotion/react";
@@ -25,10 +26,12 @@ const queryClient = new QueryClient({
 export const decorators = [
   (Story) => (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={Theme}>
-        <Global styles={reset} />
-        <Story />
-      </ThemeProvider>
+      <RecoilRoot>
+        <ThemeProvider theme={Theme}>
+          <Global styles={reset} />
+          <Story />
+        </ThemeProvider>
+      </RecoilRoot>
     </QueryClientProvider>
   ),
 ];

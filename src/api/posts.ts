@@ -2,7 +2,7 @@ import * as T from "response";
 import { RidingFormValues } from "@/pages/PostPage/components/postForm/PostForm";
 import axiosInstance from "./axiosInstance";
 
-export const getPost = async (postId: number): Promise<T.PostDetail> => {
+export const getPosts = async (postId: number): Promise<T.PostDetail> => {
   const response = await axiosInstance({
     method: "GET",
     url: `/api/v1/ridingposts/${postId}`,
@@ -31,4 +31,12 @@ export const editPost = async (
     data: postData,
   });
   return response.data;
+};
+
+export const joinPost = async (postId: number) => {
+  const response = await axiosInstance({
+    method: "POST",
+    url: `/api/v1/ridingposts/${postId}/join`,
+  });
+  return response;
 };
