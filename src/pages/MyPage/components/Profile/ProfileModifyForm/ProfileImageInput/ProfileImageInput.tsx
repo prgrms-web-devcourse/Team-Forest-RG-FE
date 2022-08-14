@@ -1,4 +1,4 @@
-import { ChangeEventHandler, forwardRef, useState } from "react";
+import { ChangeEventHandler, forwardRef, useEffect, useState } from "react";
 import { Avatar, Badge } from "@mui/material";
 import IconButton from "@/components/IconButton";
 import * as S from "./ProfileImageInput.style";
@@ -11,8 +11,14 @@ interface ProfileImageInputProps {
 }
 
 const ProfileImageInput = forwardRef<HTMLInputElement, ProfileImageInputProps>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ({ defaultUrl, onChange, value, ...props }, ref) => {
-    const [imageUrl, setImageUrl] = useState<string>(defaultUrl || "");
+    const [imageUrl, setImageUrl] = useState<string>("");
+
+    useEffect(() => {
+      if (defaultUrl) setImageUrl(defaultUrl);
+    }, [defaultUrl]);
+
     const handleChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
       if (!e.target.files) return;
       const formData = new FormData();
