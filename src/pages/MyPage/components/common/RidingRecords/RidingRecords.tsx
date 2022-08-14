@@ -1,10 +1,10 @@
+import { Post } from "response";
 import RidingCard from "@/pages/MyPage/components/common/RidingCard";
 import RidingLongCard from "@/pages/MyPage/components/common/RidingLongCard";
-import { Riding } from "../../../mypageService";
 import { CardWrapper, Container } from "./RidingRecords.style";
 
 interface RidingRecordsProps {
-  ridings: Riding[];
+  ridings: Post[];
   status: "scheduled" | "finished" | "leading" | "canEvaluated";
   onClickCard: (e: React.MouseEvent, id: number) => void;
   onCancelRiding?: (e: React.MouseEvent, id: number) => void;
@@ -19,7 +19,7 @@ const RidingRecords = ({
   return (
     <Container>
       {ridings.map((data) => (
-        <CardWrapper key={data.postId}>
+        <CardWrapper key={data.id}>
           {/* <RidingCard data={data} /> */}
           <RidingLongCard
             data={data}

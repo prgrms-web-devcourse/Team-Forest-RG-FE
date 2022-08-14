@@ -1,6 +1,6 @@
 {
   "leader": {
-    "id": 3,
+    "id": 10,
     "nickname": "leader",
     "profile_image": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/andrea-brambila-mDMKysUxcCc-unsplash.jpg.jpeg"
   },
@@ -30,6 +30,11 @@
         "id": 8,
         "nickname": "Matt",
         "profileImage": "https://cdn.pixabay.com/photo/2018/02/16/14/38/portrait-3157821_960_720.jpg"
+      },
+      {
+        "id": 10,
+        "nickname": "leader",
+        "profile_image": "https://mygbs.s3.ap-northeast-2.amazonaws.com/test/andrea-brambila-mDMKysUxcCc-unsplash.jpg.jpeg"
       }
     ],
     "departurePosition": {

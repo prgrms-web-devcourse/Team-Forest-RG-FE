@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { UserInfo } from "response";
 import user from "@/api/user";
-import { UserInfoType } from "../mypageService";
 
-type UseUserInfo = [UserInfoType | null, boolean, any];
+type UseUserInfo = [UserInfo | null, boolean, any];
 
 const useUserInfo = (userId: number | null): UseUserInfo => {
-  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
 
@@ -18,13 +18,15 @@ const useUserInfo = (userId: number | null): UseUserInfo => {
         }
         const data = await user.getUserInfo(userId);
         setUserInfo(data);
+        setLoading(false);
       } catch (err) {
         setError(err);
+        setLoading(false);
       }
     };
     fetchUserInfo();
-    setLoading(false);
   }, [userId]);
+
   return [userInfo, loading, error];
 };
 

@@ -44,10 +44,23 @@ declare module "response" {
     };
   }
 
+  export interface Post {
+    id: number;
+    title: string;
+    thumbnail: string;
+    ridingLevel: string;
+    zone: { code: number; name: string };
+    fee?: number;
+    estimatedTime: string;
+    ridingDate: string;
+    bicycles: string[];
+    ridingCourses: string[];
+    departurePosition: { lng: number; lat: number };
+  }
   export interface UserInfo {
     privacyProfile: {
       phoneNumber: string;
-      kakaoEmail: string;
+      kakaoEmail: string | null;
     };
     ridingProfile: {
       nickname: string;
@@ -60,13 +73,13 @@ declare module "response" {
     manner: {
       mannerPoint: number;
       noShow: number;
-      banned: null;
+      banned: null | string;
     };
     ridings: {
-      scheduled: PostDetail[];
-      finished: PostDetail[];
-      leading: PostDetail[];
-      canEvaluated: PostDetail[];
+      scheduled: Post[];
+      finished: Post[];
+      leading: Post[];
+      canEvaluated: Post[];
     };
   }
   module.exports = {

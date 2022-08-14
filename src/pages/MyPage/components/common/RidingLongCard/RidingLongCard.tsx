@@ -2,13 +2,13 @@
 import { Stack } from "@mui/material";
 import dayjs from "dayjs";
 import styled from "@emotion/styled";
-import { PostDetail } from "response";
+import { Post } from "response";
 import Text from "@/components/Text";
 import Chip from "@/components/Chip";
 import Button from "@/components/Button";
 
 interface RidingLongCardProps {
-  data: PostDetail;
+  data: Post;
   scheduled?: boolean;
   onClickCard: (e: React.MouseEvent, id: number) => void;
   onCancelRiding?: (e: React.MouseEvent, id: number) => void;
@@ -19,23 +19,21 @@ const RidingLongCard = ({
   onClickCard,
   onCancelRiding,
 }: RidingLongCardProps) => {
-  const { riding } = data;
-
   return (
-    <Container onClick={(e) => onClickCard(e, data.postId)}>
+    <Container onClick={(e) => onClickCard(e, data.id)}>
       <Stack direction="row" spacing={1} mb={1}>
-        <StyledImg src={riding.thumbnail} alt={riding.title} />
+        <StyledImg src={data.thumbnail} alt={data.title} />
         <Stack direction="column">
           <Text variant="subtitle2" textStyle={{ color: "#878D91" }}>
-            {`${dayjs(riding.ridingDate).get("M") + 1}월
-            ${dayjs(riding.ridingDate).get("D")}일 / `}
-            {riding.zone.name}
+            {`${dayjs(data.ridingDate).get("M") + 1}월
+            ${dayjs(data.ridingDate).get("D")}일 / `}
+            {data.zone.name}
           </Text>
           <Text variant="h6" textStyle={{ fontWeight: 800 }}>
-            {riding.title}
+            {data.title}
           </Text>
           <Stack direction="row" spacing={1} mb={1}>
-            {riding.bicycleType.map((bicycle) => (
+            {data.bicycles.map((bicycle) => (
               <Chip
                 key={bicycle}
                 label={bicycle}
@@ -50,9 +48,9 @@ const RidingLongCard = ({
               variant="body2"
               textStyle={{ color: "black", fontWeight: 700 }}
             >
-              {riding.estimatedTime}
+              {data.estimatedTime}
             </Text>
-            {riding.ridingCourses.map((course, idx, ridings) => (
+            {data.ridingCourses.map((course, idx, ridings) => (
               <Text
                 variant="body2"
                 textStyle={{ color: "black", fontWeight: 700 }}
@@ -68,7 +66,7 @@ const RidingLongCard = ({
             variant="body2"
             textStyle={{ color: "#E21D47", fontWeight: 700 }}
           >
-            {riding.fee}원
+            {data.fee ? `${data.fee}원` : "무료"}
           </Text>
         </Stack>
       </Stack>
@@ -78,7 +76,7 @@ const RidingLongCard = ({
             variant="outlined"
             customTextColor="black"
             size="small"
-            onClick={(e) => onCancelRiding && onCancelRiding(e, data.postId)}
+            onClick={(e) => onCancelRiding && onCancelRiding(e, data.id)}
           >
             신청취소
           </Button>
