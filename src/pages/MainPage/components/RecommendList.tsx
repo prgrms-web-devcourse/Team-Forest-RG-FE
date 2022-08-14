@@ -47,6 +47,10 @@ const RecommendList = ({ data, label }: RecommendListProps) => {
 export default RecommendList;
 
 const Container = styled.div`
+  box-sizing: border-box;
+  padding: 2rem 0;
   width: 100%;
-  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 `;
