@@ -14,7 +14,6 @@ import {
   RidingTab,
   ProfileModify,
   EvaluateTab,
-  PrivacyModify,
   UserEvaluate,
 } from "@/pages/MyPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -40,7 +39,6 @@ function App() {
                 element={<UserEvaluate />}
               />
               <Route path="/mypage/profile" element={<ProfileModify />} />
-              <Route path="/mypage/privacy" element={<PrivacyModify />} />
             </Route>
             <Route path="/profile/:id" element={<ProfilePage />} />
             <Route element={<RequireAuth />}>

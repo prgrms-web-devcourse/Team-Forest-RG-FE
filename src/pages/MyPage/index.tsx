@@ -22,7 +22,6 @@ function MyPage() {
 
 export default MyPage;
 
-export { default as PrivacyModify } from "./components/Privacy";
 export { default as ProfileModify } from "./components/Profile";
 export { default as EvaluateTab } from "./components/EvaluateTab";
 export { default as UserEvaluate } from "./components/EvaluateTab/EvaluateForm";

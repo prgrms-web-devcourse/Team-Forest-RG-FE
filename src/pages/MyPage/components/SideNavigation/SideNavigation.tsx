@@ -42,9 +42,6 @@ const SideNavigation = () => {
           <S.StyledLink to="/mypage/profile">
             <Text variant="subtitle1">프로필 수정</Text>
           </S.StyledLink>
-          <S.StyledLink to="/mypage/privacy">
-            <Text variant="subtitle1">개인정보 수정</Text>
-          </S.StyledLink>
         </Text>
         <S.Logout
           onClick={() => userActions.logout()}
