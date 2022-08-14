@@ -1,8 +1,8 @@
+import { UserInfo as UserInfoType } from "response";
 import IconButton from "../IconButton";
 import Text from "../Text";
 import Chip from "../Chip";
 import * as S from "./UserInfo.style";
-import { UserInfoType } from "@/pages/MyPage/mypageService";
 
 interface UserInfoProps {
   userInfo: UserInfoType;

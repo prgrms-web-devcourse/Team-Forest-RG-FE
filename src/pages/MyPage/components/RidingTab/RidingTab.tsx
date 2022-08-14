@@ -1,6 +1,7 @@
 import { useRecoilValue } from "recoil";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserInfo } from "response";
 import { userState } from "@/recoil/state/authState";
 import Text from "@/components/Text";
 import Tabs from "@/components/Tabs";
@@ -8,7 +9,6 @@ import useUserInfo from "../../hooks/useUserInfo";
 import {
   RIDING_TAB_PANELS,
   DEFAULT_RIDING_TAB_ITEM_LIST,
-  UserInfoType,
 } from "../../mypageService";
 import RidingRecords from "../common/RidingRecords";
 import { Container, TabContainer } from "./RidingTab.style";
@@ -20,7 +20,7 @@ function RidingTab() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const makeTabData = (userData: UserInfoType) =>
+    const makeTabData = (userData: UserInfo) =>
       TabData.map((tab) => ({
         value: tab.value,
         targetData: (

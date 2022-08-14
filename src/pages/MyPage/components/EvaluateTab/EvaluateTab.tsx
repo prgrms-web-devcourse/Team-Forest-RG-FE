@@ -1,12 +1,12 @@
 import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserInfo } from "response";
 import { userState } from "@/recoil/state/authState";
 import RidingRecords from "../common/RidingRecords";
 import {
   DEFAULT_EVALUATED_TAB_ITEM_LIST,
   EVALUATED_TAB_PANELS,
-  UserInfoType,
 } from "../../mypageService";
 import useUserInfo from "../../hooks/useUserInfo";
 import { Container, TabContainer } from "./EvaluateTab.style";
@@ -20,7 +20,7 @@ function EvaluateTab() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const makeTabData = (userData: UserInfoType) =>
+    const makeTabData = (userData: UserInfo) =>
       TabData.map((tab) => ({
         value: tab.value,
         targetData: (

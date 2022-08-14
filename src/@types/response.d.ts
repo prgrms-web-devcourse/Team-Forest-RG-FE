@@ -84,6 +84,6 @@ declare module "response" {
   }
   module.exports = {
     PostDetail: response.PostDetail,
-    UserInfo: Response.UserInfo,
+    UserInfo: response.UserInfo,
   };
 }
