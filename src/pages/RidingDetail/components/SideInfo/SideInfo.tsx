@@ -110,7 +110,7 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
     message: string;
     isError: boolean;
   }>({ message: "", isError: false });
-  const { open, handleOpen, handleClose } = useModal();
+  const { open, modalOpen, modalClose } = useModal();
   const queryClient = useQueryClient();
 
   const onSnackBarClose = useCallback(() => {
@@ -131,7 +131,7 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
 
   const onSubmit = () => {
     joinRiding.mutate();
-    handleClose();
+    modalClose();
   };
 
   useEffect(() => {
@@ -204,7 +204,7 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={handleOpen}
+                onClick={modalOpen}
                 disabled={data.participants.length === data.maxParticipant}
               >
                 참여하기
@@ -214,7 +214,7 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
         </Grid>
         <Modal
           open={open}
-          onClose={handleClose}
+          onClose={modalClose}
           onSubmit={onSubmit}
           label="라이딩 신청"
         >
@@ -222,7 +222,7 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
         </Modal>
       </>
     );
-  }, [processedData, handleOpen, open, handleClose, onSubmit]);
+  }, [processedData, modalOpen, open, modalClose, onSubmit]);
 
   return (
     <Card

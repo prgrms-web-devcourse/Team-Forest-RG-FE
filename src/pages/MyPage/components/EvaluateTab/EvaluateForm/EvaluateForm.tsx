@@ -30,7 +30,7 @@ const EvaluateForm = () => {
   const { postId } = useParams();
   const [post, loading] = usePost(Number(postId));
   const { register, handleSubmit, setValue } = useForm();
-  const { open, handleOpen, handleClose } = useModal();
+  const { open, modalOpen, modalClose } = useModal();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<EvaluateFormValues> = async (formData) => {
@@ -44,7 +44,7 @@ const EvaluateForm = () => {
 
   const onConfirm = () => {
     navigate("/mypage", { replace: true });
-    handleClose();
+    modalClose();
   };
   useEffect(() => {
     if (loading) return;
@@ -67,7 +67,7 @@ const EvaluateForm = () => {
               post?.riding.ridingDate
             ).get("m")}`}
           </Text>
-          <Text variant="body1" marginBottom>
+          <Text variant="body1" gutterBottom>
             {post?.riding.zone.name} {post?.riding.ridingCourses[0]}
           </Text>
         </Stack>
@@ -130,7 +130,7 @@ const EvaluateForm = () => {
           type="submit"
           size="large"
           sx={{ width: "60%" }}
-          onClick={handleOpen}
+          onClick={modalOpen}
         >
           제출
         </Button>
