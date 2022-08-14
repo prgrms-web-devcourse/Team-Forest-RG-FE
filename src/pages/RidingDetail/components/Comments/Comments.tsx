@@ -17,9 +17,9 @@ const Comments = ({ postId }: { postId: number }) => {
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <Text variant="h4">{`${
-          isSuccess ? commentsData.length : 0
-        }개의 댓글이 있습니다`}</Text>
+        {isSuccess && (
+          <Text variant="h4">{`${commentsData.length}개의 댓글이 있습니다`}</Text>
+        )}
       </Grid>
       <Grid item>
         <CommentsField parentId={0} postId={postId} />
