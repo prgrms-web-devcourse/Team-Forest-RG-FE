@@ -6,6 +6,8 @@ import { userState } from "@/recoil/state/authState";
 import useUserInfo from "../../hooks/useUserInfo";
 import ProfileModifyForm from "@/pages/MyPage/components/Profile/ProfileModifyForm";
 import user, { RegisterData } from "@/api/user";
+import { Container } from "./ProfileModify.style";
+import Text from "@/components/Text";
 
 function ProfileModify() {
   const navigate = useNavigate();
@@ -23,9 +25,12 @@ function ProfileModify() {
   if (loading) return <div>Loading</div>;
   return (
     userInfo && (
-      <div>
+      <Container>
+        <Text variant="h5" textStyle={{ fontWeight: 600 }}>
+          프로필 수정
+        </Text>
         <ProfileModifyForm profileData={userInfo} onSubmit={onSubmit} />
-      </div>
+      </Container>
     )
   );
 }
