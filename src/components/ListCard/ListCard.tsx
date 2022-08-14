@@ -38,7 +38,7 @@ const ListCard = ({
   region,
   onClick,
 }: props) => (
-  <OuterCard thumbnail={thumbnail} onClick={onClick}>
+  <OuterCard thumbnail={thumbnail} onClick={onClick} style={{ width: "18rem" }}>
     <CardContent sx={{ height: "100%" }}>
       <Grid
         container
