@@ -2,7 +2,7 @@ import * as T from "response";
 import { RidingFormValues } from "@/pages/PostPage/components/postForm/PostForm";
 import axiosInstance from "./axiosInstance";
 
-export const getPosts = async (postId: number): Promise<T.PostDetail> => {
+export const getPost = async (postId: number): Promise<T.PostDetail> => {
   const response = await axiosInstance({
     method: "GET",
     url: `/api/v1/ridingposts/${postId}`,
