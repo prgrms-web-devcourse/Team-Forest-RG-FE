@@ -44,8 +44,8 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="/post/create" element={<PostPage />} />
               <Route path="/post/edit/:postId" element={<PostEditPage />} />
-              <Route path="/post/:postId" element={<RidingDetail />} />
             </Route>
+            <Route path="/post/:postId" element={<RidingDetail />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
