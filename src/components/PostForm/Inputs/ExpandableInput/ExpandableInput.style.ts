@@ -32,6 +32,6 @@ export const TitleContainer = styled.div`
 
 export const LengthText = styled(Text)`
   position: absolute;
-  right: 1rem;
+  right: 2.5rem;
   bottom: 1rem;
 `;

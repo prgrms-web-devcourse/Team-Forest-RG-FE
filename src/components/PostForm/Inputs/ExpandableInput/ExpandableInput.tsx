@@ -86,7 +86,12 @@ function ExpandableInput({ imageUrls }: ExpandableInputProps) {
                 error={!!contentError}
                 errorMessage={contentError?.message}
               />
-              <LengthText variant="body1" color="#888">
+              <LengthText
+                variant="body1"
+                color={
+                  details[index].content.length <= 500 ? "#888" : "#b00000"
+                }
+              >
                 {details[index].content.length} / 500
               </LengthText>
             </InputContainer>
