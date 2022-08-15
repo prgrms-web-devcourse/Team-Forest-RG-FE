@@ -20,7 +20,12 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Pretendard-Regular", "Roboto", "sans-serif"].join(","),
+    fontFamily: [
+      "SUIT-Medium",
+      "Pretendard-Regular",
+      "Roboto",
+      "sans-serif",
+    ].join(","),
   },
 });
 
