@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosInstance from "./axiosInstance";
 
 export interface ProfileData {
@@ -30,6 +31,11 @@ const register = async (registerData: RegisterData) => {
     });
     return res.data;
   } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const newErr = new Error();
+      newErr.message = error.response?.data as string;
+      throw newErr;
+    }
     throw new Error("register Profile Failed");
   }
 };

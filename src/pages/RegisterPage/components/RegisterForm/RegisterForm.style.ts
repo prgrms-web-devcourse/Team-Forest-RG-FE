@@ -6,18 +6,19 @@ export const StyledForm = styled.form`
   grid-template-columns: 1fr 1fr;
   row-gap: 2rem;
   column-gap: 1rem;
-
-  div:nth-of-type(5) {
+  & > div.text {
+    grid-column: 1 / span 2;
+  }
+  div:nth-of-type(8) {
     grid-column: 1 / span 2;
   }
 
-  div:nth-of-type(6) {
+  div:nth-of-type(4) {
     grid-column: 1 / span 2;
   }
-
-  & > button {
-    grid-column: 1 / span 2;
-    width: 8rem;
-    justify-self: end;
-  }
+`;
+export const ButtonWrapper = styled.div`
+  height: 4rem;
+  width: 8rem;
+  justify-self: end;
 `;

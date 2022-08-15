@@ -1,5 +1,7 @@
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { CircularProgress } from "@mui/material";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import WithLabel from "@/components/WithLabel";
@@ -12,9 +14,10 @@ import {
   RadioIconButton,
   regionOptions,
 } from "../../registerService";
-import { StyledForm } from "./RegisterForm.style";
+import { ButtonWrapper, StyledForm } from "./RegisterForm.style";
 import Button from "@/components/Button";
 import { BicycleTypeInput } from "@/components/PostForm/Inputs";
+import Text from "@/components/Text";
 
 const RegisterForm = () => {
   const {
@@ -27,21 +30,28 @@ const RegisterForm = () => {
   const location = useLocation();
   const nickNameByte = useWatch({ control, name: "nickname" });
 
+  const { mutate, isError, error, isLoading } = useMutation(
+    (data: any) => user.register(data),
+    {
+      onSuccess: () => {
+        const from = (location.state as any)?.from || "/";
+        navigate(from, { replace: true });
+      },
+    }
+  );
+
   const onSubmit = async (data: any) => {
-    const parsedData = { ...data };
-    if (!parsedData.bicycles) {
-      parsedData.bicycles = [];
-    }
-    if (!parsedData.favoriteRegionCode) {
-      parsedData.favoriteRegionCode = 0;
-    }
-    await user.register(data);
-    const from = (location.state as any)?.from || "/";
-    navigate(from, { replace: true });
+    mutate(data);
   };
 
   return (
     <StyledForm>
+      <div className="text">
+        <Text variant="h6" fontWeight={600}>
+          필수 정보
+        </Text>
+        <Text variant="body1">라이더 등록에 필수적인 정보입니다.</Text>
+      </div>
       <WithLabel
         label="닉네임"
         variant="h6"
@@ -105,66 +115,6 @@ const RegisterForm = () => {
           error={!!errors?.phoneNumber}
         />
       </WithLabel>
-      <WithLabel
-        label="시작년도"
-        variant="h6"
-        labelProps={{ gutterBottom: true }}
-        isRequired
-        errorMessage={errors?.ridingStartYear?.message}
-      >
-        <Controller
-          name="ridingStartYear"
-          control={control}
-          render={({ field: { onChange, value, ref } }) => (
-            <Select
-              data={getYearOptions(1980, 2022)}
-              value={value}
-              MenuProps={MenuProps}
-              onChange={onChange}
-              placeholder="라이딩을 시작한 연도"
-              placeholderValue={0}
-              ref={ref}
-              error={!!errors?.ridingStartYear}
-            />
-          )}
-          rules={{
-            validate: {
-              required: (value) => value !== 0 || "필수 입력사항입니다.",
-            },
-          }}
-          defaultValue={0}
-        />
-      </WithLabel>
-      <WithLabel
-        label="선호지역"
-        variant="h6"
-        labelProps={{ gutterBottom: true }}
-        isRequired
-        errorMessage={errors?.favoriteRegionCode?.message}
-      >
-        <Controller
-          name="favoriteRegionCode"
-          control={control}
-          render={({ field: { onChange, value, ref } }) => (
-            <Select
-              data={regionOptions}
-              MenuProps={MenuProps}
-              value={value}
-              onChange={onChange}
-              ref={ref}
-              placeholder="선호하는 지역"
-              placeholderValue={0}
-              error={!!errors?.favoriteRegionCode}
-            />
-          )}
-          rules={{
-            validate: {
-              required: (value) => value !== 0 || "필수 입력사항입니다.",
-            },
-          }}
-          defaultValue={0}
-        />
-      </WithLabel>
 
       <WithLabel
         label="실력"
@@ -185,12 +135,69 @@ const RegisterForm = () => {
               {...field}
             />
           )}
+          defaultValue="중"
+        />
+      </WithLabel>
+      <div className="text">
+        <Text variant="h6" fontWeight={600}>
+          추가 정보
+        </Text>
+        <Text variant="body1">
+          추가 정보를 입력하면 자신에 더 알맞은 라이딩을 추천받을 수 있습니다.
+        </Text>
+      </div>
+      <WithLabel
+        label="시작년도"
+        variant="h6"
+        labelProps={{ gutterBottom: true }}
+        errorMessage={errors?.ridingStartYear?.message}
+      >
+        <Controller
+          name="ridingStartYear"
+          control={control}
+          render={({ field: { onChange, value, ref } }) => (
+            <Select
+              data={getYearOptions(1980, 2022)}
+              value={value}
+              MenuProps={MenuProps}
+              onChange={onChange}
+              placeholder="라이딩을 시작한 연도"
+              placeholderValue={0}
+              ref={ref}
+              error={!!errors?.ridingStartYear}
+            />
+          )}
+          defaultValue={0}
         />
       </WithLabel>
       <WithLabel
+        label="선호지역"
+        variant="h6"
+        labelProps={{ gutterBottom: true }}
+        errorMessage={errors?.favoriteRegionCode?.message}
+      >
+        <Controller
+          name="favoriteRegionCode"
+          control={control}
+          render={({ field: { onChange, value, ref } }) => (
+            <Select
+              data={regionOptions}
+              MenuProps={MenuProps}
+              value={value}
+              onChange={onChange}
+              ref={ref}
+              placeholder="선호하는 지역"
+              placeholderValue={0}
+              error={!!errors?.favoriteRegionCode}
+            />
+          )}
+          defaultValue={0}
+        />
+      </WithLabel>
+
+      <WithLabel
         label="자전거 종류"
         variant="h6"
-        isRequired
         errorMessage={errors?.bicycles?.message}
         labelProps={{ gutterBottom: true }}
       >
@@ -198,12 +205,25 @@ const RegisterForm = () => {
           control={control}
           name="bicycles"
           render={({ field }) => <BicycleTypeInput {...field} />}
-          rules={{ required: "1개 이상 선택해주세요." }}
+          defaultValue={[]}
         />
       </WithLabel>
-      <Button size="large" onClick={handleSubmit(onSubmit)}>
-        입력 완료
-      </Button>
+      <div>
+        {isError && (
+          <Text variant="caption" color="#d32f2f">
+            {(error as Error).message}
+          </Text>
+        )}
+      </div>
+      <ButtonWrapper>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <Button size="large" onClick={handleSubmit(onSubmit)}>
+            입력 완료
+          </Button>
+        )}
+      </ButtonWrapper>
     </StyledForm>
   );
 };
