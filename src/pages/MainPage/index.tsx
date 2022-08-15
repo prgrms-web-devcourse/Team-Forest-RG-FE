@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import mainCarouselData from "./constants/CarouselData";
 import Carousel from "@/components/Carousel";
+import Spinner from "@/components/Spinner";
 import { CarouselWrapper, Container } from "./MainPage.style";
 import RecommendList from "./components/RecommendList";
 import { getPostList } from "@/api/postList";
@@ -60,7 +61,7 @@ function MainPage() {
     fetchAllList();
   }, [userLoading, preference]);
 
-  if (loading) return <div>Loading</div>;
+  if (loading) return <Spinner />;
 
   return (
     <Container>
