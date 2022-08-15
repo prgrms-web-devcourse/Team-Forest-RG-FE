@@ -44,6 +44,8 @@ const RidingDetail = ({ postId = 1 }: Props) => {
         } = data.riding;
         setSideData(side);
         setMainData({
+          postId: ridingId,
+          leaderId: data.leader.id,
           ridingCourses,
           departurePosition,
           details,

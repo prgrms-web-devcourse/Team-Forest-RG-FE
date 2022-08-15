@@ -1,13 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { useMemo } from "react";
 import { Grid, Breadcrumbs, Icon } from "@mui/material";
+import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 import Text from "@/components/Text";
 import Tabs from "@/components/Tabs";
 import Map from "./components/Map";
 import SectionContent from "./components/SectionContent";
 import WithLabel from "@/components/WithLabel";
+import Button from "@/components/Button";
+import { userState } from "@/recoil/state/authState";
+import Divider from "@/components/Divider";
 
 interface MainInfoProps {
+  postId: number;
+  leaderId: number;
   ridingCourses: string[];
   departurePosition: {
     lat: number;
@@ -25,10 +32,14 @@ interface MainInfoProps {
 }
 
 const MainInfo = ({
+  postId,
+  leaderId,
   ridingCourses,
   departurePosition,
   details,
 }: MainInfoProps) => {
+  const userId = useRecoilValue(userState);
+  const navigate = useNavigate();
   const tabsData = useMemo(() => {
     return details.map(({ id, title }) => ({
       label: title,
@@ -74,6 +85,7 @@ const MainInfo = ({
         </Grid>
       </Grid>
       <Grid container item direction="column">
+        <Divider />
         <Tabs
           data={tabsData}
           renderData={renderData}
@@ -82,6 +94,11 @@ const MainInfo = ({
           }}
         />
       </Grid>
+      {leaderId === userId && (
+        <Button onClick={() => navigate(`/post/edit/${postId}`)}>
+          글 수정
+        </Button>
+      )}
     </Grid>
   );
 };
