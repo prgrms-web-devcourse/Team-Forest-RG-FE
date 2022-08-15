@@ -33,7 +33,7 @@ const NavBar = () => {
   useQuery(["getNotifications", userId], () => getNotifications(), {
     enabled: !!isAuth && !!token && !!userId,
     onSuccess: (data) => {
-      setBadgeCount(data.totalElements);
+      setBadgeCount(data.content.filter((item: any) => !item.read).length);
     },
   });
 
