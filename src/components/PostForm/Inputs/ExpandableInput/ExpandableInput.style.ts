@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
+import Text from "@/components/Text";
 
 export const InputContainer = styled.div`
+  position: relative;
   display: flex;
   gap: 0.5rem;
   flex-direction: column;
@@ -26,4 +28,10 @@ export const TitleContainer = styled.div`
     flex-shrink: 0;
     max-height: 3.5rem;
   }
+`;
+
+export const LengthText = styled(Text)`
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
 `;

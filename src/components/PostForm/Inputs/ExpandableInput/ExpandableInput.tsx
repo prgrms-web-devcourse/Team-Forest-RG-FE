@@ -1,14 +1,20 @@
-import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import {
+  Controller,
+  useFieldArray,
+  useFormContext,
+  useWatch,
+} from "react-hook-form";
 import Input from "@/components/Input";
 import {
   Container,
   InputContainer,
+  LengthText,
   Section,
   TitleContainer,
 } from "./ExpandableInput.style";
 import Button from "@/components/Button";
 import ImageInput from "./ImageInput";
-import { RidingFormValues } from "../../PostForm";
+import { RidingFormValues } from "../..";
 
 interface ExpandableInputProps {
   imageUrls?: string[][];
@@ -17,6 +23,10 @@ interface ExpandableInputProps {
 function ExpandableInput({ imageUrls }: ExpandableInputProps) {
   const { control, register, getFieldState } =
     useFormContext<RidingFormValues>();
+  const details = useWatch({
+    control,
+    name: "details",
+  });
   const { fields, append, remove } = useFieldArray({
     name: "details",
     control,
@@ -76,6 +86,9 @@ function ExpandableInput({ imageUrls }: ExpandableInputProps) {
                 error={!!contentError}
                 errorMessage={contentError?.message}
               />
+              <LengthText variant="body1" color="#888">
+                {details[index].content.length} / 500
+              </LengthText>
             </InputContainer>
           </Section>
         );
