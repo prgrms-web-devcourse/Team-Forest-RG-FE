@@ -81,7 +81,7 @@ const NavBar = () => {
   );
 
   useEffect(() => {
-    if (inView) {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [inView]);
