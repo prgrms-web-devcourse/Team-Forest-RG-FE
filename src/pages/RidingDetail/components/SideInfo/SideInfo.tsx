@@ -220,7 +220,7 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={handleOpen}
+                onClick={modalOpen}
                 disabled={isJoinDisable}
               >
                 참여하기
