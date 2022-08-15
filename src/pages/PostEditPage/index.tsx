@@ -32,6 +32,9 @@ function PostEditPage() {
         departurePosition,
         minParticipant,
         maxParticipant,
+        title,
+        estimatedTime,
+        fee,
         ridingCourses,
         ridingDate,
         ridingLevel,
@@ -39,7 +42,6 @@ function PostEditPage() {
         thumbnailId,
         zone,
         details,
-        ...datas
       },
     } = value;
 
@@ -69,7 +71,9 @@ function PostEditPage() {
         regionCode: zone.code,
         ridingDate: formattedDate,
         thumbnail: thumbnailId,
-        ...datas,
+        title,
+        estimatedTime,
+        fee,
       },
       details: detailsValue,
     };
