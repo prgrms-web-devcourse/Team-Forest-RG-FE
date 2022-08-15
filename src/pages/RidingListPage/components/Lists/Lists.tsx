@@ -29,7 +29,7 @@ const Lists = ({ data }: { data: props }) => {
   );
   useEffect(() => {
     if (inView) {
-      const nextParameter = { ...parameters, page: parameters.page || 0 + 1 };
+      const nextParameter = { ...parameters, page: (parameters.page || 0) + 1 };
       fetchMoreMutation.mutate(nextParameter);
       setParameters(nextParameter);
     }
