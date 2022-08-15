@@ -34,7 +34,14 @@ const SectionContent = ({ title, contents, images }: SectionContentProps) => {
         ))}
       </Grid>
       <Grid item>
-        <Text variant="body1">{contents}</Text>
+        <Text
+          variant="body1"
+          sx={{
+            whiteSpace: "pre",
+          }}
+        >
+          {contents}
+        </Text>
       </Grid>
     </Grid>
   );
