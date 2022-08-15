@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useMemo } from "react";
-import { Grid, Breadcrumbs, Icon } from "@mui/material";
+import { Grid, Breadcrumbs, Icon, DialogContentText } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import Text from "@/components/Text";
 import Tabs from "@/components/Tabs";
 import Map from "./components/Map";
@@ -11,6 +12,10 @@ import WithLabel from "@/components/WithLabel";
 import Button from "@/components/Button";
 import { userState } from "@/recoil/state/authState";
 import Divider from "@/components/Divider";
+import { ButtonContainer } from "./MainInfo.style";
+import Modal from "@/components/Modal";
+import useModal from "@/hooks/useModal";
+import { deletePost } from "@/api/posts";
 
 interface MainInfoProps {
   postId: number;
@@ -46,6 +51,13 @@ const MainInfo = ({
       value: id,
     }));
   }, [details]);
+
+  const { open, modalOpen, modalClose } = useModal();
+  const { mutate } = useMutation(() => deletePost(postId), {
+    onSuccess: () => {
+      navigate("/posts", { replace: true });
+    },
+  });
 
   const renderData = useMemo(() => {
     return details.map(({ id, title, contents, images }) => ({
@@ -95,10 +107,23 @@ const MainInfo = ({
         />
       </Grid>
       {leaderId === userId && (
-        <Button onClick={() => navigate(`/post/edit/${postId}`)}>
-          글 수정
-        </Button>
+        <ButtonContainer>
+          <Button onClick={() => navigate(`/post/edit/${postId}`)}>
+            글 수정
+          </Button>
+          <Button color="error" onClick={modalOpen}>
+            글 삭제
+          </Button>
+        </ButtonContainer>
       )}
+      <Modal
+        open={open}
+        onClose={modalClose}
+        onSubmit={mutate}
+        label="포스트 삭제"
+      >
+        <DialogContentText>글을 삭제하시겠습니까?</DialogContentText>
+      </Modal>
     </Grid>
   );
 };
