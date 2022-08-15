@@ -25,9 +25,7 @@ const SectionContent = ({ title, contents, images }: SectionContentProps) => {
                 component="img"
                 image={imageUrl}
                 alt={`${id}`}
-                sx={{
-                  width: "100%",
-                }}
+                sx={{ width: "100%" }}
               />
             </Card>
           </Grid>
@@ -36,9 +34,7 @@ const SectionContent = ({ title, contents, images }: SectionContentProps) => {
       <Grid item>
         <Text
           variant="body1"
-          sx={{
-            whiteSpace: "pre",
-          }}
+          sx={{ whiteSpace: "pre-wrap", wordBreak: "keep-all" }}
         >
           {contents}
         </Text>

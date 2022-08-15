@@ -233,21 +233,6 @@ function PostForm({
           </WithLabel>
           <WithLabel
             variant="h6"
-            label="난이도"
-            isRequired
-            errorMessage={errors.information?.level?.message}
-            labelProps={{ gutterBottom: true }}
-          >
-            <Controller
-              control={control}
-              name="information.level"
-              render={({ field }) => <LevelInput {...field} />}
-              defaultValue="하"
-            />
-          </WithLabel>
-
-          <WithLabel
-            variant="h6"
             label="참가비"
             labelProps={{ gutterBottom: true }}
           >
@@ -267,6 +252,20 @@ function PostForm({
             />
           </WithLabel>
         </TwoColumnContainer>
+        <WithLabel
+          variant="h6"
+          label="난이도"
+          isRequired
+          errorMessage={errors.information?.level?.message}
+          labelProps={{ gutterBottom: true }}
+        >
+          <Controller
+            control={control}
+            name="information.level"
+            render={({ field }) => <LevelInput {...field} />}
+            defaultValue="하"
+          />
+        </WithLabel>
 
         <WithLabel
           variant="h6"

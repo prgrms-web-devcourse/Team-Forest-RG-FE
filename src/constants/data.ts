@@ -8,9 +8,24 @@ export const bicycleTypeData = [
 ];
 
 export const levelData = [
-  { value: "하", dataLabel: "하", description: "응애 난이도" },
-  { value: "중", dataLabel: "중", description: "할만합니다" },
-  { value: "상", dataLabel: "상", description: "아주아주 힘듭니다." },
+  {
+    value: "하",
+    dataLabel: "하",
+    description:
+      "라이딩 입문자입니다.\n빠른 속도를 유지하거나 장거리 운행은 힘들어요.\n(평균 속도 20~25km/h)",
+  },
+  {
+    value: "중",
+    dataLabel: "중",
+    description:
+      "라이딩에 어느 정도 익숙합니다.\n속도 유지 및 장거리, 장시간 운행도 가능합니다.\n(평균 속도 25~30km/h)",
+  },
+  {
+    value: "상",
+    dataLabel: "상",
+    description:
+      "라이딩 고수입니다.\n빠른 속도를 유지할 수도 있고, 정차 없이 장거리 운행도 가능하며, 오르막을 오르는 데도 능합니다.\n(평균 속도 30km/h 이상)",
+  },
 ];
 
 export const estimatedTime = [

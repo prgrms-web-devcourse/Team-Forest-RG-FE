@@ -37,7 +37,7 @@ const LevelInput = forwardRef<HTMLButtonElement, LevelInputProps>(
           value={value}
           {...props}
         />
-        <Text>
+        <Text textStyle={{ whiteSpace: "pre-wrap", wordBreak: "keep-all" }}>
           {levelData.find((item) => item.value === value)?.description}
         </Text>
       </Container>

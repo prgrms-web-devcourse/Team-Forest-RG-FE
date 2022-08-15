@@ -32,9 +32,7 @@ const MainTab = () => {
         />
         {userInfo.ridingProfile.introduction ? (
           <Text
-            textStyle={{
-              whiteSpace: "pre",
-            }}
+            textStyle={{ whiteSpace: "pre-wrap", wordBreak: "keep-all" }}
             variant="subtitle1"
           >
             {userInfo.ridingProfile.introduction}
