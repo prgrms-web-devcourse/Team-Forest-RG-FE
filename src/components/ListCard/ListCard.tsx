@@ -99,7 +99,10 @@ const ListCard = ({
                   <Grid container item spacing={1}>
                     <Grid item xs="auto">
                       <Text variant="caption">
-                        인원 {`${minParticipants}~${maxParticipants} 명`}
+                        인원{" "}
+                        {minParticipants === maxParticipants
+                          ? `${minParticipants} 명`
+                          : `${minParticipants}~${maxParticipants} 명`}
                       </Text>
                     </Grid>
                     <Grid item xs="auto">
