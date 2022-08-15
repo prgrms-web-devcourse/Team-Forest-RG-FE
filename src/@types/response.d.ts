@@ -68,6 +68,7 @@ declare module "response" {
       ridingStartYear: number;
       level: string;
       bicycles: string[];
+      favoriteRegionCode: number | null;
     };
     manner: {
       mannerPoint: number;
