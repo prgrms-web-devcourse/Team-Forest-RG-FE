@@ -16,6 +16,8 @@ import Text from "@/components/Text";
 import Spinner from "@/components/Spinner";
 import Button from "@/components/Button";
 import { getPostList } from "@/api/postList";
+import { NoticeContainer } from "./RidingListPage.style";
+import { StyledLink } from "../MyPage/components/MainTab/MainTab.style";
 
 type dataType = {
   key: string | number;
@@ -90,7 +92,7 @@ const RidingListPage = () => {
           <Filter
             filterData={regionData}
             setData={setCityCode}
-            placeholder="시"
+            placeholder="시/도"
             disableFetch
             filterName=""
             isReset={isReset}
@@ -98,8 +100,9 @@ const RidingListPage = () => {
         </Grid>
         <Grid item xs={2}>
           <Filter
+            disabled={cityCode === 0 || !cityCode}
             filterData={cityRegionData}
-            placeholder="군/구"
+            placeholder="시/군/구"
             filterName="addressCode"
             isReset={isReset}
           />
@@ -126,7 +129,16 @@ const RidingListPage = () => {
       ) : (
         <Grid container item>
           <Grid item xs={12}>
-            <Text variant="h3">🤦‍♂️ 아직 데이터가 존재하지 않습니다!</Text>
+            <NoticeContainer>
+              <Text variant="h4">🤦‍♂️ 조건에 맞는 라이딩이 없습니다...</Text>
+              <div />
+              <Text variant="body1">원하는 라이딩을 만들어 볼까요?</Text>
+              <StyledLink to="/post/create">
+                <Text variant="body2" color="#4AD395">
+                  라이딩 만들기
+                </Text>
+              </StyledLink>
+            </NoticeContainer>
           </Grid>
         </Grid>
       )}
