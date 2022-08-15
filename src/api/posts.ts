@@ -3,11 +3,15 @@ import { RidingFormValues } from "@/components/PostForm";
 import axiosInstance from "./axiosInstance";
 
 export const getPost = async (postId: number): Promise<T.PostDetail> => {
-  const response = await axiosInstance({
-    method: "GET",
-    url: `/api/v1/ridingposts/${postId}`,
-  });
-  return response.data;
+  try {
+    const response = await axiosInstance({
+      method: "GET",
+      url: `/api/v1/ridingposts/${postId}`,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("register Profile Failed");
+  }
 };
 
 export const postPost = async (
@@ -37,6 +41,14 @@ export const joinPost = async (postId: number) => {
   const response = await axiosInstance({
     method: "POST",
     url: `/api/v1/ridingposts/${postId}/join`,
+  });
+  return response;
+};
+
+export const cancelPost = async (postId: number) => {
+  const response = await axiosInstance({
+    method: "POST",
+    url: `/api/v1/ridingposts/${postId}/cancel`,
   });
   return response;
 };
