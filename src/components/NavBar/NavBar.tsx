@@ -122,57 +122,6 @@ const NavBar = () => {
     }
   }, [isAuth, EventSource, token, userId]);
 
-  const [clicked, setClicked] = useState(false);
-  const [targetEl, setTargetEl] = useState<HTMLElement | null>(null);
-  const [notificationData, setNotificationData] = useState<any[]>([]);
-  const { ref, inView } = useInView({
-    threshold: 0.5,
-  });
-
-  const notificationDeleteMutation = useMutation(readAllNotifications, {
-    onSuccess: () => {
-      setBadgeCount(0);
-    },
-  });
-
-  const { fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ["notifications", userId],
-    ({ pageParam = 0 }) => getNotifications(pageParam),
-    {
-      enabled: isAuth && clicked,
-      getNextPageParam: (lastPage) =>
-        lastPage.last ? undefined : lastPage.pageable.pageNumber + 1,
-      onSuccess: (response: any) => {
-        setNotificationData((prev) => [...prev, ...response.pages[0].content]);
-      },
-    }
-  );
-
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage();
-    }
-  }, [inView]);
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setClicked(true);
-    setTargetEl(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    // eslint-disable-next-line no-unused-expressions
-    notificationData.length && notificationDeleteMutation.mutate();
-    setNotificationData([]);
-    setClicked(false);
-    setTargetEl(null);
-  };
-
-  const handleNavigate = (type: string, id: number) => {
-    if (type.startsWith("RIDING_JOIN")) {
-      navigate(`/post/${id}`);
-    }
-  };
-
   const { pathname } = useLocation();
   return (
     <>
