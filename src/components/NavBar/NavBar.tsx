@@ -20,7 +20,6 @@ import rgLogo from "@/assets/RG_Logo.png";
 import Badge from "@/components/Badge";
 import IconButton from "@/components/IconButton";
 import Menu from "@/components/Menu";
-import Text from "@/components/Text";
 
 const NavBar = () => {
   const isAuth = useRecoilValue(isAuthState);
@@ -171,7 +170,7 @@ const NavBar = () => {
                     </MenuItem>
                   ))}
                   {!hasNextPage && (
-                    <Text variant="caption">더 이상의 알림은 없습니다!</Text>
+                    <MenuItem disabled>알림이 없습니다.</MenuItem>
                   )}
                 </Menu>
                 <StyledLink
