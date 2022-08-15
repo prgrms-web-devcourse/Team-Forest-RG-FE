@@ -8,7 +8,7 @@ export const NavBarContainer = styled.div`
   left: 0px;
   z-index: 999;
 
-  width: 100%;
+  width: 100vw;
   height: 5rem;
   background-color: white;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
