@@ -4,9 +4,17 @@ import { useCallback, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import dayjs from "dayjs";
 import { PostDetail } from "response";
+import styled from "@emotion/styled";
 import { editPost, getPost } from "@/api/posts";
-import PostForm, { RidingFormValues } from "@/components/PostForm";
 import Spinner from "@/components/Spinner";
+import PostForm, { RidingFormValues } from "@/components/PostForm";
+
+const Container = styled.div`
+  margin: auto;
+  width: fit-content;
+  box-sizing: border-box;
+  padding: 5rem;
+`;
 
 function PostEditPage() {
   const { postId } = useParams();
@@ -86,13 +94,13 @@ function PostEditPage() {
   return !ridingData ? (
     <Spinner />
   ) : (
-    <div>
+    <Container>
       <PostForm
         defaultValues={ridingData}
         onSubmit={handleSubmit}
         defaultUrl={urlData}
       />
-    </div>
+    </Container>
   );
 }
 
