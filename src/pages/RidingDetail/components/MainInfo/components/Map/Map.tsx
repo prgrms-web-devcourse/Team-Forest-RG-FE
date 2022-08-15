@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { MapContainer } from "./Map.style";
 
 interface Props {
   lat: number;
@@ -25,7 +26,7 @@ const Map = ({ lat, lng }: Props) => {
     });
   }, [lat, lng]);
 
-  return <div style={{ width: "100%", height: "300px" }} ref={mapRef} />;
+  return <MapContainer ref={mapRef} />;
 };
 
 export default Map;

@@ -25,8 +25,7 @@ const RidingLongCard = ({
         <StyledImg src={data.thumbnail} alt={data.title} />
         <Stack direction="column">
           <Text variant="subtitle2" textStyle={{ color: "#878D91" }}>
-            {`${dayjs(data.ridingDate).get("M") + 1}월
-            ${dayjs(data.ridingDate).get("D")}일 / `}
+            {dayjs(data.ridingDate).format("MM월 DD일 A hh:mm / ")}
             {data.zone.name}
           </Text>
           <Text variant="h6" textStyle={{ fontWeight: 800 }}>
@@ -96,7 +95,7 @@ const Container = styled.div`
 const StyledImg = styled.img`
   min-width: 250px;
   height: 140px;
-  object-fit: fill;
+  object-fit: contain;
 `;
 const ButtonWrapper = styled.div`
   height: 30%;

@@ -1,16 +1,19 @@
 import { Card, Grid, CardContent } from "@mui/material";
+import dayjs from "dayjs";
 import Chip from "@/components/Chip";
 import Text from "@/components/Text";
 import Avatar from "@/components/Avatar";
-import { OuterCard } from "./ListCard.style";
+import { OuterCard, StyledLink } from "./ListCard.style";
 
 interface props {
   thumbnail: string;
   profileImage: string;
   nickname: string;
+  leaderId: number;
   ridingStatus: boolean;
   ridingTitle: string;
-  subtitle: string;
+  ridingLevel: string;
+  ridingData: string;
   tags: string[];
   minParticipants: number;
   maxParticipants: number;
@@ -22,10 +25,12 @@ interface props {
 const ListCard = ({
   thumbnail,
   profileImage,
+  leaderId,
   nickname,
   ridingStatus,
   ridingTitle,
-  subtitle,
+  ridingLevel,
+  ridingData,
   tags,
   minParticipants,
   maxParticipants,
@@ -33,7 +38,7 @@ const ListCard = ({
   region,
   onClick,
 }: props) => (
-  <OuterCard thumbnail={thumbnail} onClick={onClick}>
+  <OuterCard thumbnail={thumbnail} onClick={onClick} style={{ width: "18rem" }}>
     <CardContent sx={{ height: "100%" }}>
       <Grid
         container
@@ -47,9 +52,14 @@ const ListCard = ({
           </Grid>
           <Grid container item xs>
             <Grid item xs zeroMinWidth>
-              <Text variant="h5" color="white" noWrap>
-                {nickname}
-              </Text>
+              <StyledLink
+                to={`/profile/${leaderId}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Text variant="h6" color="white" noWrap>
+                  {nickname}
+                </Text>
+              </StyledLink>
             </Grid>
             <Grid item xs="auto">
               <Chip
@@ -67,13 +77,16 @@ const ListCard = ({
                   <Grid container item direction="column">
                     <Grid item zeroMinWidth sx={{ width: "100%" }}>
                       <Grid container item zeroMinWidth>
-                        <Text variant="h4" noWrap>
+                        <Text variant="h5" noWrap>
                           {ridingTitle}
                         </Text>
                       </Grid>
                     </Grid>
                     <Grid>
-                      <Text variant="subtitle1">{subtitle}</Text>
+                      <Text variant="subtitle1">{region}</Text>
+                      <Text variant="subtitle2">
+                        {dayjs(ridingData).format("MM월DD일")}
+                      </Text>
                     </Grid>
                   </Grid>
                   <Grid container item spacing={1}>
@@ -85,25 +98,23 @@ const ListCard = ({
                   </Grid>
                   <Grid container item spacing={1}>
                     <Grid item xs="auto">
-                      <Text variant="caption">최소 {minParticipants}</Text>
+                      <Text variant="caption">
+                        인원 {`${minParticipants}~${maxParticipants} 명`}
+                      </Text>
                     </Grid>
                     <Grid item xs="auto">
                       <Text variant="caption">•</Text>
                     </Grid>
                     <Grid item xs="auto">
-                      <Text variant="caption">최대 {maxParticipants}</Text>
+                      <Text variant="caption">
+                        현재 {currentParticipants} 명
+                      </Text>
                     </Grid>
                     <Grid item xs="auto">
                       <Text variant="caption">•</Text>
                     </Grid>
                     <Grid item xs="auto">
-                      <Text variant="caption">현재 {currentParticipants}</Text>
-                    </Grid>
-                    <Grid item xs="auto">
-                      <Text variant="caption">•</Text>
-                    </Grid>
-                    <Grid item xs="auto">
-                      <Text variant="caption">{region}</Text>
+                      <Text variant="caption">레벨 {ridingLevel}</Text>
                     </Grid>
                   </Grid>
                 </Grid>

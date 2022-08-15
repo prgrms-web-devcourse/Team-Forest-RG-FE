@@ -1,5 +1,5 @@
 import * as T from "response";
-import { RidingFormValues } from "@/pages/PostPage/components/postForm/PostForm";
+import { RidingFormValues } from "@/components/PostForm";
 import axiosInstance from "./axiosInstance";
 
 export const getPost = async (postId: number): Promise<T.PostDetail> => {

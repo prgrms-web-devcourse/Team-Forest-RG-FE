@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Card } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const OuterCard = styled(Card)`
   background: ${({ thumbnail }: { thumbnail: string }) =>
@@ -13,5 +14,17 @@ export const OuterCard = styled(Card)`
   height: 400px;
   &:hover {
     cursor: pointer;
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  display: flex;
+  gap: 0.25rem;
+  color: black;
+  align-items: center;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: white;
   }
 `;

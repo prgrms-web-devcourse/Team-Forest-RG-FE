@@ -13,7 +13,7 @@ const RecommendList = ({ data, label }: RecommendListProps) => {
   const navigate = useNavigate();
   return (
     <Container>
-      <Text variant="h4"> {label}</Text>
+      <Text variant="h5"> {label}</Text>
       <Grid container item spacing={2} justifyContent="center">
         {data
           .filter(({ riding }) => !riding.bicycleType.includes("상관없음"))
@@ -22,8 +22,10 @@ const RecommendList = ({ data, label }: RecommendListProps) => {
             return (
               <Grid key={riding.id} item xs="auto">
                 <ListCard
+                  leaderId={leader.id}
                   thumbnail={riding.thumbnail}
-                  subtitle={riding.ridingLevel}
+                  ridingLevel={riding.ridingLevel}
+                  ridingData={riding.ridingDate}
                   nickname={leader.nickname}
                   profileImage={leader.profileImage}
                   ridingStatus={riding.recruiting}
@@ -45,6 +47,10 @@ const RecommendList = ({ data, label }: RecommendListProps) => {
 export default RecommendList;
 
 const Container = styled.div`
+  box-sizing: border-box;
+  padding: 2rem 0;
   width: 100%;
-  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 `;

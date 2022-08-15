@@ -19,6 +19,7 @@ import {
 import ProfilePage from "./pages/ProfilePage";
 import RidingDetail from "./pages/RidingDetail";
 import PostEditPage from "./pages/PostEditPage";
+import MainTab from "./pages/MyPage/components/MainTab";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="posts" element={<RidingListPage />} />
             <Route path="/mypage" element={<MyPage />}>
-              <Route index element={<RidingTab />} />
+              <Route index element={<MainTab />} />
               <Route path="/mypage/riding" element={<RidingTab />} />
               <Route path="/mypage/evaluate" element={<EvaluateTab />} />
               <Route

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import mainCarouselData from "./constants/CarouselData";
 import Carousel from "@/components/Carousel";
-import { CarouselWrapper } from "./MainPage.style";
+import { CarouselWrapper, Container } from "./MainPage.style";
 import RecommendList from "./components/RecommendList";
 import { getPostList } from "@/api/postList";
 import { userState } from "@/recoil/state/authState";
@@ -58,19 +58,17 @@ function MainPage() {
   if (loading) return <div>Loading</div>;
 
   return (
-    <Grid container direction="column">
+    <Container>
       <Grid container item justifyContent="center">
-        <Grid item xs={6}>
-          <CarouselWrapper>
-            <Carousel
-              data={mainCarouselData}
-              options={{
-                navigation: true,
-                modules: [Navigation],
-              }}
-            />
-          </CarouselWrapper>
-        </Grid>
+        <CarouselWrapper>
+          <Carousel
+            data={mainCarouselData}
+            options={{
+              navigation: true,
+              modules: [Navigation],
+            }}
+          />
+        </CarouselWrapper>
       </Grid>
       <Grid container item direction="column">
         <Stack direction="column" marginY="3rem">
@@ -94,7 +92,7 @@ function MainPage() {
           />
         </Stack>
       </Grid>
-    </Grid>
+    </Container>
   );
 }
 

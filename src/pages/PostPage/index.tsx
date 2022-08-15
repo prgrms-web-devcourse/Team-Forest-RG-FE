@@ -2,10 +2,9 @@ import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
-import { PostForm } from "./components";
-import { RidingFormValues } from "./components/postForm/PostForm";
 import auth from "@/api/auth";
 import { postPost } from "@/api/posts";
+import PostForm, { RidingFormValues } from "@/components/PostForm";
 
 const Container = styled.div`
   margin: auto;

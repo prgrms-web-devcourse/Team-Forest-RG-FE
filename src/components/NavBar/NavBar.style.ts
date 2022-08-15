@@ -11,7 +11,7 @@ export const NavBarContainer = styled.div`
   width: 100%;
   height: 5rem;
   background-color: white;
-  border-bottom: 3px solid black;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
 `;
 
 export const ContentContainer = styled.div`
@@ -45,7 +45,8 @@ export const StyledLink = styled(Link)`
   transition: color 0.2s ease-in-out;
   outline: none;
   cursor: pointer;
-  &:hover {
+  &:hover,
+  &.active {
     color: ${theme.palette.primary.main};
   }
 `;

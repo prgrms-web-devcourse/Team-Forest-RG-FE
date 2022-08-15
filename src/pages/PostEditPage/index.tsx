@@ -5,8 +5,7 @@ import { SubmitHandler } from "react-hook-form";
 import dayjs from "dayjs";
 import { PostDetail } from "response";
 import { editPost, getPost } from "@/api/posts";
-import { PostForm } from "../PostPage/components";
-import { RidingFormValues } from "../PostPage/components/postForm/PostForm";
+import PostForm, { RidingFormValues } from "@/components/PostForm";
 import Spinner from "@/components/Spinner";
 
 function PostEditPage() {
