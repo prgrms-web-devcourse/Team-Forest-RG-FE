@@ -81,7 +81,7 @@ function MainPage() {
             data={recommendPostList.bicycle}
             label={
               myUserId
-                ? `${userInfo!.ridingProfile.bicycles[0]} 다 모여! 🚵🏼‍♀️`
+                ? `${userInfo!.ridingProfile.bicycles[0] || "로드"} 다 모여! 🚵🏼‍♀️`
                 : "🚵🏼‍♀️ 요즘 대세 MTB 라이딩 가보자! "
             }
             subLabel="내가 원하는 라이딩이 기다리고 있어요!"

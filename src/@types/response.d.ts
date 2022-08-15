@@ -63,6 +63,7 @@ declare module "response" {
     };
     ridingProfile: {
       nickname: string;
+      favoriteRegionCode: number;
       profileImage: string;
       introduction: string;
       ridingStartYear: number;
