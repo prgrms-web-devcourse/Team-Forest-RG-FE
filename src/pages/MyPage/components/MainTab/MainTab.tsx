@@ -31,7 +31,14 @@ const MainTab = () => {
           style={{ justifySelf: "center", width: "4rem", height: "4rem" }}
         />
         {userInfo.ridingProfile.introduction ? (
-          <Text variant="subtitle1">{userInfo.ridingProfile.introduction}</Text>
+          <Text
+            textStyle={{
+              whiteSpace: "pre",
+            }}
+            variant="subtitle1"
+          >
+            {userInfo.ridingProfile.introduction}
+          </Text>
         ) : (
           <div>
             <Text variant="subtitle1" color="#888">
