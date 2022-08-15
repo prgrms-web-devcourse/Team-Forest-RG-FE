@@ -11,7 +11,7 @@ export const getNotifications = async (page: number = 0): Promise<any> => {
 export const readAllNotifications = async (): Promise<any> => {
   const response = await axiosInstance({
     method: "DELETE",
-    url: `/api/notifications`,
+    url: `/api/v1/notifications`,
   });
   return response.data;
 };
