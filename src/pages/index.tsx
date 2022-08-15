@@ -4,6 +4,7 @@ import NavBar from "@/components/NavBar";
 
 const Container = styled.div`
   max-width: 1300px;
+  height: 100vh;
   margin: 0 auto;
 `;
 
