@@ -24,6 +24,7 @@ interface props {
   disableFetch?: boolean;
   filterName: string;
   isReset?: boolean;
+  disabled?: boolean;
 }
 
 const Filter = ({
@@ -32,6 +33,7 @@ const Filter = ({
   setData,
   disableFetch = false,
   filterName,
+  disabled,
   isReset = false,
 }: props) => {
   const { control, reset } = useForm<Type>({
@@ -101,6 +103,7 @@ const Filter = ({
             value={valueOutOFRange ? field.value : ""}
             label=""
             data={data}
+            disabled={disabled}
             defaultValue=""
             displayEmpty={!!placeholder}
             renderValue={(selected) => {
