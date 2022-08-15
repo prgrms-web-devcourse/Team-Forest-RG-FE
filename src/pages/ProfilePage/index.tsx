@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import UserInfo from "@/components/UserInfo";
 import user from "@/api/user";
 import { Container } from "./index.style";
+import Text from "@/components/Text";
 
 function ProfilePage() {
   const { id: userId } = useParams();
@@ -34,6 +35,9 @@ function ProfilePage() {
   ) : (
     <Container>
       <UserInfo userInfo={userInfo} />
+      <Text variant="body1">
+        &ldquo;{userInfo.ridingProfile.introduction}&rdquo;
+      </Text>
     </Container>
   );
 }
