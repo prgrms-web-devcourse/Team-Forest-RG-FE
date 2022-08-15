@@ -1,10 +1,12 @@
 import querystring from "query-string";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { SvgIcon } from "@mui/material";
 import { useUserActions } from "@/recoil/actions/auth";
-import kakaoImage from "@/assets/kakao_login_medium_narrow.png";
-import { Container, ImageWrapper } from "./index.style";
+import { Container, ImageWrapper, KakaoButton } from "./index.style";
 import rgLogo from "@/assets/RG_Logo.png";
+import KakaoIcon from "@/components/KakaoIcon";
+import Text from "@/components/Text";
 
 function LoginPage() {
   const userActions = useUserActions();
@@ -13,7 +15,6 @@ function LoginPage() {
 
   useEffect(() => {
     if (query.code) {
-      console.log(query.state);
       const from = JSON.parse(query.state as any).pathname || "/";
       userActions.login(query.code.toString(), from);
     }
@@ -31,14 +32,22 @@ function LoginPage() {
 
   return (
     <Container>
-      <ImageWrapper
-        onClick={handleKakaoLogin}
-        onKeyDown={handleKakaoLogin}
-        role="button"
-        tabIndex={0}
-      >
+      <ImageWrapper role="button" tabIndex={0}>
         <img src={rgLogo} alt="rgLogo" width="250px" />
-        <img src={kakaoImage} alt="kakaoLogin" width="250px" />
+        <KakaoButton
+          onClick={handleKakaoLogin}
+          onKeyDown={handleKakaoLogin}
+          startIcon={
+            <SvgIcon>
+              <KakaoIcon />
+            </SvgIcon>
+          }
+          customHoverColor="#EFD806"
+        >
+          <Text variant="body1" fontWeight={600}>
+            카카오톡으로 로그인
+          </Text>
+        </KakaoButton>
       </ImageWrapper>
     </Container>
   );

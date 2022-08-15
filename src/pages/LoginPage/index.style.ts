@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Button from "@/components/Button";
 
 export const Container = styled.div`
   width: 100%;
@@ -13,6 +14,13 @@ export const Container = styled.div`
 export const ImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+`;
 
-  cursor: pointer;
+export const KakaoButton = styled(Button)`
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  padding: 1rem 0;
+  background-color: #fee500;
+  color: black;
 `;
