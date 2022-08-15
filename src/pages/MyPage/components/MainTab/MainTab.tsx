@@ -30,7 +30,20 @@ const MainTab = () => {
           src={userInfo.ridingProfile.profileImage}
           style={{ justifySelf: "center", width: "4rem", height: "4rem" }}
         />
-        <Text variant="subtitle1">{userInfo.ridingProfile.introduction}</Text>
+        {userInfo.ridingProfile.introduction ? (
+          <Text variant="subtitle1">{userInfo.ridingProfile.introduction}</Text>
+        ) : (
+          <div>
+            <Text variant="subtitle1" color="#888">
+              자기를 소개할 수 있는 자기 소개를 입력해 보세요!
+            </Text>
+            <StyledLink to="/mypage/profile">
+              <Text variant="subtitle1" color="#4AD395">
+                프로필 수정하기
+              </Text>
+            </StyledLink>
+          </div>
+        )}
         <Text variant="subtitle1" textStyle={{ fontWeight: 600 }}>
           전화번호
         </Text>

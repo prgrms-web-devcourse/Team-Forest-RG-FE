@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 
 export const StyledLink = styled(Link)`
-  display: flex;
+  display: inline-flex;
   gap: 0.25rem;
   color: black;
   align-items: center;
