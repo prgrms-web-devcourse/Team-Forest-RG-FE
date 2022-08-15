@@ -3,7 +3,7 @@ import axiosInstance from "./axiosInstance";
 export const getNotifications = async (page: number = 0): Promise<any> => {
   const response = await axiosInstance({
     method: "GET",
-    url: `/api/notifications?page=${page}&size=6`,
+    url: `/api/v1/notifications?page=${page}&size=6`,
   });
   return response.data;
 };
