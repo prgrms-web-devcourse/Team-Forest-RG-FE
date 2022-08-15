@@ -9,7 +9,7 @@ import Select from "@/components/Select";
 import WithLabel from "@/components/WithLabel";
 import Radio from "@/components/Radio";
 import { levelData } from "@/constants/data";
-import { RegisterData } from "@/api/user";
+import { ProfileData } from "@/api/user";
 import {
   getYearOptions,
   MenuProps,
@@ -22,7 +22,7 @@ import ProfileImageInput from "./ProfileImageInput/ProfileImageInput";
 
 interface ProfileModifyFormProps {
   profileData: any;
-  onSubmit?: SubmitHandler<RegisterData>;
+  onSubmit?: SubmitHandler<ProfileData>;
 }
 const ProfileModifyForm = ({
   profileData,
@@ -34,7 +34,7 @@ const ProfileModifyForm = ({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterData>();
+  } = useForm<ProfileData>();
   const imageUrl = useRef<string>();
   const nickNameByte = useWatch({ control, name: "nickname" });
   const introductionByte = useWatch({ control, name: "introduction" });
@@ -43,7 +43,7 @@ const ProfileModifyForm = ({
     const data: UserInfo = profileData;
     if (!data) return;
     const { profileImage, level, ...ridingData } = data.ridingProfile;
-    const formData: RegisterData = {
+    const formData: ProfileData = {
       ...ridingData,
       phoneNumber: data.privacyProfile.phoneNumber,
       ridingLevel: level,
@@ -206,7 +206,7 @@ const ProfileModifyForm = ({
           {...register("phoneNumber", {
             required: "필수 입력사항입니다.",
             pattern: {
-              value: /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/,
+              value: /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/,
               message: "올바르지 않은 형식입니다.",
             },
           })}

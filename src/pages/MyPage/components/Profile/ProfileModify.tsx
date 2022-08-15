@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { userState } from "@/recoil/state/authState";
 import useUserInfo from "../../hooks/useUserInfo";
 import ProfileModifyForm from "@/pages/MyPage/components/Profile/ProfileModifyForm";
-import user, { RegisterData } from "@/api/user";
+import user, { ProfileData } from "@/api/user";
 import { Container } from "./ProfileModify.style";
 import Text from "@/components/Text";
 
@@ -15,7 +15,7 @@ function ProfileModify() {
   const myUserId = useRecoilValue(userState);
   const [userInfo, loading] = useUserInfo(myUserId);
 
-  const onSubmit: SubmitHandler<RegisterData> = async (data) => {
+  const onSubmit: SubmitHandler<ProfileData> = async (data) => {
     if (!myUserId) return;
     await user.setUserInfo(myUserId, data);
     queryClient.invalidateQueries(["user-fetch"]);

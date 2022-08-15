@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance";
 
-export interface RegisterData {
+export interface ProfileData {
   nickname: string;
   phoneNumber: string;
   ridingStartYear?: number;
@@ -10,6 +10,17 @@ export interface RegisterData {
   introduction: string;
   profileImageId: number | null;
 }
+export interface RegisterData {
+  nickname: string;
+  phoneNumber: string;
+  ridingStartYear?: number;
+  favoriteRegionCode?: number;
+  level: string;
+  bicycles: string[];
+  introduction: string;
+  profileImageId: number | null;
+}
+
 const register = async (registerData: RegisterData) => {
   try {
     const res = await axiosInstance({
@@ -35,7 +46,7 @@ const getUserInfo = async (id: number) => {
   }
 };
 
-const editUserInfo = async (id: number, data: any) => {
+const editUserInfo = async (id: number, data: ProfileData) => {
   try {
     const res = await axiosInstance({
       method: "PUT",

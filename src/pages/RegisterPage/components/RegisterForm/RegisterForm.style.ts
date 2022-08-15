@@ -17,5 +17,7 @@ export const StyledForm = styled.form`
 
   button:nth-child(7) {
     grid-column: 1 / span 2;
+    width: 8rem;
+    justify-self: end;
   }
 `;
