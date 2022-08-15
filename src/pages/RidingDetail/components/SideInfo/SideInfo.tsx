@@ -65,7 +65,7 @@ const handleValue = (
       return (
         <Text variant="body1">
           {dayjs(value as SideInfoDataType["ridingDate"]).format(
-            "YYYY-MM-DD HH:mm"
+            "YYYY-MM-DD A hh:mm"
           )}
         </Text>
       );
@@ -90,15 +90,9 @@ const handleValue = (
       );
     case "participants":
       return (
-        <AvatarGroup max={5}>
-          {(value as SideInfoDataType["participants"]).map(
-            ({ id, nickname, profileImage }) => (
-              <ToolTip key={id} title={nickname}>
-                <Avatar src={profileImage} alt={nickname} />
-              </ToolTip>
-            )
-          )}
-        </AvatarGroup>
+        <Text variant="body1">
+          {(value as SideInfoDataType["participants"]).length} 명
+        </Text>
       );
     default:
       return <Text variant="body1">{value as string | number}</Text>;
@@ -210,6 +204,19 @@ const SideInfo = ({ data, postId }: SideInfoProps) => {
                   <Grid item xs>
                     {handleValue(key, value)}
                   </Grid>
+                  {key === "participants" && (
+                    <Grid item xs={12}>
+                      <AvatarGroup max={5}>
+                        {(value as SideInfoDataType["participants"]).map(
+                          ({ id, nickname, profileImage }) => (
+                            <ToolTip key={id} title={nickname}>
+                              <Avatar src={profileImage} alt={nickname} />
+                            </ToolTip>
+                          )
+                        )}
+                      </AvatarGroup>
+                    </Grid>
+                  )}
                 </>
               )}
             </Grid>
