@@ -1,19 +1,31 @@
 import styled from "@emotion/styled";
-import { Grid } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { PostDetail } from "response";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Text from "@/components/Text";
 import ListCard from "@/components/ListCard";
 
 interface RecommendListProps {
   data: PostDetail[];
   label: string;
+  subLabel?: string;
 }
-const RecommendList = ({ data, label }: RecommendListProps) => {
+const RecommendList = ({ data, label, subLabel }: RecommendListProps) => {
   const navigate = useNavigate();
   return (
     <Container>
-      <Text variant="h5"> {label}</Text>
+      <Title> {label}</Title>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        marginTop="0.5rem"
+        marginBottom="1rem"
+      >
+        <Text variant="body1" color="#9e9e9e">
+          {subLabel}
+        </Text>
+        <ListLink to="/posts">전체보기</ListLink>
+      </Stack>
       <Grid container item spacing={2} justifyContent="center">
         {data
           .filter(({ riding }) => !riding.bicycleType.includes("상관없음"))
@@ -52,5 +64,20 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+`;
+const Title = styled(Text)`
+  font-size: 1.5rem;
+  font-weight: 800;
+`;
+
+const ListLink = styled(Link)`
+  color: #9e9e9e;
+  font-size: 1rem;
+  font-weight: 600;
+
+  border: none;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+  outline: none;
+  cursor: pointer;
 `;
