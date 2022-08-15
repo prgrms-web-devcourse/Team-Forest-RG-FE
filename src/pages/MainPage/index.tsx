@@ -18,25 +18,28 @@ function MainPage() {
   const [preference, setPreference] = useState({
     level: "하",
     bicycle: 1,
+    region: 11,
   });
   const [recommendPostList, setRecommendPostList] = useState({
     level: [],
     bicycle: [],
+    region: [],
   });
 
   useEffect(() => {
     if (!myUserId || !userInfo) return;
     setPreference((prev) => ({
       ...prev,
-      level: userInfo!.ridingProfile.level,
+      level: userInfo!.ridingProfile.level || "하",
       bicycle: getBicycleNumber.indexOf(
         userInfo!.ridingProfile.bicycles[0] || "로드"
       ),
+      region: userInfo!.ridingProfile.favoriteRegionCode || 11,
     }));
   }, [userInfo]);
 
   useEffect(() => {
-    const fetchPosts = async (key: "level" | "bicycle") => {
+    const fetchPosts = async (key: "level" | "bicycle" | "region") => {
       const parameter = {
         [convertToParameterKey[key]]: preference[key],
       };
@@ -50,11 +53,13 @@ function MainPage() {
     const fetchAllList = async () => {
       await fetchPosts("level");
       await fetchPosts("bicycle");
+      await fetchPosts("region");
       setLoading(false);
     };
     if (userLoading) return;
     fetchAllList();
   }, [userLoading, preference]);
+
   if (loading) return <div>Loading</div>;
 
   return (
@@ -88,6 +93,14 @@ function MainPage() {
               myUserId
                 ? "나와 비슷한 실력의 사람과 마음껏 라이딩!"
                 : "자전거 입문자들 끼리 모여 천천히 달려요!"
+            }
+          />
+          <RecommendList
+            data={recommendPostList.region}
+            label={
+              myUserId
+                ? `나와 가장 가까운 곳에서 열리는 라이딩!`
+                : "지금 '서울'에서 진행 중인 라이딩!"
             }
           />
         </Stack>
