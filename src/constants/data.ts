@@ -8,12 +8,10 @@ export const bicycleTypeData = [
 ];
 
 export const levelData = [
-  { value: "하", dataLabel: "하" },
-  { value: "중", dataLabel: "중" },
-  { value: "상", dataLabel: "상" },
+  { value: "하", dataLabel: "하", description: "응애 난이도" },
+  { value: "중", dataLabel: "중", description: "할만합니다" },
+  { value: "상", dataLabel: "상", description: "아주아주 힘듭니다." },
 ];
-
-export const levelDetail = ["응애 난이도", "할만합니다.", "아주아주 힘듭니다."];
 
 export const estimatedTime = [
   // "00:30"

@@ -1,29 +1,44 @@
-import styled from "@emotion/styled";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+import dayjs from "dayjs";
+import { ChangeEvent } from "react";
 import Input from "@/components/Input";
 import DatePicker from "@/components/DatePicker";
 import Button from "@/components/Button";
-import Text from "@/components/Text";
 import Divider from "@/components/Divider";
-import MinMaxInput from "./MinMaxInput/MinMaxInput";
-import EstimatedTimeInput from "./EstimatedTimeInput/EstimatedTimeInput";
-import RegionInput from "./RegionInput/RegionInput";
-import LevelInput from "./LevelInput";
-import FeeInput from "./FeeInput/FeeInput";
-import BicycleTypeInput from "./BicycleTypeInput/BicycleTypeInput";
-import LocationInput from "./LocationInput/LocationInput";
-import ExpandableInput from "./ExpandableInput/ExpandableInput";
+import {
+  BicycleTypeInput,
+  ExpandableInput,
+  FeeInput,
+  LevelInput,
+  LocationInput,
+  MinMaxInput,
+  RegionInput,
+  RouteInput,
+  ThumbnailInput,
+} from "./components";
+import { Form, TwoColumnContainer } from "./PostForm.style";
+import WithLabel from "@/components/WithLabel";
+import { estimatedTime } from "@/constants/data";
+import Select from "@/components/Select";
 
 type Section = {
   title: string;
   images: number[];
   content: string;
 };
-
-export type RidingFormValues = {
+type FormImageUrl = {
+  details?: string[][];
+  thumbnail?: string;
+};
+export interface RidingFormValues {
   information: {
     title: string;
-    ridingDate: string;
+    ridingDate: Date | string;
     minParticipantCount: number;
     maxParticipantCount: number;
     bicycleTypes: string[];
@@ -34,79 +49,271 @@ export type RidingFormValues = {
       lat: number;
       lng: number;
     };
-    thumbnail: number;
+    thumbnail: number | null;
     fee: number;
+    routes: string[];
   };
-  detail: Section[];
-};
+  details: Section[];
+}
 
-const Form = styled.form`
-  min-width: 60rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
+interface PostFormProps {
+  onSubmit: SubmitHandler<RidingFormValues>;
+  defaultValues?: Partial<RidingFormValues>;
+  defaultUrl?: FormImageUrl;
+}
 
-const TwoColumnContainer = styled.div`
-  display: grid;
-  column-gap: 3rem;
-  row-gap: 2rem;
-  grid-template-columns: 1fr 1fr;
-`;
-
-function PostForm() {
+function PostForm({
+  onSubmit,
+  defaultValues = {
+    details: [{ title: "", images: [], content: "" }],
+  },
+  defaultUrl,
+}: PostFormProps) {
   const methods = useForm<RidingFormValues>({
-    defaultValues: {
-      detail: [{ title: "", images: [], content: "" }],
-    },
+    defaultValues,
   });
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<RidingFormValues> = (data) => {
-    console.log(data);
-  };
-  console.log(errors);
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <Text variant="h6" marginBottom>
-            제목
-          </Text>
+      <Form>
+        <Controller
+          control={control}
+          name="information.thumbnail"
+          render={({ field }) => (
+            <ThumbnailInput
+              {...field}
+              defaultUrl={
+                defaultUrl?.thumbnail ||
+                "https://team-05-storage.s3.ap-northeast-2.amazonaws.com/static/RG_Logo.png"
+              }
+            />
+          )}
+          defaultValue={null}
+        />
+        <WithLabel
+          variant="h6"
+          label="제목"
+          isRequired
+          errorMessage={errors.information?.title?.message}
+          labelProps={{ marginBottom: true }}
+        >
           <Input
             placeholder="제목"
             fullWidth
             {...register("information.title", {
               required: "필수 입력사항입니다.",
-              maxLength: 30,
+              maxLength: { value: 30, message: "최대 길이는 30자 입니다." },
             })}
             error={!!errors.information?.title}
-            errorMessage={errors.information?.title?.message}
           />
-        </div>
+        </WithLabel>
+
         <TwoColumnContainer>
-          <div>
-            <Text variant="h6" marginBottom>
-              모임날짜 및 시간
-            </Text>
-            <DatePicker
-              {...register("information.ridingDate", { valueAsDate: true })}
+          <WithLabel
+            variant="h6"
+            label="모임날짜 및 시간"
+            isRequired
+            errorMessage={errors.information?.ridingDate?.message}
+            labelProps={{ marginBottom: true }}
+          >
+            <Controller
+              control={control}
+              name="information.ridingDate"
+              render={({ field: { onChange, ...props } }) => (
+                <DatePicker
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    onChange(
+                      dayjs(e.target.value).format("YYYY-MM-DDTHH:mm:ss.SSS")
+                    );
+                  }}
+                  error={!!errors.information?.ridingDate}
+                  {...props}
+                />
+              )}
+              rules={{
+                validate: {
+                  afterNow: (value) =>
+                    dayjs(value).diff(dayjs().add(1, "day")) > 0 ||
+                    "24시간 이후 시간만 가능합니다.",
+                },
+              }}
             />
-          </div>
-          <MinMaxInput required />
-          <EstimatedTimeInput />
-          <RegionInput />
-          <LevelInput required />
-          <FeeInput />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="참가자 수"
+            caption="(5~30 명)"
+            isRequired
+            labelProps={{ marginBottom: true }}
+          >
+            <MinMaxInput required />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="소요 시간"
+            isRequired
+            errorMessage={errors.information?.estimatedTime?.message}
+            labelProps={{ marginBottom: true }}
+          >
+            <Controller
+              control={control}
+              name="information.estimatedTime"
+              render={({ field: { onChange, value, ref } }) => (
+                <Select
+                  data={estimatedTime.map((item) => ({
+                    text: item,
+                    key: item,
+                    value: item,
+                  }))}
+                  placeholder="예상 시간을 골라주세요"
+                  value={value}
+                  onChange={onChange}
+                  error={!!errors.information?.estimatedTime}
+                  ref={ref}
+                />
+              )}
+              defaultValue="none"
+              rules={{
+                required: "필수 입력사항입니다.",
+                validate: {
+                  required: (value) =>
+                    value !== "none" || "필수 입력사항입니다.",
+                },
+              }}
+            />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="지역 및 장소"
+            isRequired
+            errorMessage={errors.information?.regionCode?.message}
+            labelProps={{ marginBottom: true }}
+          >
+            <Controller
+              control={control}
+              name="information.regionCode"
+              rules={{
+                required: "필수 입력사항입니다.",
+                validate: {
+                  required: (value) => value !== 0 || "필수 입력사항입니다.",
+                },
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <RegionInput error={!!error} {...field} />
+              )}
+            />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="라이딩 코스"
+            caption="(최대 5개)"
+            isRequired
+            errorMessage={errors.information?.routes?.message}
+            labelProps={{ marginBottom: true }}
+          >
+            <Controller
+              control={control}
+              name="information.routes"
+              render={({ field }) => (
+                <RouteInput {...field} error={!!errors.information?.routes} />
+              )}
+              rules={{
+                required: "필수 입력사항입니다.",
+              }}
+            />
+          </WithLabel>
+          <WithLabel
+            variant="h6"
+            label="난이도"
+            isRequired
+            errorMessage={errors.information?.level?.message}
+            labelProps={{ marginBottom: true }}
+          >
+            <Controller
+              control={control}
+              name="information.level"
+              render={({ field }) => <LevelInput {...field} />}
+              defaultValue="하"
+            />
+          </WithLabel>
+
+          <WithLabel
+            variant="h6"
+            label="참가비"
+            labelProps={{ marginBottom: true }}
+          >
+            <Controller
+              control={control}
+              name="information.fee"
+              render={({ field: { onChange, ...props } }) => (
+                <FeeInput
+                  {...props}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    if (!e) onChange(0);
+                    else onChange(parseInt(e.target.value, 10) || 0);
+                  }}
+                />
+              )}
+              defaultValue={0}
+            />
+          </WithLabel>
         </TwoColumnContainer>
-        <BicycleTypeInput />
-        <LocationInput />
+
+        <WithLabel
+          variant="h6"
+          label="자전거 종류"
+          isRequired
+          errorMessage={errors.information?.bicycleTypes?.message}
+          labelProps={{ marginBottom: true }}
+        >
+          <Controller
+            control={control}
+            name="information.bicycleTypes"
+            render={({ field }) => <BicycleTypeInput {...field} />}
+            rules={{ required: "필수 입력사항입니다." }}
+            defaultValue={[]}
+          />
+        </WithLabel>
+
+        <WithLabel
+          variant="h6"
+          label="출발 위치"
+          isRequired
+          errorMessage={errors.information?.departurePlace?.message}
+          labelProps={{ marginBottom: true }}
+        >
+          <Controller
+            control={control}
+            name="information.departurePlace"
+            render={({ field }) => (
+              <LocationInput
+                {...field}
+                error={!!errors.information?.departurePlace}
+              />
+            )}
+            rules={{ required: "필수 입력사항입니다." }}
+          />
+        </WithLabel>
         <Divider />
-        <ExpandableInput />
-        <Button type="submit">완료</Button>
+        <WithLabel
+          variant="h5"
+          label="상세 내용"
+          labelProps={{ marginBottom: true }}
+        >
+          <ExpandableInput imageUrls={defaultUrl?.details} />
+        </WithLabel>
+        <Button type="button" onClick={handleSubmit(onSubmit)}>
+          저장하기
+        </Button>
       </Form>
     </FormProvider>
   );

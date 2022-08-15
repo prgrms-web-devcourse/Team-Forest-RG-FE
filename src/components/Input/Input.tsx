@@ -22,6 +22,9 @@ interface InputProps {
   placeholder?: string;
   defaultValue?: string | number | Date;
   type?: string;
+  onChange?: (...event: any) => void;
+  onKeyDown?: (...event: any) => void;
+  onBlur?: (...event: any) => void;
   inputRef?: RefObject<HTMLInputElement>;
   InputLabelProps?: TextFieldProps["InputLabelProps"];
 }
@@ -47,6 +50,9 @@ const Input = React.forwardRef<HTMLInputElement, customInputProps>(
       multiline,
       rows,
       rowsMax,
+      onChange,
+      onKeyDown,
+      onBlur,
       placeholder,
       defaultValue,
       InputLabelProps,
@@ -85,6 +91,9 @@ const Input = React.forwardRef<HTMLInputElement, customInputProps>(
         defaultValue={defaultValue}
         InputLabelProps={InputLabelProps}
         type={type}
+        onChange={onChange}
+        onBlur={onBlur}
+        onKeyDown={onKeyDown}
         {...props}
       />
     );

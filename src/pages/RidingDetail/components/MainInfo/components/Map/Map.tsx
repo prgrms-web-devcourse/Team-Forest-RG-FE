@@ -11,7 +11,6 @@ const Map = ({ lat, lng }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log(lat, lng);
     kakao.maps.load(() => {
       if (mapRef.current) {
         const map = new kakao.maps.Map(mapRef.current, {

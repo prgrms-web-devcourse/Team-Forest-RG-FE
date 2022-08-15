@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { getPosts } from "@/api/posts";
+import { getPost } from "@/api/posts";
 import Header from "./components/Header";
 import SideInfo from "./components/SideInfo";
 import MainInfo from "./components/MainInfo";
@@ -27,7 +28,7 @@ const RidingDetail = ({ postId = 1 }: Props) => {
     isLoading,
   } = useQuery(
     ["riding-detail", id || postId],
-    () => getPosts(Number(id) || postId),
+    () => getPost(Number(id) || postId),
     {
       onSuccess: (data) => {
         const {
@@ -37,6 +38,8 @@ const RidingDetail = ({ postId = 1 }: Props) => {
           departurePosition,
           details,
           createdAt,
+          id: ridingId,
+          thumbnailId,
           ...side
         } = data.riding;
         setSideData(side);
@@ -75,7 +78,9 @@ const RidingDetail = ({ postId = 1 }: Props) => {
                 position: "relative",
               }}
             >
-              {sideData && <SideInfo data={sideData} />}
+              {sideData && (
+                <SideInfo data={sideData} postId={detailData?.riding?.id} />
+              )}
             </Grid>
           </Grid>
         </>

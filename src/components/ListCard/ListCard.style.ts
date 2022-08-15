@@ -11,4 +11,7 @@ export const OuterCard = styled(Card)`
   width: 100%;
   max-width: 300px;
   height: 400px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
