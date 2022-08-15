@@ -87,7 +87,7 @@ const EvaluateForm = () => {
                 justifyContent="space-evenly"
                 width="100%"
               >
-                <Stack direction="row">
+                <Stack direction="row" width="30%">
                   {myUserId === post.leader.id && (
                     <Stack direction="column">
                       {idx === 0 && (
@@ -102,7 +102,7 @@ const EvaluateForm = () => {
                       />
                     </Stack>
                   )}
-                  <Stack direction="column">
+                  <Stack direction="row" alignItems="center">
                     <UserIamge src={userInfo.profileImage} />
                     <Text>{userInfo.nickname}</Text>
                   </Stack>

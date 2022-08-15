@@ -23,7 +23,7 @@ const RgCardContent = ({
   <>
     {title && <Text variant="h3">{title}</Text>}
     {subtitle && (
-      <Text variant="subtitle1" marginBottom>
+      <Text variant="subtitle1" gutterBottom>
         {subtitle}
       </Text>
     )}
