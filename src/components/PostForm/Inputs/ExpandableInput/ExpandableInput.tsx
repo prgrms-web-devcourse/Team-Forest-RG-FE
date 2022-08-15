@@ -89,10 +89,10 @@ function ExpandableInput({ imageUrls }: ExpandableInputProps) {
               <LengthText
                 variant="body1"
                 color={
-                  details[index].content.length <= 500 ? "#888" : "#b00000"
+                  details[index]?.content.length <= 500 ? "#888" : "#b00000"
                 }
               >
-                {details[index].content.length} / 500
+                {details[index]?.content.length} / 500
               </LengthText>
             </InputContainer>
           </Section>
