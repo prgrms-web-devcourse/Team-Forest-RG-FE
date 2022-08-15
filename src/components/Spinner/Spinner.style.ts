@@ -11,7 +11,7 @@ export const Dim = styled.div`
 `;
 
 export const SpinnerContainer = styled.div`
-  postion: relative;
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
