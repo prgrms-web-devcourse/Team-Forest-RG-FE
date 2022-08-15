@@ -50,7 +50,7 @@ const RegisterForm = () => {
         <Text variant="h6" fontWeight={600}>
           필수 정보
         </Text>
-        <Text variant="body1">라이더 등록에 필수적인 정보입니다.</Text>
+        <Text variant="body1">사용자 등록에 필수적인 정보입니다.</Text>
       </div>
       <WithLabel
         label="닉네임"

@@ -6,7 +6,7 @@ function RegisterPage() {
   return (
     <Container>
       <Text variant="h5" fontWeight={600}>
-        라이딩 정보 입력
+        사용자 정보 입력
       </Text>
       <RegisterForm />
     </Container>
