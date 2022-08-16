@@ -63,6 +63,7 @@ const Filter = ({
       const nextParameter = {
         ...currentParameter,
         [filterName]: watchFilterData,
+        page: 0,
       };
       filterMutation.mutate(nextParameter);
       setCurrentParameter(nextParameter);
