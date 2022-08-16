@@ -20,6 +20,7 @@ import rgLogo from "@/assets/RG_Logo.png";
 import Badge from "@/components/Badge";
 import IconButton from "@/components/IconButton";
 import Menu from "@/components/Menu";
+import Text from "../Text";
 
 const NavBar = () => {
   const isAuth = useRecoilValue(isAuthState);
@@ -134,14 +135,18 @@ const NavBar = () => {
               to="/posts"
               className={pathname.includes("posts") ? "active" : undefined}
             >
-              라이딩 찾아보기
+              <Text textStyle={{ fontSize: "18px" }} fontWeight={600}>
+                라이딩 찾아보기
+              </Text>
             </StyledLink>
             {isAuth && (
               <StyledLink
                 to="/post/create"
                 className={pathname.includes("create") ? "active" : undefined}
               >
-                라이딩 개설
+                <Text textStyle={{ fontSize: "18px" }} fontWeight={600}>
+                  라이딩 개설
+                </Text>
               </StyledLink>
             )}
           </Box>
@@ -166,22 +171,32 @@ const NavBar = () => {
                       ref={index === notificationData.length - 1 ? ref : null}
                       onClick={() => handleNavigate(nofi.type, nofi.ridingId)}
                     >
-                      {nofi.contents}
+                      <Text variant="body2" noWrap>
+                        {nofi.contents}
+                      </Text>
                     </MenuItem>
                   ))}
                   {!hasNextPage && (
-                    <MenuItem disabled>알림이 없습니다.</MenuItem>
+                    <MenuItem disabled>
+                      <Text variant="body2">알림이 없습니다.</Text>
+                    </MenuItem>
                   )}
                 </Menu>
                 <StyledLink
                   to="/mypage"
                   className={pathname.includes("mypage") ? "active" : undefined}
                 >
-                  마이페이지
+                  <Text textStyle={{ fontSize: "18px" }} fontWeight={600}>
+                    마이페이지
+                  </Text>
                 </StyledLink>
               </>
             ) : (
-              <StyledLink to="/login"> 로그인 / 회원가입 </StyledLink>
+              <StyledLink to="/login">
+                <Text textStyle={{ fontSize: "18px" }} fontWeight={600}>
+                  로그인 / 회원가입
+                </Text>
+              </StyledLink>
             )}
           </Box>
         </ContentContainer>
