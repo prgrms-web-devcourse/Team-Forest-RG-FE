@@ -37,8 +37,8 @@
 ---|---|---
 0주차|아이디어 선정 및 기획 구체화|[0주차](https://www.notion.so/backend-devcourse/0-3d1d6e4d767b4f269571ddd62d2c232a)
 1주차|요구사항 도출 및 디자인 작업|[1주차](https://www.notion.so/backend-devcourse/1-25364d5462b043b0bf6f86ebda0cebc5)
-2주차|기능1, 기능2, 기능3|[2주차](https://www.notion.so/backend-devcourse/2-003828f64d0c4fceb83b2cc1924a1259)
-3주차|기능4, 기능5, QA|[3주차](https://www.notion.so/backend-devcourse/3-18f9a187622744f191c9b339fbcbd1f3)
+2주차|공통 컴포넌트, 회원 관련 페이지, 포스트 작성 기능 개발|[2주차](https://www.notion.so/backend-devcourse/2-003828f64d0c4fceb83b2cc1924a1259)
+3주차|포스트 조회, 실시간 알림 기능 개발, QA|[3주차](https://www.notion.so/backend-devcourse/3-18f9a187622744f191c9b339fbcbd1f3)
 
 ## 📌 팀원 소개
 
